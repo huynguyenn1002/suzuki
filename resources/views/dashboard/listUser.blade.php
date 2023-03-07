@@ -10,7 +10,8 @@
             <div class="card flex-fill w-100">
                 <div class="card-header list-title">
                     <h5 class="card-title mb-0">Danh sách người dùng</h5>
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
+                        onclick="addNewUser()">
                         Thêm người dùng mới
                     </button>
                 </div>
@@ -30,12 +31,52 @@
             </div>
         </div>
     </div>
+
+
+    <!-- The Modal Register -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalTitle">Thêm mới người dùng</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- Modal body -->
+                <form action="{{ route('user.add') }}" method="post" id="category-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="email">
+                                <h6>Email</h6>
+                            </label>
+                            <input type="text" required class="form-control" placeholder="Nhập vào Email..."
+                                id="email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password">
+                                <h6>Mật khẩu</h6>
+                            </label>
+                            <input type="text" required class="form-control" placeholder="Nhập vào Mật khẩu..."
+                                id="password" name="password">
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-confirm" id="submit">Thêm</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
 @endsection
 
 @section("js")
 <script>
     var listUser = '{{ route('user.get') }}';
+    var addNewUser = '{{ route('user.add') }}';
 </script>
 <script src="{{ URL::asset('js/dashboard/list-user.js') }}"></script>
 @endsection

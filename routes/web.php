@@ -19,6 +19,7 @@ Route::post('/login', [App\Http\Controllers\LoginController::class, 'adminLogin'
 Route::prefix('admin')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('/list/user', [App\Http\Controllers\DashboardController::class, 'getListUser'])->name('user.get');
+        Route::post('/user/add', [App\Http\Controllers\DashboardController::class, 'addNewUser'])->name('user.add');
 
         Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('user.logout');
     });

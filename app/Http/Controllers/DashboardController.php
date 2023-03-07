@@ -33,4 +33,8 @@ class DashboardController extends Controller
         })
         ->make(true);
     }
+
+    public function addNewUser(Request $request) {
+        dd($request->all());
+    }
 }

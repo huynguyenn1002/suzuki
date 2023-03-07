@@ -1,7 +1,7 @@
 var table;
-jQuery().ready( function () {
-    table = $('#datatable-user-list').DataTable({
-        className: 'details-control',
+jQuery().ready(function () {
+    table = $("#datatable-user-list").DataTable({
+        className: "details-control",
         searching: false,
         processing: true,
         serverSide: true,
@@ -37,4 +37,27 @@ jQuery().ready( function () {
             },
         ],
     });
-} );
+});
+
+function addNewUser(id) {
+    $("#submit").click(function () {
+        var name = $("#email").val();
+        var password = $("#password").val();
+
+        var dataRegister = {
+            name: name,
+            password: password
+        }
+
+        $.ajax({
+            url: addNewUser,
+            type: "POST",
+            data: dataRegister,
+            dataType: "json",
+            success: function (data) {
+                
+                window.location.reload(true);
+            },
+        });
+    });
+}
