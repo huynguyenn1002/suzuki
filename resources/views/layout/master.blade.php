@@ -14,7 +14,7 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+    <title>Suzuki Hoàng Hiền</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -39,7 +39,7 @@
                     </li>
 
                     <li class="sidebar-item active">
-                        <a class="sidebar-link" href="index.html">
+                        <a class="sidebar-link" href="{{ route('user.get') }}">
                             <i class="fa-regular fa-user"></i> <span
                                 class="align-middle">Danh sách người dùng</span>
                         </a>
@@ -56,7 +56,7 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-forms.html">
+                        <a class="sidebar-link" href="{{ route('contract.form.get') }}">
                         <i class="fa-solid fa-plus"></i> <span
                                 class="align-middle">Tạo hợp đồng</span>
                         </a>
@@ -292,6 +292,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.js"
         integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     @yield('js')
 
 </body>
