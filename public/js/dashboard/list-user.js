@@ -23,8 +23,15 @@ jQuery().ready( function () {
             {
                 data: "",
                 render: (data, type, row) => {
-                    return `<button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
-                            data-bs-target="#myModal" id="btnEdit" onclick="viewItem(${row.ID})">Thông tin chi tiết</button>`;
+                    return `
+                    <div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#myModal" id="btnEdit" onclick="viewItem(${row.ID})">Thông tin chi tiết</button>
+                        
+                        <button type="submit" class="btn btn-danger" onclick="deleteItem(${row.ID})">
+                            Xoá</button>
+                    </div>
+                    `;
                 },
                 bSortable: false,
             },
