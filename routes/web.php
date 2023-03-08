@@ -22,7 +22,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('user.logout');
 
         //ContractController
-        Route::get('/getContractForm', [App\Http\Controllers\ContractController::class, 'getContractForm'])->name('contract.form.get');
+        Route::get('/contract/list', [App\Http\Controllers\ContractController::class, 'getContractList'])->name('contract.list.get');
+        Route::get('/contract/add', [App\Http\Controllers\ContractController::class, 'getContractForm'])->name('contract.form.get');
+        Route::post('/createContract', [App\Http\Controllers\ContractController::class, 'createContract'])->name('contract.form.register');
         Route::get('get-district-info/', [App\Http\Controllers\ContractController::class, 'adminGetDistrictInfo'])->name('admin.admin-get-district');
         Route::get('get-ward-info/', [App\Http\Controllers\ContractController::class, 'adminGetWardInfo'])->name('admin.admin-get-ward');
         Route::post('get-type-car/', [App\Http\Controllers\ContractController::class, 'getTypeCar'])->name('car.type.get');

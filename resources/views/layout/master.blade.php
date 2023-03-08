@@ -49,7 +49,7 @@
                     </li>
 
                     <li class="sidebar-item contract-list">
-                        <a class="sidebar-link" href="ui-buttons.html">
+                        <a class="sidebar-link" href="{{ route('contract.list.get') }}">
                         <i class="fa-solid fa-file-contract"></i> <span class="align-middle">Danh sách hợp đồng</span>
                         </a>
                     </li>

@@ -70,8 +70,8 @@ contractNum = yyyy + mm + "-";
 
 $("#contractNum").val(contractNum);
 
-$("#carName").on("change", function(e) {
-    var car_id = $("#carName").val();
+$("#carID").on("change", function(e) {
+    var car_id = $("#carID").val();
 
     $.ajax({
         headers: {
