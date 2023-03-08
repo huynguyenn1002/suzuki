@@ -23,7 +23,10 @@ Route::prefix('admin')->group(function () {
 
         //ContractController
         Route::get('/getContractForm', [App\Http\Controllers\ContractController::class, 'getContractForm'])->name('contract.form.get');
-
+        Route::get('get-district-info/', [App\Http\Controllers\ContractController::class, 'adminGetDistrictInfo'])->name('admin.admin-get-district');
+        Route::get('get-ward-info/', [App\Http\Controllers\ContractController::class, 'adminGetWardInfo'])->name('admin.admin-get-ward');
+        Route::post('get-type-car/', [App\Http\Controllers\ContractController::class, 'getTypeCar'])->name('car.type.get');
+        
         //DashboardController
         Route::get('/list/user', [App\Http\Controllers\DashboardController::class, 'getListUser'])->name('user.get');
         Route::post('/user/add', [App\Http\Controllers\DashboardController::class, 'addNewUser'])->name('user.add');

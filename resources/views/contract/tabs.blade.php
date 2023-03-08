@@ -65,21 +65,23 @@
                                             </label>
                                             <input type="text" required class="form-control"
                                                 placeholder="Nhập vào tên Tư vấn Bán hàng..." id="salesConsultant"
-                                                name="salesConsultant">
+                                                name="salesConsultant" value="{{ $sale->FirstName.' '. $sale->LastName}}">
                                         </div>
                                         <div>
                                             <label for="salesPhone">
                                                 <h6>Số điện thoại</h6>
                                             </label>
                                             <input type="text" required class="form-control"
-                                                placeholder="Nhập vào Số điện thoại..." id="salesPhone" name="salesPhone">
+                                                placeholder="Nhập vào Số điện thoại..." id="salesPhone" name="salesPhone"
+                                                value="{{ $sale->Phone }}">
                                         </div>
                                         <div>
                                             <label for="salesIDCard">
                                                 <h6>CMT/CCCD</h6>
                                             </label>
                                             <input type="text" required class="form-control"
-                                                placeholder="Nhập vào CMT/CCCD..." id="salesIDCard" name="salesIDCard">
+                                                placeholder="Nhập vào CMT/CCCD..." id="salesIDCard" name="salesIDCard" 
+                                                value="{{ $sale->CCCD }}">
                                         </div>
                                     </div>
                                 </div>
@@ -106,17 +108,47 @@
                                             <label for="customerBirthday">
                                                 <h6>Ngày sinh</h6>
                                             </label>
-                                            <input type="text" required class="form-control"
-                                                placeholder="Nhập vào tên Tư vấn Bán hàng..." id="customerBirthday"
+                                            <input type="date" required class="form-control" id="customerBirthday"
                                                 name="customerBirthday">
                                         </div>
                                         <div>
                                             <label for="customerAddress">
                                                 <h6>Địa chỉ</h6>
                                             </label>
-                                            <input type="text" required class="form-control" id="customerAddress"
-                                                placeholder="Nhập vào Địa chỉ..." name="customerAddress">
+                                            <select name="province" id="province" class="form-control" placeholder="Tỉnh/Thành"
+                                                data-type="province">
+                                                <option value="">Tỉnh/Thành phố</option>
+                                                @foreach($provinces as $province)
+                                                <option value="{{ $province->id.'.'.$province->name }}" @if(isset($admin) && $admin->
+                                                    province_id == $province->id)
+                                                    selected="selected"
+                                                    @endif>
+                                                    {{ $province->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+                                        <div>
+                                            <label for="customerPhone"></label>
+                                            <select name="district" id="district" class="form-control" placeholder="Quận/Huyện"
+                                                data-type="district">
+                                                <option value="">Quận/Huyện</option>
+                                            </select>
+                                            <input type="hidden" id="old_value_province" value="{{ old('province_id') }}">
+                                        </div>
+                                        <div>
+                                            <label for="customerPhone"></label>
+                                            <select name="ward" id="ward" class="form-control" placeholder="Phường/Xã">
+                                                <option value="">Phường/Xã</option>
+                                            </select>
+                                            <input type="hidden" id="old_value_ward" value="{{ old('ward') }}">
+                                        </div>
+                                        <div>
+                                            <label for="customerPhone"></label>
+                                            <input name="address" class="form-control"
+                                                placeholder="Đường/Số nhà" value="{{ old('street') ?? $admin->address ?? '' }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col">
                                         <div>
                                             <label for="customerPhone">
                                                 <h6>Số điện thoại</h6>
@@ -124,8 +156,6 @@
                                             <input type="text" required class="form-control" id="customerPhone"
                                                 placeholder="Nhập vào Số điện thoại..." name="customerPhone">
                                         </div>
-                                    </div>
-                                    <div class="col">
                                         <div>
                                             <label for="customerIDCard">
                                                 <h6>CMT/CCCD</h6>
@@ -147,14 +177,14 @@
                                                 <h6>Nơi cấp</h6>
                                             </label>
                                             <input type="text" required class="form-control"
-                                                placeholder="Nhập vào CMT/CCCD..." id="issuedBy" name="issuedBy">
+                                                placeholder="Nhập vào Nơi cấp CMT/CCCD..." id="issuedBy" name="issuedBy">
                                         </div>
                                         <div>
                                             <label for="mailAddress">
                                                 <h6>Địa chỉ gửi thư</h6>
                                             </label>
                                             <input type="text" required class="form-control"
-                                                placeholder="Nhập vào CMT/CCCD..." id="mailAddress" name="mailAddress">
+                                                placeholder="Nhập vào Địa chỉ gửi thư..." id="mailAddress" name="mailAddress">
                                         </div>
                                     </div>
                                 </div>
@@ -166,8 +196,22 @@
                                             <label for="carName">
                                                 <h6>Tên hiệu xe</h6>
                                             </label>
-                                            <input type="text" required class="form-control"
-                                                placeholder="Nhập vào Tên hiệu xe..." id="carName" name="carName">
+                                            <select name="carName" id="carName" class="form-control">
+                                                <option value="0">Chọn loại xe</option>
+                                                @foreach($car as $c)
+                                                    <option value="{{ $c->id }}">{{ $c->car_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label for="carType">
+                                                <h6>Loại xe</h6>
+                                            </label>
+                                            <select class="form-control" name="carType" id="carType">
+                                                <option value="0">Vui lòng lựa chọn</option>
+                                                <option value="1">Nhập khẩu nguyên chiếc</option>
+                                                <option value="2">Lắp ráp trong nước</option>
+                                            </select>
                                         </div>
                                         <div>
                                             <label for="yearOfManufacture">
@@ -234,14 +278,6 @@
                                             </label>
                                             <input type="text" required class="form-control"
                                                 placeholder="Nhập vào Quà tặng..." id="gift" name="gift">
-                                        </div>
-                                        <div>
-                                            <label for="carType">
-                                                <h6>Loại xe</h6>
-                                            </label>
-                                            <select class="form-control" name="carType" id="carType">
-                                                <option value="0">Vui lòng lựa chọn</option>
-                                            </select>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -340,4 +376,11 @@
 @endsection
 
 @section('js')
+<script>
+
+var getTypeCar = '{{ route('car.type.get') }}';
+
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+<script src="{{ URL::asset('js/dashboard/tab-footer.js') }}"></script>
 @endsection

@@ -39,7 +39,7 @@ jQuery().ready(function () {
     });
 });
 
-function addNewUser(id) {
+function addNewUser() {
     $("#submit").click(function () {
         var name = $("#email").val();
         var password = $("#password").val();

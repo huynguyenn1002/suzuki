@@ -18,7 +18,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admin')->check()) {
+        if (!Auth::guard('admin')->check()) {
             return redirect(RouteServiceProvider::HOME)->with('status', 'Bạn phải đăng nhập');
         }
         return $next($request);
