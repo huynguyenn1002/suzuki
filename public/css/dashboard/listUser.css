@@ -96,7 +96,18 @@ table {
     background-color: #e0e0e0;
     color: white;
 }
+h6 {
+    margin: 1rem 0 0 0;
+}
 
+.list-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab-content input, .tab-content select, #header-cont {
+    height: 40px;
+}
 .modal-body {
     padding: 2px 16px;
     height: 16rem;

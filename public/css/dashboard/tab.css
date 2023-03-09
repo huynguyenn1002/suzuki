@@ -1,10 +1,22 @@
-h6 {
-    margin: 1rem 0 0 0;
+h4 {
+    margin: 1rem 0 1rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .list-title {
     display: flex;
     justify-content: space-between;
+}
+
+.tab-content input, .tab-content select, #header-cont {
+    height: 40px;
+}
+
+.card-title {
+    color: #939ba2;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .create-button {
@@ -14,4 +26,11 @@ h6 {
     background-color: #3b7ddd;
     color: white;
     border-radius: 5px;
+}
+
+.header-contract-num {
+    height: 35px !important;
+    width: 90px;
+    margin-right: 5px;
+    border: 1px solid #e9ecef;
 }

@@ -24,6 +24,7 @@ Route::prefix('admin')->group(function () {
         //ContractController
         Route::get('/contract/list', [App\Http\Controllers\ContractController::class, 'getContractList'])->name('contract.list.get');
         Route::get('/contract/add', [App\Http\Controllers\ContractController::class, 'getContractForm'])->name('contract.form.get');
+        Route::post('/contract/preview', [App\Http\Controllers\ContractController::class, 'previewContract'])->name('contract.preview');
         Route::post('/createContract', [App\Http\Controllers\ContractController::class, 'createContract'])->name('contract.form.register');
         Route::get('get-district-info/', [App\Http\Controllers\ContractController::class, 'adminGetDistrictInfo'])->name('admin.admin-get-district');
         Route::get('get-ward-info/', [App\Http\Controllers\ContractController::class, 'adminGetWardInfo'])->name('admin.admin-get-ward');

@@ -1,0 +1,19 @@
+h4 {
+    margin: 1rem 0 1rem 0;
+    font-weight: 600;
+}
+
+.card-title {
+    color: #939ba2;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.list-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+input {
+    height: 40px;
+}

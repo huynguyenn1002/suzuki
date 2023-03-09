@@ -61,14 +61,24 @@ $(function () {
 $("nav#sidebar li.sidebar-item").removeClass("active");
 $("nav#sidebar li.contract-create").addClass("active");
 
+$("#back_btn").click(function (){
+    window.history.back();
+});
+
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
 var mm = String(today.getMonth() + 1).padStart(2, "0");
 var yyyy = today.getFullYear();
 
-contractNum = yyyy + mm + "-";
+headerContract = yyyy + mm + "-";
 
-$("#contractNum").val(contractNum);
+$("#headerContract").val(headerContract);
+
+$('#realPrice, #noticePrice, #invoiceSellingPrice, #deposit, #paymentAmount').on('change click keyup input paste',(function (event) {
+    $(this).val(function (index, value) {
+        return value.replace(/(?!\.)\D/g, "").replace(/(?<=\..*)\./g, "").replace(/(?<=\.\d\d).*/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    });
+}));
 
 $("#carID").on("change", function(e) {
     var car_id = $("#carID").val();
@@ -81,13 +91,8 @@ $("#carID").on("change", function(e) {
         type: "POST",
         data: {car_id},
         success: function(response) {
-            var price = response.success.price;
-            if (price == null) {
-                price = 0
-            }
-            price = parseInt(price).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')
             $("#carType").val(response.success.type);
-            $("#noticePrice").val(price);
+            $("#noticePrice").val(response.price);
         },
     });
 });

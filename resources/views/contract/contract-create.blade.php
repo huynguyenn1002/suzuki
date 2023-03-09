@@ -5,8 +5,8 @@
 @section('content')
     <main class="content">
         <div class="container-fluid p-0">
-            <h1 class="h3 mb-3"><strong>Quản lý hợp đồng</strong></h1>
-            <form action="{{ route('contract.form.register') }}" method="POST">
+            <h1 class="mb-3"><strong>Quản lý hợp đồng</strong></h1>
+            <form action="{{ route('contract.preview') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="card flex-fill w-100">
@@ -43,15 +43,24 @@
                                         <div class="col">
                                             <div>
                                                 <label for="contractNum">
-                                                    <h6>Số hợp đồng</h6>
+                                                    <h4>Số hợp đồng</h4>
                                                 </label>
-                                                <input type="text" required class="form-control"
+                                                <div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="header-cont">
+                                                        <input readOnly type="text" class="form-control header-contract-num" id="headerContract" name="headerContract">
+                                                    </span>
+                                                    </div>
+                                                    <input type="text" required class="form-control"
                                                     placeholder="Nhập vào Số hợp đồng..." id="contractNum"
-                                                    name="contractNum">
+                                                    name="contractNum" aria-describedby="header-cont">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div>
                                                 <label for="contractType">
-                                                    <h6>Loại hợp đồng</h6>
+                                                    <h4>Loại hợp đồng</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Loại hợp đồng..." id="contractType"
@@ -59,7 +68,7 @@
                                             </div>
                                             <div>
                                                 <label for="contractSignDate">
-                                                    <h6>Ngày ký hợp đồng</h6>
+                                                    <h4>Ngày ký hợp đồng</h4>
                                                 </label>
                                                 <input type="datetime-local" class="form-control"
                                                     id="contractSignDate" name="contractSignDate">
@@ -68,16 +77,16 @@
                                         <div class="col">
                                             <div>
                                                 <label for="salesConsultant">
-                                                    <h6>Tư vấn Bán hàng</h6>
+                                                    <h4>Tư vấn Bán hàng</h4>
                                                 </label>
-                                                <input type="text" class="form-control"
-                                                    placeholder="Nhập vào tên Tư vấn Bán hàng..." id="salesConsultant"
-                                                    name="salesConsultant"
-                                                    value="{{ $sale->SaleID. '.' . $sale->FirstName . ' ' . $sale->LastName }}">
+                                                <input type="text" class="form-control" name="saleName"
+                                                    placeholder="Nhập vào tên Tư vấn Bán hàng..." 
+                                                    value="{{ $sale->FirstName . ' ' . $sale->LastName }}">
+                                                <input id="salesConsultant" name="salesConsultant" type="hidden" value="{{ $sale->SaleID }}">
                                             </div>
                                             <div>
                                                 <label for="salesPhone">
-                                                    <h6>Số điện thoại</h6>
+                                                    <h4>Số điện thoại</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Số điện thoại..." id="salesPhone"
@@ -85,7 +94,7 @@
                                             </div>
                                             <div>
                                                 <label for="salesIDCard">
-                                                    <h6>CMT/CCCD</h6>
+                                                    <h4>CMT/CCCD</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào CMT/CCCD..." id="salesIDCard" name="salesIDCard"
@@ -99,7 +108,7 @@
                                         <div class="col">
                                             <div>
                                                 <label for="customerName">
-                                                    <h6>Tên khách hàng</h6>
+                                                    <h4>Tên khách hàng</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Tên khách hàng..." id="customerName"
@@ -107,7 +116,7 @@
                                             </div>
                                             <div>
                                                 <label for="customerGender">
-                                                    <h6>Giới tính</h6>
+                                                    <h4>Giới tính</h4>
                                                 </label>
                                                 <select name="customerGender" id="customerGender" class="form-control">
                                                     <option value="0">Chọn giới tính</option>
@@ -118,14 +127,14 @@
                                             </div>
                                             <div>
                                                 <label for="customerBirthday">
-                                                    <h6>Ngày sinh</h6>
+                                                    <h4>Ngày sinh</h4>
                                                 </label>
                                                 <input type="date" class="form-control" id="customerBirthday"
                                                     name="customerBirthday">
                                             </div>
                                             <div>
                                                 <label for="customerAddress">
-                                                    <h6>Địa chỉ</h6>
+                                                    <h4>Địa chỉ</h4>
                                                 </label>
                                                 <select name="province" id="province" class="form-control"
                                                     placeholder="Tỉnh/Thành" data-type="province">
@@ -163,14 +172,14 @@
                                         <div class="col">
                                             <div>
                                                 <label for="customerPhone">
-                                                    <h6>Số điện thoại</h6>
+                                                    <h4>Số điện thoại</h4>
                                                 </label>
                                                 <input type="text" class="form-control" id="customerPhone"
                                                     placeholder="Nhập vào Số điện thoại..." name="customerPhone">
                                             </div>
                                             <div>
                                                 <label for="customerIDCard">
-                                                    <h6>CMT/CCCD</h6>
+                                                    <h4>CMT/CCCD</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào CMT/CCCD..." id="customerIDCard"
@@ -178,7 +187,7 @@
                                             </div>
                                             <div>
                                                 <label for="icCardDateRegister">
-                                                    <h6>Ngày cấp</h6>
+                                                    <h4>Ngày cấp</h4>
                                                 </label>
                                                 <input type="date" class="form-control"
                                                     placeholder="Nhập vào Số điện thoại..." id="icCardDateRegister"
@@ -186,7 +195,7 @@
                                             </div>
                                             <div>
                                                 <label for="issuedBy">
-                                                    <h6>Nơi cấp</h6>
+                                                    <h4>Nơi cấp</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Nơi cấp CMT/CCCD..." id="issuedBy"
@@ -194,7 +203,7 @@
                                             </div>
                                             <div>
                                                 <label for="mailAddress">
-                                                    <h6>Địa chỉ gửi thư</h6>
+                                                    <h4>Địa chỉ gửi thư</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Địa chỉ gửi thư..." id="mailAddress"
@@ -208,7 +217,7 @@
                                         <div class="col">
                                             <div>
                                                 <label for="carID">
-                                                    <h6>Tên hiệu xe</h6>
+                                                    <h4>Tên hiệu xe</h4>
                                                 </label>
                                                 <select name="carID" id="carID" class="form-control">
                                                     <option value="0">Chọn loại xe</option>
@@ -219,7 +228,7 @@
                                             </div>
                                             <div>
                                                 <label for="carType">
-                                                    <h6>Loại xe</h6>
+                                                    <h4>Loại xe</h4>
                                                 </label>
                                                 <select class="form-control" name="carType" id="carType">
                                                     <option value="0">Vui lòng lựa chọn</option>
@@ -229,7 +238,7 @@
                                             </div>
                                             <div>
                                                 <label for="carColor">
-                                                    <h6>Màu xe</h6>
+                                                    <h4>Màu xe</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Màu xe..." id="carColor"
@@ -237,21 +246,21 @@
                                             </div>
                                             <div>
                                                 <label for="noticePrice">
-                                                    <h6>Giá thông báo</h6>
+                                                    <h4>Giá thông báo (VNĐ)</h4>
                                                 </label>
                                                 <input type="text" class="form-control" id="noticePrice"
                                                     placeholder="Nhập vào Giá thông báo..." name="noticePrice">
                                             </div>
                                             <div>
                                                 <label for="realPrice">
-                                                    <h6>Giá thực tế</h6>
+                                                    <h4>Giá thực tế (VNĐ)</h4>
                                                 </label>
                                                 <input type="text" class="form-control" id="realPrice"
                                                     placeholder="Nhập vào Giá thực tế..." name="realPrice">
                                             </div>
                                             <div>
                                                 <label for="invoiceSellingPrice">
-                                                    <h6>Giá bán hóa đơn</h6>
+                                                    <h4>Giá bán hóa đơn (VNĐ)</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Giá bán hóa đơn..." id="invoiceSellingPrice"
@@ -259,28 +268,28 @@
                                             </div>
                                             <div>
                                                 <label for="amount">
-                                                    <h6>Số lượng</h6>
+                                                    <h4>Số lượng</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Số lượng..." id="amount" name="amount">
                                             </div>
                                             <div>
                                                 <label for="deposit">
-                                                    <h6>Tiền cọc</h6>
+                                                    <h4>Tiền cọc (VNĐ)</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Tiền cọc..." id="deposit" name="deposit">
                                             </div>
                                             <div>
                                                 <label for="carDeliveryTime">
-                                                    <h6>Thời gian giao xe</h6>
+                                                    <h4>Thời gian giao xe</h4>
                                                 </label>
                                                 <input type="date" class="form-control" id="carDeliveryTime"
                                                     name="carDeliveryTime">
                                             </div>
                                             <div>
                                                 <label for="promotionalContent">
-                                                    <h6>Nội dung khuyến mại</h6>
+                                                    <h4>Nội dung khuyến mại</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Nội dung khuyến mại..." id="promotionalContent"
@@ -288,7 +297,7 @@
                                             </div>
                                             <div>
                                                 <label for="gift">
-                                                    <h6>Quà tặng</h6>
+                                                    <h4>Quà tặng</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Quà tặng..." id="gift" name="gift">
@@ -297,7 +306,7 @@
                                         <div class="col">
                                             <div>
                                                 <label for="chassisNumber">
-                                                    <h6>Số khung</h6>
+                                                    <h4>Số khung</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Số khung..." id="chassisNumber"
@@ -305,7 +314,7 @@
                                             </div>
                                             <div>
                                                 <label for="engineNumber">
-                                                    <h6>Số máy</h6>
+                                                    <h4>Số máy</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Số máy..." id="engineNumber"
@@ -313,49 +322,49 @@
                                             </div>
                                             <div>
                                                 <label for="pdiTime">
-                                                    <h6>Ngày PDI</h6>
+                                                    <h4>Ngày PDI</h4>
                                                 </label>
                                                 <input type="date" class="form-control" id="pdiTime"
                                                     name="pdiTime">
                                             </div>
                                             <div>
                                                 <label for="pdiConfirmTime">
-                                                    <h6>Thời gian xác nhận PDI</h6>
+                                                    <h4>Thời gian xác nhận PDI</h4>
                                                 </label>
                                                 <input type="date" class="form-control" id="pdiConfirmTime"
                                                     name="pdiConfirmTime">
                                             </div>
                                             <div>
                                                 <label for="note">
-                                                    <h6>Ghi chú</h6>
+                                                    <h4>Ghi chú</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Ghi chú..." id="note" name="note">
                                             </div>
                                             <div>
                                                 <label for="dnxhsDate">
-                                                    <h6>Ngày ĐNXHS</h6>
+                                                    <h4>Ngày ĐNXHS</h4>
                                                 </label>
                                                 <input type="date" class="form-control" id="dnxhsDate"
                                                     name="dnxhsDate">
                                             </div>
                                             <div>
                                                 <label for="paymentDate">
-                                                    <h6>Ngày thanh toán</h6>
+                                                    <h4>Ngày thanh toán</h4>
                                                 </label>
                                                 <input type="date" class="form-control" id="paymentDate"
                                                     name="paymentDate">
                                             </div>
                                             <div>
                                                 <label for="paymentAmount">
-                                                    <h6>Số tiền thanh toán</h6>
+                                                    <h4>Số tiền thanh toán (VNĐ)</h4>
                                                 </label>
                                                 <input type="text" class="form-control" id="paymentAmount"
                                                     placeholder="Nhập vào Số tiền thanh toán..." name="paymentAmount">
                                             </div>
                                             <div>
                                                 <label for="receiptType">
-                                                    <h6>Loại phiếu</h6>
+                                                    <h4>Loại phiếu</h4>
                                                 </label>
                                                 <select name="receiptType" id="receiptType" class="form-control">
                                                     <option value="0">Vui lòng lựa chọn</option>
@@ -365,14 +374,14 @@
                                             </div>
                                             <div>
                                                 <label for="bankingFrom">
-                                                    <h6>Từ Ngân hàng</h6>
+                                                    <h4>Từ Ngân hàng</h4>
                                                 </label>
                                                 <input type="text" class="form-control" id="bankingFrom"
                                                     placeholder="Nhập vào Từ Ngân hàng..." name="bankingFrom">
                                             </div>
                                             <div>
                                                 <label for="bankingTo">
-                                                    <h6>Đến Ngân hàng</h6>
+                                                    <h4>Đến Ngân hàng</h4>
                                                 </label>
                                                 <input type="text" class="form-control" id="bankingTo"
                                                     placeholder="Nhập vào Đến Ngân hàng..." name="bankingTo">

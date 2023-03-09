@@ -84,34 +84,73 @@ class ContractController extends Controller
 
         $type = DB::table("suzuki_car")->where("suzuki_car.id", $request->car_id)->first();
 
-        return response()->json(['success'=>$type]);
+        $price = number_format($type->price, 0, '', ',');
+
+        return response()->json(['success'=>$type, 'price'=>$price]);
     }
 
     public function createContract(Request $request) {
         // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'contractNum' => 'string|max:45|unique:contract,contract_num',
-        ]);
-
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
         DB::transaction(function() use($request) {
-            $province_id = explode('.', $request->province)[0];
-            $province = explode('.', $request->province)[1];
-            $district_id = explode('.', $request->district)[0];
-            $district = explode('.', $request->district)[1];
-            $ward_id = explode('.', $request->ward)[0];
-            $ward = explode('.', $request->ward)[1];
-            $saleID = explode('.', $request->salesConsultant)[0];
-            $notice_price = str_replace('.', '', preg_replace('/,./', '', $request->noticePrice));
+            if ($request->province != null) {
+                $province_id = explode('.', $request->province)[0];
+                $province = explode('.', $request->province)[1];
+            } else {
+                $province_id = null;
+                $province = null;
+            }
+
+            if ($request->district != null) {
+                $district_id = explode('.', $request->district)[0];
+                $district = explode('.', $request->district)[1];
+            } else {
+                $district_id = null;
+                $district = null;
+            }
+
+            if ($request->ward != null) {
+                $ward_id = explode('.', $request->ward)[0];
+                $ward = explode('.', $request->ward)[1];
+            } else {
+                $ward_id = null;
+                $ward = null;
+            }
+
+            if ($request->noticePrice != null) {
+                $notice_price = str_replace('.', '', preg_replace('/,/', '', $request->noticePrice));
+            } else {
+                $notice_price = null;
+            } 
+
+            if ($request->realPrice != null) {
+                $real_price = str_replace('.', '', preg_replace('/,/', '', $request->realPrice));
+            } else {
+                $real_price = null;
+            } 
+
+            if ($request->invoiceSellingPrice != null) {
+                $invoice_selling_price = str_replace('.', '', preg_replace('/,/', '', $request->invoiceSellingPrice));
+            } else {
+                $invoice_selling_price = null;
+            } 
+
+            if ($request->deposit != null) {
+                $deposit = str_replace('.', '', preg_replace('/,/', '', $request->deposit));
+            } else {
+                $deposit = null;
+            } 
+
+            if ($request->paymentAmount != null) {
+                $payment_amount = str_replace('.', '', preg_replace('/,/', '', $request->paymentAmount));
+            } else {
+                $payment_amount = null;
+            } 
 
             Contract::create([
                 'contract_num' => $request->contractNum, 
                 'contract_type' => $request->contractType, 
                 'contract_sign_date' => $request->contractSignDate,
-                'admin_id' => $saleID,
+                'admin_id' => $request->salesConsultant,
                 'customer_name' => $request->customerName,
                 'customer_gender' => $request->customerGender,
                 'customer_birthday' => $request->customerBirthday,
@@ -131,10 +170,10 @@ class ContractController extends Controller
                 'car_type' => $request->carType,
                 'car_color' => $request->carColor,
                 'notice_price' => $notice_price,
-                'real_price' => $request->realPrice,
-                'invoice_selling_price' => $request->invoiceSellingPrice,
+                'real_price' => $real_price,
+                'invoice_selling_price' => $invoice_selling_price,
                 'amount' => $request->amount,
-                'deposit' => $request->deposit,
+                'deposit' => $deposit,
                 'car_delivery_time' => $request->carDeliveryTime,
                 'promotion' => $request->promotionalContent,
                 'gift' => $request->gift,
@@ -145,7 +184,7 @@ class ContractController extends Controller
                 'note' => $request->note,
                 'dnxhs_date' => $request->dnxhsDate,
                 'payment_date' => $request->paymentDate,
-                'payment_amount' => $request->paymentAmount,
+                'payment_amount' => $payment_amount,
                 'receipt_type' => $request->receiptType,
                 'banking_from' => $request->bankingFrom,
                 'banking_to' => $request->bankingTo,
@@ -153,7 +192,30 @@ class ContractController extends Controller
             return redirect()->back();
             
         });
-        return redirect('/admin/profile')->with('success', 'Cập nhật thông tin thành công');
+        return redirect()->route('contract.list.get')->with('success', 'Cập nhật thông tin thành công');
+    }
+
+    public function previewContract(Request $request) {
+        // dd($request->all());
+        $province_id = explode('.', $request->province)[0];
+        $district_id = explode('.', $request->district)[0];
+        $ward_id = explode('.', $request->ward)[0];
+
+        $province = \Kjmtrue\VietnamZone\Models\Province::where("provinces.id", $province_id)->first();
+        $district = \Kjmtrue\VietnamZone\Models\District::where("districts.id", $district_id)->first();
+        $ward = \Kjmtrue\VietnamZone\Models\Ward::where("wards.id", $ward_id)->first();
+        $car = DB::table("suzuki_car")->where("suzuki_car.id", $request->carID)->first();
+
+        $validator = Validator::make($request->all(), [
+            'contractNum' => 'string|max:45|unique:contract,contract_num',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $dataPreview = $request->all();
+
+        return view("contract.preview-contract", compact('dataPreview', 'province', 'district', 'ward', 'car'));
     }
 
 }
