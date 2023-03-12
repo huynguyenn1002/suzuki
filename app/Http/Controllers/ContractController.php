@@ -9,6 +9,7 @@ use Validator;
 use Yajra\DataTables\DataTables;
 use App\Models\AdminInfo;
 use App\Models\Contract;
+use PDF;
 
 class ContractController extends Controller
 {
@@ -23,6 +24,7 @@ class ContractController extends Controller
     public function datatables()
     {
         $contract = Contract::select(
+            'contract.id as ID',
             'contract.contract_num as contractNum',
             'contract.contract_type as contractType',
             'contract.contract_sign_date as contractSignDate',
@@ -52,10 +54,9 @@ class ContractController extends Controller
         $checkUserLogin = Auth::guard("admin")->user();
 
         $sale = AdminInfo::select(
-            'admin_info.first_name as FirstName',
             'admin_info.admin_ID as SaleID',
+            'admin_info.first_name as FirstName',
             'admin_info.last_name as LastName',
-            'admin_info.citizen_identification as CCCD',
             'admin_info.tel as Phone',
         )->where("admin_info.admin_ID", $checkUserLogin->id)->first();
 
@@ -128,12 +129,6 @@ class ContractController extends Controller
                 $real_price = null;
             } 
 
-            if ($request->invoiceSellingPrice != null) {
-                $invoice_selling_price = str_replace('.', '', preg_replace('/,/', '', $request->invoiceSellingPrice));
-            } else {
-                $invoice_selling_price = null;
-            } 
-
             if ($request->deposit != null) {
                 $deposit = str_replace('.', '', preg_replace('/,/', '', $request->deposit));
             } else {
@@ -149,6 +144,7 @@ class ContractController extends Controller
             Contract::create([
                 'contract_num' => $request->contractNum, 
                 'contract_type' => $request->contractType, 
+                'customer_type' => $request->customerType,
                 'contract_sign_date' => $request->contractSignDate,
                 'admin_id' => $request->salesConsultant,
                 'customer_name' => $request->customerName,
@@ -171,23 +167,11 @@ class ContractController extends Controller
                 'car_color' => $request->carColor,
                 'notice_price' => $notice_price,
                 'real_price' => $real_price,
-                'invoice_selling_price' => $invoice_selling_price,
                 'amount' => $request->amount,
                 'deposit' => $deposit,
                 'car_delivery_time' => $request->carDeliveryTime,
                 'promotion' => $request->promotionalContent,
                 'gift' => $request->gift,
-                'chassis_number' => $request->chassisNumber,
-                'engine_number' => $request->engineNumber,
-                'pdi_time' => $request->pdiTime,
-                'pdi_confirm_time' => $request->pdiConfirmTime,
-                'note' => $request->note,
-                'dnxhs_date' => $request->dnxhsDate,
-                'payment_date' => $request->paymentDate,
-                'payment_amount' => $payment_amount,
-                'receipt_type' => $request->receiptType,
-                'banking_from' => $request->bankingFrom,
-                'banking_to' => $request->bankingTo,
             ]);
             return redirect()->back();
             
@@ -216,6 +200,61 @@ class ContractController extends Controller
         $dataPreview = $request->all();
 
         return view("contract.preview-contract", compact('dataPreview', 'province', 'district', 'ward', 'car'));
+    }
+
+    public function contractDetail(Request $request) {
+        $contractID = $request->get('contractID');
+        $contractDetail = Contract::where("id", $contractID)->first();
+        // dd($contractDetail);
+
+        if ($contractDetail->province_id != null) {
+            $province_id = explode('.', $contractDetail->province_id)[0];
+            $province = \Kjmtrue\VietnamZone\Models\Province::where("provinces.id", $province_id)->first();
+        } else {
+            $province = null;
+        }
+
+        if ($contractDetail->district_id != null) {
+            $district_id = explode('.', $contractDetail->district_id)[0];
+            $district = \Kjmtrue\VietnamZone\Models\District::where("districts.id", $district_id)->first();
+        } else {
+            $district = null;
+        }
+
+        if ($contractDetail->ward_id != null) {
+            $ward_id = explode('.', $contractDetail->ward_id)[0];;
+            $ward = \Kjmtrue\VietnamZone\Models\Ward::where("wards.id", $ward_id)->first();
+        } else {
+            $ward = null;
+        }
+        
+        $car = DB::table("suzuki_car")->where("suzuki_car.id", $contractDetail->car_id)->first();
+        $sale = AdminInfo::select(
+            'admin_info.admin_ID as SaleID',
+            'admin_info.first_name as FirstName',
+            'admin_info.last_name as LastName',
+            'admin_info.tel as Phone',
+        )->where("admin_info.admin_ID", $contractDetail->admin_id)->first();
+
+        return view("contract.contract-detail", compact('contractDetail', 'province', 'district', 'ward', 'car', 'sale'));
+    }
+
+    public function contractExport(Request $request) 
+    {
+        ini_set('max_execution_time', 300);
+
+        $dataExport = Contract::where("id", $request->contractID)->first()->toArray();
+
+        // dd($dataExport);
+
+        // $pdf = PDF::loadView('contract.contract', $dataExport)->setPaper('a4', 'portrait');
+        $pdf = PDF::loadView('contract.contract', $dataExport);
+
+        return $pdf->stream();
+    }
+
+    public function test() {
+        return view('contract.contract');
     }
 
 }

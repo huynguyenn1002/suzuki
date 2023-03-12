@@ -28,22 +28,51 @@
                                         value="{{ (isset($dataPreview['headerContract']) && isset($dataPreview['contractNum'])) ? $dataPreview['headerContract'].''.$dataPreview['contractNum'] : ''}}">
                                 </div>
                                 <div>
+                                    @php
+                                    $contractType = "";
+                                    if(isset($dataPreview['contractType']) && $dataPreview['contractType'] == 1) {
+                                        $contractType = "Trả thẳng";
+                                    } else if(isset($dataPreview['contractType']) && $dataPreview['contractType'] == 2) {
+                                        $contractType = "Trả góp";
+                                    } else {
+                                    $gender = "";
+                                    }
+                                    @endphp
                                     <label for="contractType">
                                         <h4>Loại hợp đồng</h4>
                                     </label>
-                                    <input readOnly type="text" class="form-control" id="contractType" name="contractType"
-                                        value="{{ isset($dataPreview['contractType']) ? $dataPreview['contractType'] : '' }}">
+                                    <input readOnly type="text" class="form-control" 
+                                        value="{{ $contractType }}">
+                                    <input id="contractType" name="contractType" type="hidden" value="{{ isset($dataPreview['contractType']) ? $dataPreview['contractType'] : '' }}">
                                 </div>
+                                <div>
+                                    @php
+                                    $customerType = "";
+                                    if(isset($dataPreview['customerType']) && $dataPreview['customerType'] == 1) {
+                                        $customerType = "Cá nhân";
+                                    } else if(isset($dataPreview['customerType']) && $dataPreview['customerType'] == 2) {
+                                        $customerType = "Doanh nghiệp";
+                                    } else {
+                                        $customerType = "";
+                                    }
+                                    @endphp
+                                    <label for="customerType">
+                                        <h4>Kiểu hợp đồng</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control"
+                                        value="{{ $customerType }}">
+                                    <input id="customerType" name="customerType" type="hidden" value="{{ isset($dataPreview['customerType']) ? $dataPreview['customerType'] : '' }}">
+                                </div>
+                            </div>
+                            <div class="col">
                                 <div>
                                     <label for="contractSignDate">
                                         <h4>Ngày ký hợp đồng</h4>
                                     </label>
-                                    <input readOnly type="datetime-local" class="form-control" id="contractSignDate"
+                                    <input readOnly type="date" class="form-control" id="contractSignDate"
                                         name="contractSignDate"
                                         value="{{ isset($dataPreview['contractSignDate']) ? $dataPreview['contractSignDate'] : '' }}">
                                 </div>
-                            </div>
-                            <div class="col">
                                 <div>
                                     <label for="salesConsultant">
                                         <h4>Tư vấn Bán hàng</h4>
@@ -57,13 +86,6 @@
                                     </label>
                                     <input readOnly type="text" class="form-control" id="salesPhone" name="salesPhone"
                                         value="{{ isset($dataPreview['salesPhone']) ? $dataPreview['salesPhone'] : '' }}">
-                                </div>
-                                <div>
-                                    <label for="salesIDCard">
-                                        <h4>CMT/CCCD</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="salesIDCard" name="salesIDCard"
-                                        value="{{ isset($dataPreview['salesIDCard']) ? $dataPreview['salesIDCard'] : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -246,14 +268,8 @@
                                     <input readOnly type="text" class="form-control" id="realPrice" name="realPrice"
                                         value="{{ isset($dataPreview['realPrice']) ? $dataPreview['realPrice'] : ''}}">
                                 </div>
-                                <div>
-                                    <label for="invoiceSellingPrice">
-                                        <h4>Giá bán hóa đơn (VNĐ)</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="invoiceSellingPrice"
-                                        name="invoiceSellingPrice"
-                                        value="{{ isset($dataPreview['invoiceSellingPrice']) ? $dataPreview['invoiceSellingPrice'] : ''}}">
-                                </div>
+                            </div>
+                            <div class="col">
                                 <div>
                                     <label for="amount">
                                         <h4>Số lượng</h4>
@@ -289,96 +305,6 @@
                                     </label>
                                     <input readOnly type="text" class="form-control" id="gift" name="gift"
                                         value="{{ isset($dataPreview['gift']) ? $dataPreview['gift'] : '' }}">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <label for="chassisNumber">
-                                        <h4>Số khung</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="chassisNumber" name="chassisNumber"
-                                        value="{{ isset($dataPreview['chassisNumber']) ? $dataPreview['chassisNumber'] : '' }}">
-                                </div>
-                                <div>
-                                    <label for="engineNumber">
-                                        <h4>Số máy</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="engineNumber" name="engineNumber"
-                                        value="{{ isset($dataPreview['engineNumber']) ? $dataPreview['engineNumber'] : ''}}">
-                                </div>
-                                <div>
-                                    <label for="pdiTime">
-                                        <h4>Ngày PDI</h4>
-                                    </label>
-                                    <input readOnly type="date" class="form-control" id="pdiTime" name="pdiTime"
-                                        value="{{ isset($dataPreview['pdiTime']) ? $dataPreview['pdiTime']  : '' }}">
-                                </div>
-                                <div>
-                                    <label for="pdiConfirmTime">
-                                        <h4>Thời gian xác nhận PDI</h4>
-                                    </label>
-                                    <input readOnly type="date" class="form-control" id="pdiConfirmTime" name="pdiConfirmTime"
-                                        value="{{ isset($dataPreview['pdiConfirmTime']) ? $dataPreview['pdiConfirmTime'] : '' }}">
-                                </div>
-                                <div>
-                                    <label for="note">
-                                        <h4>Ghi chú</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="note" name="note"
-                                        value="{{ isset($dataPreview['contractSignDate']) ? $dataPreview['note'] : ''}}">
-                                </div>
-                                <div>
-                                    <label for="dnxhsDate">
-                                        <h4>Ngày ĐNXHS</h4>
-                                    </label>
-                                    <input readOnly type="date" class="form-control" id="dnxhsDate" name="dnxhsDate"
-                                        value="{{ isset($dataPreview['dnxhsDate']) ? $dataPreview['dnxhsDate'] : '' }}">
-                                </div>
-                                <div>
-                                    <label for="paymentDate">
-                                        <h4>Ngày thanh toán</h4>
-                                    </label>
-                                    <input readOnly type="date" class="form-control" id="paymentDate" name="paymentDate"
-                                        value="{{ isset($dataPreview['paymentDate']) ? $dataPreview['paymentDate'] : '' }}">
-                                </div>
-                                <div>
-                                    <label for="paymentAmount">
-                                        <h4>Số tiền thanh toán (VNĐ)</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="paymentAmount" name="paymentAmount"
-                                        value="{{ isset($dataPreview['paymentAmount']) ? $dataPreview['paymentAmount'] : '' }}">
-                                </div>
-                                <div>
-                                    @php
-                                    $receiptType = "";
-                                    if(isset($dataPreview['receiptType']) && $dataPreview['receiptType'] == 1) {
-                                    $receiptType = "PT: Phiếu thu";
-                                    } else if(isset($dataPreview['receiptType']) && $dataPreview['receiptType'] == 2) {
-                                    $receiptType = "UNC: Uỷ nhiệm chi";
-                                    } else {
-                                    $receiptType = "";
-                                    }
-                                    @endphp
-                                    <label for="receiptType">
-                                        <h4>Loại phiếu</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" value="{{ $receiptType }}">
-                                    <input type="hidden" class="form-control" id="receiptType" name="receiptType"
-                                        value="{{ isset($dataPreview['receiptType']) ? $dataPreview['receiptType'] : ''}}">
-                                </div>
-                                <div>
-                                    <label for="bankingFrom">
-                                        <h4>Từ Ngân hàng</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="bankingFrom" name="bankingFrom"
-                                        value="{{ isset($dataPreview['bankingFrom']) ? $dataPreview['bankingFrom'] : '' }}">
-                                </div>
-                                <div>
-                                    <label for="bankingTo">
-                                        <h4>Đến Ngân hàng</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="bankingTo" name="bankingTo"
-                                        value="{{ isset($dataPreview['bankingTo']) ? $dataPreview['bankingTo'] : '' }}">
                                 </div>
                             </div>
                         </div>
