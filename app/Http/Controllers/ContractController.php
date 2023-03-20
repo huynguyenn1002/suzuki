@@ -241,20 +241,23 @@ class ContractController extends Controller
 
     public function contractExport(Request $request) 
     {
-        ini_set('max_execution_time', 300);
+        // ini_set('max_execution_time', 300);
 
-        $dataExport = Contract::where("id", $request->contractID)->first()->toArray();
+        // $dataExport = Contract::where("id", $request->contractID)->first()->toArray();
 
         // dd($dataExport);
 
         // $pdf = PDF::loadView('contract.contract', $dataExport)->setPaper('a4', 'portrait');
-        $pdf = PDF::loadView('contract.contract', $dataExport);
+        // $pdf = PDF::loadView('contract.contract', $dataExport);
 
-        return $pdf->stream();
+        // return $pdf->stream();
     }
 
-    public function test() {
-        return view('contract.contract');
+    public function printPreviewContract($id) {
+        $contract = Contract::where("id", $id)->first();
+        $saler = AdminInfo::where("id", $contract->admin_id)->first();
+        // dd($contract);
+        return view('contract.contract', compact('contract', 'saler'));
     }
 
 }

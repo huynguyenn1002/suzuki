@@ -3,6 +3,11 @@
     margin: 0;
 }
 
+.main {
+    width: 50%;
+    margin: auto;
+}
+
 p {
     margin: 0;
 }
@@ -46,6 +51,15 @@ p {
     margin: 10px 0;
 }
 
+.table-info {
+    width: 100%;
+    text-align: left;
+}
+
+.left-info {
+    width: 40%;
+}
+
 .info {
     display: flex;
     justify-content: space-between;
@@ -53,6 +67,10 @@ p {
 
 .info-content {
     margin: 10px 0;
+}
+
+.right-content {
+    width: 35rem;
 }
 
 .contact-info {
@@ -125,3 +143,13 @@ p {
     display: flex;
 }
 
+@media print{
+    @page{
+        margin: 0;
+        size:a4;
+    }
+    
+    .main {
+        width: 100%;
+    }
+}

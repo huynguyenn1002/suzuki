@@ -1,5 +1,5 @@
 <link href="{{ asset('css/dashboard/contract.css') }}" rel="stylesheet">
-<div>
+<div class="main">
     <div class="contract-header">
         <img class="logo" src="{{ asset('images/logo.png') }}" alt="">
         <p>
@@ -26,10 +26,26 @@
                     <th>Tư vấn bán hàng</th>
                 </thead>
                 <tbody>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
+                    <td>{{ $contract->contract_num }}/HĐMB-SHH</td>
+                    <td>
+                        @php
+                            $contractType = '';
+                            if ($contract->contract_type == 1) {
+                                $contractType = 'Trả thẳng';
+                            } elseif ($contract->contract_type == 2) {
+                                $contractType = 'Trả góp';
+                            } else {
+                                $contractType = '';
+                            }
+                        @endphp
+
+                        {{ $contractType }}
+                    </td>
+                    <td>{{ $contract->contract_sign_date }}</td>
+                    <td>
+                        <p>{{ $saler->first_name.' '.$saler->last_name}}</p>
+                        <p>{{ $saler->tel}}</p>
+                    </td>
                 </tbody>
             </table>
             <div class="law-content">
@@ -43,49 +59,58 @@
         </div>
 
         <div class="second-body">
-            <div class="info">
-                <div class="info-content">
-                    <p><b>BÊN BÁN (Bên A)</b></p>
-                    <p>Địa chỉ</p>
-                    <p>Điện thoại</p>
-                    <p>Mã số thuế</p>
-                    <p><b>Đại diện</b></p>
-                </div>
-                <div class="info-content">
-                    <p><b>CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ PHÁT TRIỂN HOÀNG HIỀN</b></p>
-                    <p>Số 285, Đường Phạm Bạch Hổ, P Hiến Nam, Tp Hưng Yên, Hưng Yên</p>
-                    <div class="contact-info">
-                        <p class="contact-info-first">02213.662.668</p>
-                        <p>Fax: </p>
-                    </div>
-                    <p>0901033579</p>
-                    <div class="contact-info">
-                        <p class="contact-info-first"><b>Ông Hoàng Văn Hanh</b></p>
-                        <p><b>Chức vụ: Giám đốc</b></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="info">
-                <div class="info-content">
-                    <p><b>BÊN MUA (Bên B)</b></p>
-                    <p>Địa chỉ</p>
-                    <p>Điện thoại</p>
-                    <p>CCCD/CMT</p>
-                    <p>Ngày sinh</p>
-                </div>
-                <div class="info-content">
-                    <p><b>CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ PHÁT TRIỂN HOÀNG HIỀN</b></p>
-                    <p>Số 285, Đường Phạm Bạch Hổ, P Hiến Nam, Tp Hưng Yên, Hưng Yên</p>
-                    <p>0901033579</p>
-                    <div class="contact-info">
-                        <p class="contact-info-first">02213.662.668</p>
-                        <p class="contact-info-second">Ngày cấp: 08/05/2021</p>
-                        <p>Nơi cấp: Công an Hưng Yên</p>
-                    </div>
-                    <p>0901033579</p>
-                </div>
-            </div>
+            <table class="table-info">
+                <thead>
+                    <tr>
+                    <th class="left-info"><b>BÊN BÁN (Bên A)</b></th>
+                    <th><b>CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ PHÁT TRIỂN HOÀNG HIỀN</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Địa chỉ</th>
+                        <td>Số 285, Đường Phạm Bạch Hổ, P Hiến Nam, Tp Hưng Yên, Hưng Yên</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Số điện thoại</th>
+                        <td>02213.662.668　　Fax: </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mã số thuế</th>
+                        <td>0901033579</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><b>Đại diện</b></th>
+                        <td><b>Ông Hoàng Văn Hanh 　　 Chức vụ: Giám đốc</b></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table-info">
+                <thead>
+                    <tr>
+                    <th class="left-info"><b>BÊN MUA (Bên B)</b></th>
+                    <th><b>{{ $contract->customer_name}}</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Địa chỉ</th>
+                        <td>{{ $contract->address.', '.$contract->ward_name.', '.$contract->district_name.', '.$contract->province_name}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Số điện thoại</th>
+                        <td>{{ $contract->customer_phone}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Số CCCD/CMND</th>
+                        <td>{{ $contract->customer_id_card}}　　Ngày cấp: {{ $contract->customer_id_card_register}} 　　 Nơi cấp: {{ $contract->issued_by}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><b>Ngày sinh</b></th>
+                        <td>{{ $contract->customer_birthday}}</td>
+                    </tr>
+                </tbody>
+            </table>
 
             <p class="before-rules"><i>Sau khi bàn bạc, hai bên thoả thuận ký kết và thực hiện hợp đồng mua bán xe ô tô
                     theo các điều khoản và điều kiện sau:</i></p>

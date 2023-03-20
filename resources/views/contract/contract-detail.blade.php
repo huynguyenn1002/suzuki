@@ -10,12 +10,13 @@
                 <h1 class="h3 mb-3"><strong>Chi tiết hợp đồng</strong></h1>
                 <div>
                     <button id="back_btn" class="btn btn-link" type="button">Quay lại</button>
+                    <a href="{{ route('contract.show', $contractDetail->id) }}" class="btn btn-info">Xem hợp đồng</a>
                     <button class="btn btn-primary">Chỉnh sửa hợp đồng</button>
-                    <form method="POST" action="{{ route('contract.export') }}" target="__blank">
+                    <!-- <form method="POST" action="{{ route('contract.export') }}" target="__blank">
                         <input type="hidden" name="contractID" value="{{ $contractDetail->id }}">
                         @csrf
                         <button class="btn btn-success" type="submit">Xuất hợp đồng</button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="row">
@@ -43,7 +44,7 @@
                                                 } elseif ($contractDetail->contract_type == 2) {
                                                     $contractType = 'Trả góp';
                                                 } else {
-                                                    $gender = '';
+                                                    $contractType = '';
                                                 }
                                             @endphp
                                             <label for="contractType">

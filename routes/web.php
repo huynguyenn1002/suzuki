@@ -28,6 +28,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/contract/preview', [App\Http\Controllers\ContractController::class, 'previewContract'])->name('contract.preview');
         Route::get('/contract/detail', [App\Http\Controllers\ContractController::class, 'contractDetail'])->name('contract.detail');
         Route::post('/contract/contractExport', [App\Http\Controllers\ContractController::class, 'contractExport'])->name('contract.export');
+        Route::get('/contract/show/{id}', [App\Http\Controllers\ContractController::class, 'printPreviewContract'])->name('contract.show');
 
         Route::get('get-district-info/', [App\Http\Controllers\ContractController::class, 'adminGetDistrictInfo'])->name('admin.admin-get-district');
         Route::get('get-ward-info/', [App\Http\Controllers\ContractController::class, 'adminGetWardInfo'])->name('admin.admin-get-ward');
@@ -41,4 +42,3 @@ Route::prefix('admin')->group(function () {
 });
 
 
-Route::get('/test', [App\Http\Controllers\ContractController::class, 'test'])->name('contract.test');
