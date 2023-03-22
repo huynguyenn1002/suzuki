@@ -256,8 +256,9 @@ class ContractController extends Controller
     public function printPreviewContract($id) {
         $contract = Contract::where("id", $id)->first();
         $saler = AdminInfo::where("id", $contract->admin_id)->first();
-        // dd($contract);
-        return view('contract.contract', compact('contract', 'saler'));
+        $car = DB::table("suzuki_car")->where("id", $contract->car_id)->first();
+
+        return view('contract.contract', compact('contract', 'saler', 'car'));
     }
 
 }

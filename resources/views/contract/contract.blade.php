@@ -133,20 +133,30 @@
                         <td>1</td>
                         <td>
                             <div class="explain">
-                                <p><b>Tên hiệu xe: SUPER CARRY TRUCK THÙNG MUI PHỦ BẠT</b></p>
+                                <p><b>Tên hiệu xe: {{ $car->car_name }}</b></p>
                                 <p>-　Tình trạng: Mới 100%. </p>
-                                <p>-　Màu: Trắng</p>
-                                <p>-　Lắp ráp trong nước</p>
+                                <p>-　Màu: {{ $contract->car_color }}</p>
+                                @php
+                                    $carType = '';
+                                    if ($contract->car_type == 1) {
+                                        $carType = 'Nhập khẩu nguyên chiếc';
+                                    } elseif ($contract->car_type == 2) {
+                                        $carType = 'Lắp ráp trong nước';
+                                    } else {
+                                        $carType = '';
+                                    }
+                                @endphp
+                                <p>-　{{ $carType }}</p>
                                 <p>-　Năm sản xuất: 2022</p>
                             </div>
                         </td>
-                        <td>208.000.000</td>
+                        <td>{{ number_format($contract->notice_price, 0, '', ',') }}</td>
                         <td>1</td>
-                        <td>208.000.000</td>
+                        <td>{{ number_format($contract->notice_price, 0, '', ',') }}</td>
                     </tbody>
                 </table>
 
-                <p><b>1.2. 　Tổng giá trị hợp đồng: 208.000.000 VNĐ (Bằng chữ: Hai trăm lẻ tám triệu đồng chẵn)</b></p>
+                <p><b>1.2. 　Tổng giá trị hợp đồng: {{ number_format($contract->notice_price, 0, '', ',') }} VNĐ (Bằng chữ: Hai trăm lẻ tám triệu đồng chẵn)</b></p>
                 <p>Giá bán trên đã bao gồm thuế nhập khẩu, thuế TTĐB và thuế giá trị gia tăng (VAT) nhưng chưa bao gồm
                     thuế
                     trước bạ, chi phí đăng ký, lệ phí đăng kiểm, phí bảo hiểm và các chi phí khác.</p>
@@ -158,9 +168,9 @@
                     <p><b>2.1. 　Thời hạn thanh toán:</b></p>
                     <div class="second-rule-content">
                         <div class="rule-content-child">
-                            <p>a,</p><span style="margin-left: 5px"> Bên B thanh toán cho Bên A số tiền là: 20.000.000
+                            <p>a,</p><span style="margin-left: 5px"> Bên B thanh toán cho Bên A số tiền là: {{ number_format($contract->deposit, 0, '', ',') }}
                                 VND (Bằng chữ: Hai mươi triệu đồng
-                                chẵn./.)sau khi ký hợp đồng nhưng không quá 01 (một) ngày làm việc. </span>
+                                chẵn)sau khi ký hợp đồng nhưng không quá 01 (một) ngày làm việc. </span>
                         </div>
                         <div class="rule-content-child">
                             <p>b,</p><span style="margin-left: 5px"> Lần 2: Trong thời hạn 10 (mười) ngày kể từ ngày Bên
@@ -219,8 +229,7 @@
                     <div class="second-rule-content">
                         <div class="rule-content-child">
                             <p style="color: red">a,</p><span style="margin-left: 5px"> <span style="color: red">Thời
-                                    gian dự kiến giao xe: </span><span style="color: black">Tháng 02 năm
-                                    2023</span></span>
+                                    gian dự kiến giao xe: </span><span style="color: black">{{ $contract->car_delivery_time }}</span></span>
                         </div>
                         <div class="rule-content-child">
                             <span style="margin-left: 15px; color: red">Điều khoản cam kết chung: Trong
