@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin;
+use Validator;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -35,6 +37,21 @@ class DashboardController extends Controller
     }
 
     public function addNewUser(Request $request) {
-        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|max:255',
+            'password' => 'required|string',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        Admin::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'is_admin' => 0,
+        ]);
+
+        return redirect()->route('user.get');
     }
 }

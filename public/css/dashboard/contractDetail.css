@@ -14,6 +14,17 @@ h4 {
     justify-content: space-between;
 }
 
-input {
+.card-body input, .card-body select, #header-cont {
     height: 40px;
+}
+
+#header-cont {
+    height: 40px;
+}
+
+.header-contract-num {
+    height: 35px !important;
+    width: 90px;
+    margin-right: 5px;
+    border: 1px solid #e9ecef;
 }

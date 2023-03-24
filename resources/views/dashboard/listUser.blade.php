@@ -32,7 +32,6 @@
         </div>
     </div>
 
-    <!-- The Modal Register -->
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
@@ -63,9 +62,8 @@
 
                         <div class="mb-3">
                             <label for="password">
-                                <h6>Tạo mật khẩu ngẫu nhiên</h6>
+                                <button class="btn btn-outline-primary" type="button" id="auto-generate-password">Tạo mật khẩu ngẫu nhiên</h6>
                             </label>
-                            <input type="checkbox" id="randomPassword">
                         </div>
                     </div>
                     
@@ -84,25 +82,18 @@
 
 @section("js")
 <script>
-var modal = document.getElementById("myModal");
+$("#myBtn").on("click", function() {
+    $("#myModal").show();
+})
 
-var btn = document.getElementById("myBtn");
+$(".close").on("click", function() {
+    $("#myModal").hide();
+})
 
-var span = document.getElementsByClassName("close")[0];
-
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+$("#auto-generate-password").on("click", function() {
+    var random = Math.random().toString(36).substring(3,12);
+    $("#password").val(random);
+})
 </script>
 <script>
 var listUser = '{{ route('user.get') }}';

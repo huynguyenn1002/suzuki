@@ -24,6 +24,7 @@ Route::prefix('admin')->group(function () {
         //ContractController
         Route::get('/contract/list', [App\Http\Controllers\ContractController::class, 'getContractList'])->name('contract.list.get');
         Route::get('/contract/add', [App\Http\Controllers\ContractController::class, 'getContractForm'])->name('contract.form.get');
+        Route::post('/contract/update', [App\Http\Controllers\ContractController::class, 'updateContract'])->name('contract.update');
         Route::post('/createContract', [App\Http\Controllers\ContractController::class, 'createContract'])->name('contract.form.register');
         Route::post('/contract/preview', [App\Http\Controllers\ContractController::class, 'previewContract'])->name('contract.preview');
         Route::get('/contract/detail', [App\Http\Controllers\ContractController::class, 'contractDetail'])->name('contract.detail');

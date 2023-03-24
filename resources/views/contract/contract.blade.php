@@ -1,11 +1,13 @@
 <link href="{{ asset('css/dashboard/contract.css') }}" rel="stylesheet">
+<button class="btn-back no-print" onclick="history.back()">Quay lại</button>
+<button class="btn-print no-print" onclick="window.print();return false;">In hợp đồng</button>
 <div class="main">
     <div class="contract-header">
         <img class="logo" src="{{ asset('images/logo.png') }}" alt="">
         <p>
-            SUZUKI HOÀNG HIỀN
+            <b>SUZUKI HOÀNG HIỀN</b>
             <br>
-            Công ty CP Đầu Tư & Phát Triển Hoàng Hiền
+            <b>Công ty CP Đầu Tư & Phát Triển Hoàng Hiền</b>
             <br>
             Số 285, Đ Phạm Bạch Hổ, P Hiến Nam, Tp Hưng Yên
             <br>
@@ -29,14 +31,14 @@
                     <td>{{ $contract->contract_num }}/HĐMB-SHH</td>
                     <td>
                         @php
-                            $contractType = '';
-                            if ($contract->contract_type == 1) {
-                                $contractType = 'Trả thẳng';
-                            } elseif ($contract->contract_type == 2) {
-                                $contractType = 'Trả góp';
-                            } else {
-                                $contractType = '';
-                            }
+                        $contractType = '';
+                        if ($contract->contract_type == 1) {
+                        $contractType = 'Trả thẳng';
+                        } elseif ($contract->contract_type == 2) {
+                        $contractType = 'Trả góp';
+                        } else {
+                        $contractType = '';
+                        }
                         @endphp
 
                         {{ $contractType }}
@@ -62,8 +64,8 @@
             <table class="table-info">
                 <thead>
                     <tr>
-                    <th class="left-info"><b>BÊN BÁN (Bên A)</b></th>
-                    <th><b>CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ PHÁT TRIỂN HOÀNG HIỀN</b></th>
+                        <th class="left-info"><b>BÊN BÁN (Bên A)</b></th>
+                        <th><b>CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ PHÁT TRIỂN HOÀNG HIỀN</b></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,17 +87,19 @@
                     </tr>
                 </tbody>
             </table>
+            <hr>
             <table class="table-info">
                 <thead>
                     <tr>
-                    <th class="left-info"><b>BÊN MUA (Bên B)</b></th>
-                    <th><b>{{ $contract->customer_name}}</b></th>
+                        <th class="left-info"><b>BÊN MUA (Bên B)</b></th>
+                        <th><b>{{ $contract->customer_name}}</b></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th scope="row">Địa chỉ</th>
-                        <td>{{ $contract->address.', '.$contract->ward_name.', '.$contract->district_name.', '.$contract->province_name}}</td>
+                        <td>{{ $contract->address.', '.$contract->ward_name.', '.$contract->district_name.', '.$contract->province_name}}
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Số điện thoại</th>
@@ -103,11 +107,13 @@
                     </tr>
                     <tr>
                         <th scope="row">Số CCCD/CMND</th>
-                        <td>{{ $contract->customer_id_card}}　　Ngày cấp: {{ $contract->customer_id_card_register}} 　　 Nơi cấp: {{ $contract->issued_by}}</td>
+                        <td>{{ $contract->customer_id_card}}　　Ngày cấp:
+                            {{ date("d/m/Y", strtotime($contract->customer_id_card_register)) }} 　　 Nơi cấp:
+                            {{ $contract->issued_by}}</td>
                     </tr>
                     <tr>
                         <th scope="row"><b>Ngày sinh</b></th>
-                        <td>{{ $contract->customer_birthday}}</td>
+                        <td>{{ date("d/m/Y", strtotime($contract->customer_birthday)) }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -137,14 +143,14 @@
                                 <p>-　Tình trạng: Mới 100%. </p>
                                 <p>-　Màu: {{ $contract->car_color }}</p>
                                 @php
-                                    $carType = '';
-                                    if ($contract->car_type == 1) {
-                                        $carType = 'Nhập khẩu nguyên chiếc';
-                                    } elseif ($contract->car_type == 2) {
-                                        $carType = 'Lắp ráp trong nước';
-                                    } else {
-                                        $carType = '';
-                                    }
+                                $carType = '';
+                                if ($contract->car_type == 1) {
+                                $carType = 'Nhập khẩu nguyên chiếc';
+                                } elseif ($contract->car_type == 2) {
+                                $carType = 'Lắp ráp trong nước';
+                                } else {
+                                $carType = '';
+                                }
                                 @endphp
                                 <p>-　{{ $carType }}</p>
                                 <p>-　Năm sản xuất: 2022</p>
@@ -156,7 +162,8 @@
                     </tbody>
                 </table>
 
-                <p><b>1.2. 　Tổng giá trị hợp đồng: {{ number_format($contract->notice_price, 0, '', ',') }} VNĐ (Bằng chữ: Hai trăm lẻ tám triệu đồng chẵn)</b></p>
+                <p><b>1.2. 　Tổng giá trị hợp đồng: {{ number_format($contract->notice_price, 0, '', ',') }} VNĐ (Bằng
+                        chữ: {{ $noticePrice }} đồng)</b></p>
                 <p>Giá bán trên đã bao gồm thuế nhập khẩu, thuế TTĐB và thuế giá trị gia tăng (VAT) nhưng chưa bao gồm
                     thuế
                     trước bạ, chi phí đăng ký, lệ phí đăng kiểm, phí bảo hiểm và các chi phí khác.</p>
@@ -168,9 +175,10 @@
                     <p><b>2.1. 　Thời hạn thanh toán:</b></p>
                     <div class="second-rule-content">
                         <div class="rule-content-child">
-                            <p>a,</p><span style="margin-left: 5px"> Bên B thanh toán cho Bên A số tiền là: {{ number_format($contract->deposit, 0, '', ',') }}
-                                VND (Bằng chữ: Hai mươi triệu đồng
-                                chẵn)sau khi ký hợp đồng nhưng không quá 01 (một) ngày làm việc. </span>
+                            <p>a,</p><span style="margin-left: 5px"> Bên B thanh toán cho Bên A số tiền là:
+                                {{ number_format($contract->deposit, 0, '', ',') }}
+                                VND (Bằng chữ: {{ $depositAmount }} đồng)sau khi ký hợp đồng nhưng không quá 01 (một)
+                                ngày làm việc. </span>
                         </div>
                         <div class="rule-content-child">
                             <p>b,</p><span style="margin-left: 5px"> Lần 2: Trong thời hạn 10 (mười) ngày kể từ ngày Bên
@@ -229,7 +237,8 @@
                     <div class="second-rule-content">
                         <div class="rule-content-child">
                             <p style="color: red">a,</p><span style="margin-left: 5px"> <span style="color: red">Thời
-                                    gian dự kiến giao xe: </span><span style="color: black">{{ $contract->car_delivery_time }}</span></span>
+                                    gian dự kiến giao xe: </span><span
+                                    style="color: black">{{ date("d/m/Y", strtotime($contract->car_delivery_time)) }}</span></span>
                         </div>
                         <div class="rule-content-child">
                             <span style="margin-left: 15px; color: red">Điều khoản cam kết chung: Trong
@@ -579,7 +588,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="sign-area">
             <p><b>ĐẠI DIỆN BÊN MUA</b></p>
