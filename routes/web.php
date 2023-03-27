@@ -38,7 +38,8 @@ Route::prefix('admin')->group(function () {
         //DashboardController
         Route::get('/list/user', [App\Http\Controllers\DashboardController::class, 'getListUser'])->name('user.get');
         Route::post('/user/add', [App\Http\Controllers\DashboardController::class, 'addNewUser'])->name('user.add');
-
+        Route::post('/user/detail', [App\Http\Controllers\DashboardController::class, 'getUserDetail'])->name('user.detail');
+        Route::get('/profile', [App\Http\Controllers\DashboardController::class, 'getProfile'])->name('admin.profile');
     });
 });
 

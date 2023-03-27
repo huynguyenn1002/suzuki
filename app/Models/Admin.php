@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\AdminInfo;
 
 class Admin extends Authenticatable
 {
@@ -28,5 +29,10 @@ class Admin extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function infoDetail()
+    {
+        return $this->hasOne(AdminInfo::class, 'admin_id', 'id');
     }
 }

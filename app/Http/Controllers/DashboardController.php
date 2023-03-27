@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin;
+use App\Models\AdminInfo;
 use Validator;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -53,5 +55,22 @@ class DashboardController extends Controller
         ]);
 
         return redirect()->route('user.get');
+    }
+
+    public function getProfile(Request $request) {
+        $admin = Auth::guard('admin')->user();
+        $detailInfo = AdminInfo::where('admin_id', $admin->id)->first();
+
+        $provinces = \Kjmtrue\VietnamZone\Models\Province::get();
+        $districts = \Kjmtrue\VietnamZone\Models\District::get();
+        $wards = \Kjmtrue\VietnamZone\Models\Ward::get();
+
+        return view("dashboard.user-detail", compact("detailInfo", "provinces", "districts", "wards"));
+    }
+
+    public function getUserDetail(Request $request) {
+        $userDetail = Admin::where("id", $request->id)->first();
+
+        return response()->json(['admin'=>$userDetail, 'userDetail' => $userDetail->infoDetail]);
     }
 }

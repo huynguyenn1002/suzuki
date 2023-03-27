@@ -25,9 +25,7 @@ jQuery().ready(function () {
                 render: (data, type, row) => {
                     return `
                     <div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#myModal" id="btnEdit" onclick="viewItem(${row.ID})">Thông tin chi tiết</button>
-                        
+                        <button class="btn btn-primary" onclick="showDetail(${row.ID})">Thông tin chi tiết</button>
                         <button type="submit" class="btn btn-danger" onclick="deleteItem(${row.ID})">
                             Xoá</button>
                     </div>
@@ -38,6 +36,27 @@ jQuery().ready(function () {
         ],
     });
 });
+
+function showDetail(id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: userDetail,
+        type: "POST",
+        data: {id},
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            $("#first_name").val(response.userDetail.first_name);
+            $("#last_name").val(response.userDetail.last_name);
+            $("#tel").val(response.userDetail.tel);
+            $("#citizen_identification").val(response.userDetail.citizen_identification);
+            $("#emailDetail").val(response.admin.email);
+        },
+    });
+    $("#modalUserDetail").show();
+}
 
 function addNewUser() {
     $("#submit").click(function () {

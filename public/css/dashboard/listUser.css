@@ -108,6 +108,7 @@ h6 {
 .tab-content input, .tab-content select, #header-cont {
     height: 40px;
 }
+
 .modal-body {
     padding: 2px 16px;
     height: 17rem;
@@ -120,4 +121,9 @@ h6 {
 
 .modal-footer button {
     margin: 10px;
+}
+
+.modal-body-detail {
+    height: 35rem;
+    padding: 2px 16px;
 }

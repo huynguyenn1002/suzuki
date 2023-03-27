@@ -26,4 +26,5 @@ class AdminInfo extends Model
         'ward_name',
         'address',
     ];
+
 }

@@ -34,7 +34,6 @@
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
-
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
@@ -73,10 +72,69 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
-   
+
+    <div id="modalUserDetail" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Thông tin người dùng</h2>
+            </div>
+            <div class="modal-body-detail">
+                <div>
+                    <div class="mb-3">
+                        <label for="first_name">
+                            <h6>Họ</h6>
+                        </label>
+                        <input type="text" required class="form-control" placeholder="Nhập vào Họ..." id="first_name"
+                            name="first_name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="last_name">
+                            <h6>Tên</h6>
+                        </label>
+                        <input type="text" required class="form-control" placeholder="Nhập vào Tên..." id="last_name"
+                            name="last_name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tel">
+                            <h6>Số điện thoại</h6>
+                        </label>
+                        <input type="text" required class="form-control" placeholder="Nhập vào Số điện thoại..." id="tel"
+                            name="tel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="citizen_identification">
+                            <h6>Số CMND/CCCD</h6>
+                        </label>
+                        <input type="text" required class="form-control" placeholder="Nhập vào Số CMND/CCCD..." id="citizen_identification"
+                            name="citizen_identification">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailDetail">
+                            <h6>Email</h6>
+                        </label>
+                        <input type="text" required class="form-control" placeholder="Nhập vào Email..." id="emailDetail"
+                            name="emailDetail">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password">
+                            <h6>Mật khẩu</h6>
+                        </label>
+                        <input type="text" required class="form-control" placeholder="Nhập vào Mật khẩu..."
+                            id="password" name="password">
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-confirm" id="submit">Thêm</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 @endsection
 
@@ -96,8 +154,9 @@ $("#auto-generate-password").on("click", function() {
 })
 </script>
 <script>
-var listUser = '{{ route('user.get') }}';
-var addNewUser = '{{ route('user.add') }}';
+var listUser = '{{ route("user.get") }}';
+var addNewUser = '{{ route("user.add") }}';
+var userDetail = '{{ route("user.detail") }}';
 </script>
 <script src="{{ URL::asset('js/dashboard/list-user.js') }}"></script>
 @endsection
