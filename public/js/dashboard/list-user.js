@@ -52,6 +52,10 @@ function showDetail(id) {
             $("#last_name").val(response.userDetail.last_name);
             $("#tel").val(response.userDetail.tel);
             $("#citizen_identification").val(response.userDetail.citizen_identification);
+            $("#province_name").val(response.userDetail.province_name);
+            $("#district_name").val(response.userDetail.district_name);
+            $("#ward_name").val(response.userDetail.ward_name);
+            $("#address").val(response.userDetail.address);
             $("#emailDetail").val(response.admin.email);
         },
     });
@@ -74,9 +78,29 @@ function addNewUser() {
             data: dataRegister,
             dataType: "json",
             success: function (data) {
-                
                 window.location.reload(true);
             },
         });
     });
 }
+
+$("#myBtn").on("click", function() {
+    $("#myModal").show();
+})
+
+$("#close-register-modal").on("click", function() {
+    $("#myModal").hide();
+})
+
+$("#close-modal, #close-detail-modal").on("click", function() {
+    $("#modalUserDetail").hide();
+})
+
+$("#auto-generate-password").on("click", function() {
+    var random = Math.random().toString(36).substring(3,12);
+    $("#password").val(random);
+})
+
+$("#passwordEdit").keyup(function(){
+    $(".btn-confirm").show();
+});

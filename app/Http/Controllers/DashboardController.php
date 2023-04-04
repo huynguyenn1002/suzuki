@@ -73,4 +73,44 @@ class DashboardController extends Controller
 
         return response()->json(['admin'=>$userDetail, 'userDetail' => $userDetail->infoDetail]);
     }
+
+    public function updateProfile(Request $request) {
+        DB::transaction(function() use($request) {
+            $province_id = explode('.', $request->province)[0];
+            $province = explode('.', $request->province)[1];
+            $district_id = explode('.', $request->district)[0];
+            $district = explode('.', $request->district)[1];
+            $ward_id = explode('.', $request->ward)[0];
+            $ward = explode('.', $request->ward)[1];
+
+            $user = AdminInfo::where('admin_id', $request->userID)->first();
+            $user->update([
+                'first_name' => $request->firstname,
+                'last_name' => $request->lastname,
+                'citizen_identification' => $request->citizen_identification,
+                'tel' => $request->tel,
+                'province_id' => $province_id,
+                'province_name' => $province,
+                'district_id' => $district_id,
+                'district_name' => $district,
+                'ward_id' => $ward_id,
+                'ward_name' => $ward,
+                'address' => $request->address,
+            ]);
+
+            if($request->hasFile('password')){
+                Admin::where('id', $request->userID)->update(['password'=>$request->password]);
+            }
+
+            if($request->hasFile('avatar')){
+                $filename = $request->avatar->getClientOriginalName();
+                $request->avatar->storeAs('avatar',$filename,'public');
+                AdminInfo::where('admin_id', $request->userID)->update(['avatar'=>$filename]);
+            }
+
+            return redirect()->back();
+        });
+
+        return redirect('/admin/profile')->with('success', 'Cập nhật thông tin thành công');
+    }
 }

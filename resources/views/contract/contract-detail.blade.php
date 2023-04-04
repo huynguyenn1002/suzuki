@@ -348,6 +348,9 @@
 
 @section('js')
 <script>
+$("nav#sidebar li.sidebar-item").removeClass("active");
+$("nav#sidebar li.contract-list").addClass("active");
+
 $("#back_btn").click(function() {
     window.history.back();
 });

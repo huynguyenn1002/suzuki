@@ -11,3 +11,8 @@
     justify-content: flex-end;
     margin: 10px auto;
 }
+
+.file-upload {
+    display: flex;
+    justify-content: center;
+}
