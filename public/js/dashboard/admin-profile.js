@@ -1,13 +1,14 @@
 $(function () {
     const url2 = `/admin/get-ward-info/`;
+    $districtCodeDetail = $("#value_province").val();
 
-    $.fn.getWardInfo = function (url2, elm, districtCode) {
+    $.fn.getWardInfo = function (url2, elm, districtCode, districtCodeDetail) {
         $_token = "{{ csrf_token() }}";
         $.ajax({
             headers: { "X-CSRF-Token": $("meta[name=_token]").attr("content") },
             url: `${url2}`,
             type: "GET",
-            data: { districtCode },
+            data: { districtCode, districtCodeDetail },
             success: function (result) {
                 elm.html(result.html);
             },
@@ -27,10 +28,11 @@ $(function () {
             success: function (result) {
                 elm.html(result.html);
                 if (firstCall) {
+                    var districtCodeDetail = $("#value_province").val();
                     var tmp = result.district_id;
-                    $.fn.getWardInfo(url2, $("#ward"), tmp);
+                    $.fn.getWardInfo(url2, $("#ward"), tmp, districtCodeDetail);
                 } else {
-                    $.fn.getWardInfo(url2, $("#ward"), null);
+                    $.fn.getWardInfo(url2, $("#ward"), null, null);
                 }
             },
             error: function (xhr, textStatus, thrownError) {

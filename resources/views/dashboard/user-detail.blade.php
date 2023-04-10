@@ -64,6 +64,7 @@
                                         <option value="">Quận/Huyện</option>
                                     </select>
                                     <input type="hidden" id="old_value_province" value="{{ old('province_id') }}">
+                                    <input type="hidden" id="value_province" value="{{ $detailInfo->district_id }}">
                                 </div>
                                 <div class="col-md-12 address mt-3">
                                     <select name="ward" id="ward" class="form-control" placeholder="Phường/Xã">

@@ -41,6 +41,10 @@ Route::prefix('admin')->group(function () {
         Route::post('/user/detail', [App\Http\Controllers\DashboardController::class, 'getUserDetail'])->name('user.detail');
         Route::get('/profile', [App\Http\Controllers\DashboardController::class, 'getProfile'])->name('admin.profile');
         Route::post('/profile/update', [App\Http\Controllers\DashboardController::class, 'updateProfile'])->name('admin.profile.update');
+
+        //SalerController 
+        Route::get('/list/saler', [App\Http\Controllers\SalerController::class, 'getListSaler'])->name('saler.get');
+        Route::post('/sale/add', [App\Http\Controllers\SalerController::class, 'addNewSaler'])->name('saler.add');
     });
 });
 

@@ -44,6 +44,13 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-item saler-list">
+                        <a class="sidebar-link" href="{{ route('saler.get') }}">
+                            <i class="fa-regular fa-user"></i> <span
+                                class="align-middle">Danh sách Nhân viên</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-header">
                         Quản lý hợp đồng
                     </li>

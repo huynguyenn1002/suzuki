@@ -65,19 +65,37 @@ class ContractController extends Controller
 
     public function adminGetDistrictInfo(Request $request) {
         $data = $request->all();
+        if (!empty($data["idContract"])) {
+            $contractDetail = Contract::where("id", $data["idContract"])->first();
+        } else {
+            $contractDetail = null;
+        }
+
+        if (!empty($data["detailProvinceID"])) {
+            $data["provinceCode"] = $data["detailProvinceID"];
+        }
         $user = Auth::guard('admin')->user();
 
         $district = DB::table("districts")->select('*')->where("districts.province_id", '=', $data["provinceCode"])->get();
-        $returnView = view("contract.admin-get-district")->with(['options' => $district, 'admin' => $user])->render();
+        $returnView = view("contract.admin-get-district")->with(['contract' => $contractDetail,'options' => $district, 'user' => $user])->render();
         return response()->json(["html" => $returnView, "district_id" => $user->district_id], 200);
     }
 
     public function adminGetWardInfo(Request $request) {
         $data = $request->all();
         $user = Auth::guard('admin')->user();
+        if (!empty($data["districtCodeDetail"])) {
+            $data["districtCode"] = $data["districtCodeDetail"];
+        }
+
+        if (!empty($data["idContract"])) {
+            $contractDetail = Contract::where("id", $data["idContract"])->first();
+        } else {
+            $contractDetail = null;
+        }
 
         $ward = DB::table("wards")->select('*')->where("wards.district_id", '=', $data["districtCode"])->get();
-        $returnView = view("contract.admin-get-ward")->with(['options' => $ward, 'admin' => $user])->render();
+        $returnView = view("contract.admin-get-ward")->with(['contract' => $contractDetail, 'options' => $ward, 'user' => $user])->render();
         return response()->json(["html" => $returnView], 200);
     }
 

@@ -1,13 +1,13 @@
 $(function () {
     const url2 = `/admin/get-ward-info/`;
 
-    $.fn.getWardInfo = function (url2, elm, districtCode) {
+    $.fn.getWardInfo = function (url2, elm, districtCode, districtCodeDetail, idContract) {
         $_token = "{{ csrf_token() }}";
         $.ajax({
             headers: { "X-CSRF-Token": $("meta[name=_token]").attr("content") },
             url: `${url2}`,
             type: "GET",
-            data: { districtCode },
+            data: { districtCode, districtCodeDetail, idContract },
             success: function (result) {
                 elm.html(result.html);
             },
@@ -17,20 +17,21 @@ $(function () {
         });
     };
 
-    $.fn.getDistrictInfo = function (url, elm, provinceCode, firstCall = false) {
+    $.fn.getDistrictInfo = function (url, elm, provinceCode, firstCall = false, detailProvinceID, idContract) {
         $_token = "{{ csrf_token() }}";
         $.ajax({
             headers: { "X-CSRF-Token": $("meta[name=_token]").attr("content") },
             url: `${url}`,
             type: "GET",
-            data: { provinceCode },
+            data: { provinceCode, detailProvinceID, idContract },
             success: function (result) {
                 elm.html(result.html);
                 if (firstCall) {
                     var tmp = result.district_id;
-                    $.fn.getWardInfo(url2, $("#ward"), tmp);
+                    var districtCodeDetail = $("#value_district").val();
+                    $.fn.getWardInfo(url2, $("#ward"), tmp, districtCodeDetail, idContract);
                 } else {
-                    $.fn.getWardInfo(url2, $("#ward"), null);
+                    $.fn.getWardInfo(url2, $("#ward"), null, null, null);
                 }
             },
             error: function (xhr, textStatus, thrownError) {
@@ -40,8 +41,10 @@ $(function () {
     };
 
     $provinceCode = $("#province").val();
+    var detailProvinceID = $("#value_province").val();
+    var idContract = $("#idContract").val();
     let url = `/admin/get-district-info/`;
-    $.fn.getDistrictInfo(url, $("#district"), $provinceCode, true);
+    $.fn.getDistrictInfo(url, $("#district"), $provinceCode, true, detailProvinceID, idContract);
 
     $("#province").on("change", function (e) {
         $provinceCode = $("#province").val();

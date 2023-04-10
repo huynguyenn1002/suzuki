@@ -20,7 +20,7 @@
         </div>
         <form action="{{ route('contract.update') }}" method="POST">
             @csrf
-            <input type="hidden" name="id" value="{{ $contractDetail->id }}">
+            <input type="hidden" name="id" id="idContract" value="{{ $contractDetail->id }}">
             <div class="row">
                 <div class="card flex-fill w-100">
                     <div class="card-header list-title">
@@ -179,8 +179,8 @@
                                         data-type="district">
                                         <option value="">Quận/Huyện</option>
                                     </select>
-                                    <input type="hidden" id="district_id" value="{{ $contractDetail->district_id }}">
-                                    <input type="hidden" id="old_value_province" value="{{ old('province_id') }}">
+                                    <input type="hidden" id="value_province" value="{{ $contractDetail->province_id }}">
+                                    <input type="hidden" id="value_district" value="{{ $contractDetail->district_id }}">
                                 </div>
                                 <div>
                                     <label for="customerPhone"></label>
