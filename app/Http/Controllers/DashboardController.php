@@ -74,6 +74,20 @@ class DashboardController extends Controller
         return response()->json(['admin'=>$userDetail, 'userDetail' => $userDetail->infoDetail]);
     }
 
+    public function updateUser(Request $request) {
+        $userDetail = Admin::where("id", $request->userID)->update([
+            'password' => bcrypt($request->newPassword)
+        ]);
+
+        return response()->json("success");
+    }
+
+    public function deleteUser(Request $request) {
+        $userDetail = Admin::where("id", $request->id)->delete();
+
+        return redirect()->route('user.get');
+    }
+
     public function updateProfile(Request $request) {
         DB::transaction(function() use($request) {
             $province_id = explode('.', $request->province)[0];

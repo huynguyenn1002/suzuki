@@ -39,12 +39,16 @@ Route::prefix('admin')->group(function () {
         Route::get('/list/user', [App\Http\Controllers\DashboardController::class, 'getListUser'])->name('user.get');
         Route::post('/user/add', [App\Http\Controllers\DashboardController::class, 'addNewUser'])->name('user.add');
         Route::post('/user/detail', [App\Http\Controllers\DashboardController::class, 'getUserDetail'])->name('user.detail');
+        Route::post('/user/update', [App\Http\Controllers\DashboardController::class, 'updateUser'])->name('user.update');
+        Route::post('/user/delete', [App\Http\Controllers\DashboardController::class, 'deleteUser'])->name('user.delete');
         Route::get('/profile', [App\Http\Controllers\DashboardController::class, 'getProfile'])->name('admin.profile');
         Route::post('/profile/update', [App\Http\Controllers\DashboardController::class, 'updateProfile'])->name('admin.profile.update');
 
         //SalerController 
         Route::get('/list/saler', [App\Http\Controllers\SalerController::class, 'getListSaler'])->name('saler.get');
-        Route::post('/sale/add', [App\Http\Controllers\SalerController::class, 'addNewSaler'])->name('saler.add');
+        Route::post('/saler/add', [App\Http\Controllers\SalerController::class, 'addNewSaler'])->name('saler.add');
+        Route::post('/saler/detail', [App\Http\Controllers\SalerController::class, 'salerDetail'])->name('saler.detail');
+        Route::post('/saler/delete', [App\Http\Controllers\SalerController::class, 'salerDelete'])->name('saler.delete');
     });
 });
 

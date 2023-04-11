@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('header_section')
-    <link href="{{ asset('css/dashboard/listUser.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/list-saler.css') }}" rel="stylesheet">
 @endsection
 @section('content')
     <main class="content">
@@ -22,7 +22,7 @@
                                 <tr class="text-dark">
                                     <th scope="col">Họ và Tên</th>
                                     <th scope="col">Số điện thoại</th>
-                                    <th class="actionBtn" scope="col">Action</th>
+                                    <th class="actionBtn" scope="col"></th>
                                 </tr>
                             </thead>
                         </table>
@@ -32,7 +32,7 @@
         </div>
 
         <!-- The Modal -->
-        <div id="myModal" class="modal">
+        <div id="modalSalerDetail" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
                 <div class="modal-header">
@@ -41,132 +41,41 @@
                 </div>
                 <form action="{{ route('saler.add') }}" method="post" id="category-data">
                     @csrf
+                    <input type="hidden" id="salerId" name="salerId">
                     <div class="modal-body">
-                        <div>
-                            <div class="mb-3">
-                                <label for="email">
-                                    <h6>Email</h6>
-                                </label>
-                                <input type="text" required class="form-control" placeholder="Nhập vào Email..."
-                                    id="email" name="email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="password">
-                                    <h6>Mật khẩu</h6>
-                                </label>
-                                <input type="text" required class="form-control" placeholder="Nhập vào Mật khẩu..."
-                                    id="password" name="password">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="password">
-                                    <button class="btn btn-outline-primary" type="button" id="auto-generate-password">Tạo
-                                        mật khẩu ngẫu nhiên</h6>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-confirm" id="submit">Thêm</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div id="modalUserDetail" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close" id="close-detail-modal">&times;</span>
-                    <h2>Thông tin người dùng</h2>
-                </div>
-                <div class="modal-body-detail">
-                    <div class="info-detail">
-                        <div class="info-detail-left">
-                            <div class="mb-3">
-                                <label for="first_name">
+                        <div class="mb-3 saler-name">
+                            <div class="first-name">
+                                <label for="firstName">
                                     <h6>Họ</h6>
                                 </label>
-                                <input readonly type="text" class="form-control" placeholder="Nhập vào Họ..."
-                                    id="first_name" name="first_name">
+                                <input type="text" required class="form-control" placeholder="Nhập vào Họ..."
+                                    id="firstName" name="firstName">
                             </div>
-                            <div class="mb-3">
-                                <label for="last_name">
+                            
+                            <div class="last-name">
+                                <label for="lastName">
                                     <h6>Tên</h6>
                                 </label>
-                                <input readonly type="text" class="form-control" placeholder="Nhập vào Tên..."
-                                    id="last_name" name="last_name">
+                                <input type="text" required class="form-control" placeholder="Nhập vào Tên..."
+                                    id="lastName" name="lastName">
                             </div>
-                            <div class="mb-3">
+                            
+                            <div class="last-name">
                                 <label for="tel">
                                     <h6>Số điện thoại</h6>
                                 </label>
-                                <input readonly type="text" class="form-control" placeholder="Nhập vào Số điện thoại..."
+                                <input type="text" required class="form-control" placeholder="Nhập vào Số điện thoại..."
                                     id="tel" name="tel">
                             </div>
-                            <div class="mb-3">
-                                <label for="citizen_identification">
-                                    <h6>Số CMND/CCCD</h6>
-                                </label>
-                                <input readonly type="text" class="form-control" placeholder="Nhập vào Số CMND/CCCD..."
-                                    id="citizen_identification" name="citizen_identification">
-                            </div>
-                            <div class="mb-3">
-                                <label for="emailDetail">
-                                    <h6>Email</h6>
-                                </label>
-                                <input readonly type="text" class="form-control" placeholder="Nhập vào Email..."
-                                    id="emailDetail" name="emailDetail">
-                            </div>
                         </div>
-                        <div class="info-detail-right">
-                            <div class="mb-3">
-                                <label for="province_name">
-                                    <h6>Thành phố</h6>
-                                </label>
-                                <input readonly type="text" class="form-control" placeholder="Nhập vào Tên..."
-                                    id="province_name" name="province_name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="district_name">
-                                    <h6>Quận/Huyện</h6>
-                                </label>
-                                <input readonly type="text" class="form-control"
-                                    placeholder="Nhập vào Số điện thoại..." id="district_name" name="district_name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ward_name">
-                                    <h6>Phường/Xã</h6>
-                                </label>
-                                <input readonly type="text" class="form-control"
-                                    placeholder="Nhập vào Số CMND/CCCD..." id="ward_name"
-                                    name="ward_name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="address">
-                                    <h6>Địa chỉ</h6>
-                                </label>
-                                <input readonly type="text" class="form-control" placeholder="Nhập vào Email..."
-                                    id="address" name="address">
-                            </div>
-                            <div class="mb-3">
-                                <label for="password">
-                                    <h6>Thay đổi Mật khẩu</h6>
-                                </label>
-                                <input type="text" required class="form-control" placeholder="Nhập vào Mật khẩu..."
-                                    id="passwordEdit" name="password">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-confirm" id="submitEdit" style="display: none">Lưu thay đổi</button>
-                        <button type="button" id="close-modal" class="btn btn-danger"
-                            data-bs-dismiss="modal">Đóng</button>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-confirm" id="submit">Thêm</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeBtn">Đóng</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </main>
@@ -176,6 +85,8 @@
     <script>
         var listSaler = '{{ route('saler.get') }}';
         var addNewSaler = '{{ route('saler.add') }}';
+        var salerDetail = '{{ route('saler.detail') }}';
+        var deleteSaler = '{{ route('saler.delete') }}';
     </script>
     <script src="{{ URL::asset('js/dashboard/list-saler.js') }}"></script>
 @endsection

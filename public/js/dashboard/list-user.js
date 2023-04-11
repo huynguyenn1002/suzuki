@@ -48,15 +48,16 @@ function showDetail(id) {
         dataType: "json",
         success: function (response) {
             console.log(response);
-            $("#first_name").val(response.userDetail.first_name);
-            $("#last_name").val(response.userDetail.last_name);
-            $("#tel").val(response.userDetail.tel);
-            $("#citizen_identification").val(response.userDetail.citizen_identification);
-            $("#province_name").val(response.userDetail.province_name);
-            $("#district_name").val(response.userDetail.district_name);
-            $("#ward_name").val(response.userDetail.ward_name);
-            $("#address").val(response.userDetail.address);
+            $("#first_name").val(response.userDetail?.first_name);
+            $("#last_name").val(response.userDetail?.last_name);
+            $("#tel").val(response.userDetail?.tel);
+            $("#citizen_identification").val(response.userDetail?.citizen_identification);
+            $("#province_name").val(response.userDetail?.province_name);
+            $("#district_name").val(response.userDetail?.district_name);
+            $("#ward_name").val(response.userDetail?.ward_name);
+            $("#address").val(response.userDetail?.address);
             $("#emailDetail").val(response.admin.email);
+            $("#userID").val(response.admin.id);
         },
     });
     $("#modalUserDetail").show();
@@ -83,6 +84,39 @@ function addNewUser() {
         });
     });
 }
+
+function deleteItem(id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: deleteUser,
+        type: "POST",
+        data: {id},
+        dataType: "json",
+        success: function (data) {
+            window.location.reload(true);
+        },
+    });
+}
+
+$("#submitEdit").click(function () {
+    var userID = $("#userID").val();
+    var newPassword = $("#passwordEdit").val();
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: updateUser,
+        type: "POST",
+        data: {userID, newPassword},
+        dataType: "json",
+        success: function (success) {
+            window.location.reload(true);
+        },
+    });
+});
 
 $("#myBtn").on("click", function() {
     $("#myModal").show();

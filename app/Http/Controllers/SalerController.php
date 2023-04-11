@@ -32,4 +32,34 @@ class SalerController extends Controller
         })
         ->make(true);
     }
+
+    public function addNewSaler(Request $request) {
+        if($request->salerId != null) {
+            Saler::where("id", $request->salerId)->update([
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'tel' => $request->tel,
+            ]);
+        } else {
+            Saler::insert([
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'tel' => $request->tel,
+            ]);
+        }
+
+        return redirect()->route('saler.get');
+    }
+
+    public function salerDetail(Request $request) {
+        $salerDetail = Saler::where("id", $request->id)->first();
+
+        return response()->json(['salerDetail'=>$salerDetail]);
+    }
+
+    public function salerDelete(Request $request) {
+        $userDetail = Saler::where("id", $request->id)->delete();
+
+        return redirect()->route('saler.get');
+    }
 }

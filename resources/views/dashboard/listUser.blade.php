@@ -48,7 +48,7 @@
                                 <label for="email">
                                     <h6>Email</h6>
                                 </label>
-                                <input type="text" required class="form-control" placeholder="Nhập vào Email..."
+                                <input type="email" required class="form-control" placeholder="Nhập vào Email..."
                                     id="email" name="email">
                             </div>
                             <div class="mb-3">
@@ -162,6 +162,8 @@
                         </div>
                     </div>
 
+                    <input type="hidden" id="userID" name="userID">
+
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-confirm" id="submitEdit" style="display: none">Lưu thay đổi</button>
                         <button type="button" id="close-modal" class="btn btn-danger"
@@ -178,6 +180,8 @@
         var listUser = '{{ route('user.get') }}';
         var addNewUser = '{{ route('user.add') }}';
         var userDetail = '{{ route('user.detail') }}';
+        var updateUser = '{{ route('user.update') }}';
+        var deleteUser = '{{ route('user.delete') }}';
     </script>
     <script src="{{ URL::asset('js/dashboard/list-user.js') }}"></script>
 @endsection

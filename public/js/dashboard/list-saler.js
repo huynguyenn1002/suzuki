@@ -39,24 +39,21 @@ function showDetail(id) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: userDetail,
+        url: salerDetail,
         type: "POST",
         data: {id},
         dataType: "json",
         success: function (response) {
             console.log(response);
-            $("#first_name").val(response.userDetail.first_name);
-            $("#last_name").val(response.userDetail.last_name);
-            $("#tel").val(response.userDetail.tel);
-            $("#citizen_identification").val(response.userDetail.citizen_identification);
-            $("#province_name").val(response.userDetail.province_name);
-            $("#district_name").val(response.userDetail.district_name);
-            $("#ward_name").val(response.userDetail.ward_name);
-            $("#address").val(response.userDetail.address);
-            $("#emailDetail").val(response.admin.email);
+            $("#firstName").val(response.salerDetail.first_name);
+            $("#lastName").val(response.salerDetail.last_name);
+            $("#tel").val(response.salerDetail.tel);
+            $("#salerId").val(response.salerDetail.id);
+            $("#submit").html('Chỉnh sửa');
         },
     });
-    $("#modalUserDetail").show();
+
+    $("#modalSalerDetail").show();
 }
 
 function addNewSaler() {
@@ -81,19 +78,34 @@ function addNewSaler() {
     });
 }
 
+function deleteItem(id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: deleteSaler,
+        type: "POST",
+        data: {id},
+        dataType: "json",
+        success: function (data) {
+            window.location.reload(true);
+        },
+    });
+}
+
 $("nav#sidebar li.sidebar-item").removeClass("active");
 $("nav#sidebar li.saler-list").addClass("active");
 
 $("#myBtn").on("click", function() {
-    $("#myModal").show();
+    $("#modalSalerDetail").show();
 })
 
 $("#close-register-modal").on("click", function() {
-    $("#myModal").hide();
+    $("#modalSalerDetail").hide();
 })
 
-$("#close-modal, #close-detail-modal").on("click", function() {
-    $("#modalUserDetail").hide();
+$("#closeBtn").on("click", function() {
+    $("#modalSalerDetail").hide();
 })
 
 $("#auto-generate-password").on("click", function() {
