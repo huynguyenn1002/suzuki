@@ -49,6 +49,12 @@ Route::prefix('admin')->group(function () {
         Route::post('/saler/add', [App\Http\Controllers\SalerController::class, 'addNewSaler'])->name('saler.add');
         Route::post('/saler/detail', [App\Http\Controllers\SalerController::class, 'salerDetail'])->name('saler.detail');
         Route::post('/saler/delete', [App\Http\Controllers\SalerController::class, 'salerDelete'])->name('saler.delete');
+
+        //CarController 
+        Route::get('/list/car', [App\Http\Controllers\CarController::class, 'getListCar'])->name('car.get');
+        Route::post('/car/add', [App\Http\Controllers\CarController::class, 'addNewCar'])->name('car.add');
+        Route::post('/car/detail', [App\Http\Controllers\CarController::class, 'carDetail'])->name('car.detail');
+        Route::post('/car/delete', [App\Http\Controllers\CarController::class, 'carDelete'])->name('car.delete');
     });
 });
 

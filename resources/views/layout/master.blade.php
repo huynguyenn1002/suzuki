@@ -25,6 +25,9 @@
 </head>
 
 <body>
+    @php 
+        $user = Auth::guard("admin")->user();
+    @endphp
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
@@ -33,6 +36,7 @@
                 </a>
 
                 <ul class="sidebar-nav">
+                    @if($user->is_admin == 1)
                     <li class="sidebar-header">
                         Quản lý người dùng
                     </li>
@@ -50,6 +54,7 @@
                                 class="align-middle">Danh sách Nhân viên</span>
                         </a>
                     </li>
+                    @endif
 
                     <li class="sidebar-header">
                         Quản lý hợp đồng
@@ -67,6 +72,17 @@
                                 class="align-middle">Tạo hợp đồng</span>
                         </a>
                     </li>
+
+                    <li class="sidebar-header">
+                        Quản lý Xe
+                    </li>
+
+                    <li class="sidebar-item car-list">
+                        <a class="sidebar-link" href="{{ route('car.get') }}">
+                        <i class="fa-solid fa-file-contract"></i> <span class="align-middle">Danh sách các mẫu xe</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </nav>
