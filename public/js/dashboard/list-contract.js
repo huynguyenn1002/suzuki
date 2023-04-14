@@ -5,7 +5,11 @@ jQuery().ready(function () {
         searching: false,
         processing: true,
         serverSide: true,
+        searching: true,
         paging: false,
+        oLanguage: {
+            "sSearch": "Tìm kiếm"
+        },
         ordering: false,
         ajax: {
             url: listContract,

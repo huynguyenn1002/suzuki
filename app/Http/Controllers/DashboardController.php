@@ -127,4 +127,25 @@ class DashboardController extends Controller
 
         return redirect('/admin/profile')->with('success', 'Cập nhật thông tin thành công');
     }
+
+    public function adminGetDistrictInfo(Request $request) {
+        $data = $request->all();
+        $user = Auth::guard('admin')->user();
+
+        $district = DB::table("districts")->select('*')->where("districts.province_id", '=', $data["provinceCode"])->get();
+        $returnView = view("dashboard.admin-get-district")->with(['options' => $district, 'user' => $user])->render();
+        return response()->json(["html" => $returnView, "district_id" => $user->district_id], 200);
+    }
+
+    public function adminGetWardInfo(Request $request) {
+        $data = $request->all();
+        $user = Auth::guard('admin')->user();
+        if (!empty($data["districtCodeDetail"])) {
+            $data["districtCode"] = $data["districtCodeDetail"];
+        }
+
+        $ward = DB::table("wards")->select('*')->where("wards.district_id", '=', $data["districtCode"])->get();
+        $returnView = view("dashboard.admin-get-ward")->with(['options' => $ward, 'user' => $user])->render();
+        return response()->json(["html" => $returnView], 200);
+    }
 }

@@ -96,3 +96,19 @@ $("#carID").on("change", function(e) {
         },
     });
 });
+
+$("#saleName").on("change", function(e) {
+    var saler_id = $("#saleName").val();
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: getSalerPhone,
+        type: "POST",
+        data: {saler_id},
+        success: function(response) {
+            $("#salesPhone").val(response.success.tel);
+        },
+    });
+});

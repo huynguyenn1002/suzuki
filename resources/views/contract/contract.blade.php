@@ -489,7 +489,7 @@
                         </div>
                         <div class="rule-content-child">
                             <p>f, </p><span style="margin-left: 5px">Các biện pháp thực hiện trong tình trạng bất khả
-                                khángBên gặp phải trường hợp Bất Khả
+                                kháng Bên gặp phải trường hợp Bất Khả
                                 Kháng
                                 phải thông báo cho bên kia bằng văn bản trong vòng ba mươi (30) ngày làm việc kể từ ngày
                                 nhận

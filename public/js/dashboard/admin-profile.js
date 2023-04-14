@@ -1,5 +1,5 @@
 $(function () {
-    const url2 = `/admin/get-ward-info/`;
+    const url2 = `/admin/admin-ward-info/`;
     $districtCodeDetail = $("#value_province").val();
 
     $.fn.getWardInfo = function (url2, elm, districtCode, districtCodeDetail) {
@@ -42,20 +42,20 @@ $(function () {
     };
 
     $provinceCode = $("#province").val();
-    let url = `/admin/get-district-info/`;
+    let url = `/admin/admin-district-info/`;
     $.fn.getDistrictInfo(url, $("#district"), $provinceCode, true);
 
     $("#province").on("change", function (e) {
         $provinceCode = $("#province").val();
         e.preventDefault();
-        let url = `/admin/get-district-info/`;
+        let url = `/admin/admin-district-info/`;
         $.fn.getDistrictInfo(url, $("#district"), $provinceCode);
     });
 
     $("#district").on("change", function (e) {
         $districtCode = $("#district").val();
         e.preventDefault();
-        let url2 = `/admin/get-ward-info/`;
+        let url2 = `/admin/admin-ward-info/`;
         $.fn.getWardInfo(url2, $("#ward"), $districtCode);
     });
 });

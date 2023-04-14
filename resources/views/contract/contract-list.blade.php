@@ -12,7 +12,7 @@
                     <h5 class="card-title mb-0">Danh sách hợp đồng</h5>
                 </div>
                 <div class="card-body py-3">
-                    <table class="table text-start align-middle table-bordered table-hover mb-0"
+                    <table class="table text-start align-middle table-bordered table-hover mb-0 mt-5"
                         id="datatable-contract-list">
                         <thead>
                             <tr class="text-dark">

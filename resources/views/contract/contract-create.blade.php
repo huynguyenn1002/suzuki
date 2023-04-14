@@ -93,11 +93,12 @@
                                                 <label for="salesConsultant">
                                                     <h4>Tư vấn Bán hàng</h4>
                                                 </label>
-                                                <input type="text" class="form-control" name="saleName"
-                                                    placeholder="Nhập vào tên Tư vấn Bán hàng..."
-                                                    value="{{ $sale->FirstName . ' ' . $sale->LastName }}">
-                                                <input id="salesConsultant" name="salesConsultant" type="hidden"
-                                                    value="{{ $sale->SaleID }}">
+                                                <select class="form-control" name="saleName" id="saleName">
+                                                    <option value="0">Chọn nhân viên bán hàng</option>
+                                                    @foreach($saler as $s) 
+                                                        <option value="{{ $s->id }}">{{ $s->first_name . ' ' . $s->last_name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div>
                                                 <label for="salesPhone">
@@ -105,7 +106,7 @@
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Số điện thoại..." id="salesPhone"
-                                                    name="salesPhone" value="{{ $sale->Phone }}">
+                                                    name="salesPhone" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -317,6 +318,7 @@
 @section('js')
     <script>
         var getTypeCar = '{{ route('car.type.get') }}';
+        var getSalerPhone = '{{ route('sale.phone.get') }}';
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     <script src="{{ URL::asset('js/dashboard/tab-footer.js') }}"></script>

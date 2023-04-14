@@ -30,9 +30,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/contract/detail', [App\Http\Controllers\ContractController::class, 'contractDetail'])->name('contract.detail');
         Route::post('/contract/contractExport', [App\Http\Controllers\ContractController::class, 'contractExport'])->name('contract.export');
         Route::get('/contract/show/{id}', [App\Http\Controllers\ContractController::class, 'printPreviewContract'])->name('contract.show');
+        Route::post('/get-saler-phone', [App\Http\Controllers\ContractController::class, 'getSalerPhone'])->name('sale.phone.get');
 
-        Route::get('get-district-info/', [App\Http\Controllers\ContractController::class, 'adminGetDistrictInfo'])->name('admin.admin-get-district');
-        Route::get('get-ward-info/', [App\Http\Controllers\ContractController::class, 'adminGetWardInfo'])->name('admin.admin-get-ward');
+        Route::get('get-district-info/', [App\Http\Controllers\ContractController::class, 'contractGetDistrictInfo'])->name('admin.contract-get-district');
+        Route::get('get-ward-info/', [App\Http\Controllers\ContractController::class, 'contractGetWardInfo'])->name('admin.contract-get-ward');
         Route::post('get-type-car/', [App\Http\Controllers\ContractController::class, 'getTypeCar'])->name('car.type.get');
         
         //DashboardController
@@ -43,6 +44,8 @@ Route::prefix('admin')->group(function () {
         Route::post('/user/delete', [App\Http\Controllers\DashboardController::class, 'deleteUser'])->name('user.delete');
         Route::get('/profile', [App\Http\Controllers\DashboardController::class, 'getProfile'])->name('admin.profile');
         Route::post('/profile/update', [App\Http\Controllers\DashboardController::class, 'updateProfile'])->name('admin.profile.update');
+        Route::get('admin-district-info/', [App\Http\Controllers\DashboardController::class, 'adminGetDistrictInfo'])->name('admin.admin-get-district');
+        Route::get('admin-ward-info/', [App\Http\Controllers\DashboardController::class, 'adminGetWardInfo'])->name('admin.admin-get-ward');
 
         //SalerController 
         Route::get('/list/saler', [App\Http\Controllers\SalerController::class, 'getListSaler'])->name('saler.get');

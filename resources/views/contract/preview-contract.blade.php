@@ -77,15 +77,15 @@
                                     <label for="salesConsultant">
                                         <h4>Tư vấn Bán hàng</h4>
                                     </label>
-                                    <input readOnly type="text" class="form-control" value="{{ isset($dataPreview['saleName']) ? $dataPreview['saleName'] : '' }}">
-                                        <input type="hidden" id="salesConsultant" name="salesConsultant" value="{{ isset($dataPreview['salesConsultant']) ? $dataPreview['salesConsultant'] : '' }}">
+                                    <input readOnly type="text" class="form-control" value="{{ isset($saler) ? $saler->first_name.' '.$saler->last_name : '' }}">
+                                        <input type="hidden" id="salesConsultant" name="salesConsultant" value="{{ isset($dataPreview['saleName']) ? $dataPreview['saleName'] : '' }}">
                                 </div>
                                 <div>
                                     <label for="salesPhone">
                                         <h4>Số điện thoại</h4>
                                     </label>
                                     <input readOnly type="text" class="form-control" id="salesPhone" name="salesPhone"
-                                        value="{{ isset($dataPreview['salesPhone']) ? $dataPreview['salesPhone'] : '' }}">
+                                        value="{{ isset($saler) ? $saler->tel : '' }}">
                                 </div>
                             </div>
                         </div>

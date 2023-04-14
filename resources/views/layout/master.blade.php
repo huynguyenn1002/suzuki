@@ -31,7 +31,7 @@
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
-                <a class="sidebar-brand" href="index.html">
+                <a class="sidebar-brand" href="{{ route('user.get') }}">
                     <span class="align-middle">Suzuki Hoàng Hiền</span>
                 </a>
 
@@ -50,7 +50,7 @@
 
                     <li class="sidebar-item saler-list">
                         <a class="sidebar-link" href="{{ route('saler.get') }}">
-                            <i class="fa-regular fa-user"></i> <span
+                            <i class="fa-sharp fa-solid fa-user"></i> <span
                                 class="align-middle">Danh sách Nhân viên</span>
                         </a>
                     </li>
@@ -79,7 +79,7 @@
 
                     <li class="sidebar-item car-list">
                         <a class="sidebar-link" href="{{ route('car.get') }}">
-                        <i class="fa-solid fa-file-contract"></i> <span class="align-middle">Danh sách các mẫu xe</span>
+                        <i class="fa-solid fa-car"></i> <span class="align-middle">Danh sách các mẫu xe</span>
                         </a>
                     </li>
 
@@ -103,8 +103,7 @@
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                                 data-bs-toggle="dropdown">
-                                <img src="" class="avatar img-fluid rounded me-1"
-                                    alt="Charles Hall" /> <span class="text-dark">abc</span>
+                                <img src="{{ asset('/images/default.jpeg') }}" class="avatar img-fluid rounded me-1" /> <span class="text-dark">abc</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="align-middle me-1"

@@ -10,7 +10,7 @@
             <div>
                 <button id="back_btn" class="btn btn-link" type="button">Quay lại</button>
                 <a href="{{ route('contract.show', $contractDetail->id) }}" class="btn btn-info">Xem hợp đồng</a>
-                <button class="btn btn-primary" id="back_edit">Chỉnh sửa hợp đồng</button>
+                <button class="btn btn-primary" id="btnUpdate">Chỉnh sửa hợp đồng</button>
                 <!-- <form method="POST" action="{{ route('contract.export') }}" target="__blank">
                         <input type="hidden" name="contractID" value="{{ $contractDetail->id }}">
                         @csrf
@@ -25,7 +25,7 @@
                 <div class="card flex-fill w-100">
                     <div class="card-header list-title">
                         <h2 class="card-title mb-0">Thông tin hợp đồng</h2>
-                        <button type="submit">update</button>
+                        <button style="display: none" type="submit" id="btnUpdateSubmit" class="btn btn-outline-primary">Cập nhật</button>
                     </div>
                     <div class="card-body py-3">
                         <div class="row">
@@ -47,7 +47,7 @@
                                                         name="headerContract" value="{{ $contractHeader }}">
                                                 </span>
                                             </div>
-                                            <input type="text" required class="form-control"
+                                            <input readOnly type="text" required class="form-control"
                                                 placeholder="Nhập vào Số hợp đồng..." id="contractNum"
                                                 name="contractNum" id="contractNum" aria-describedby="header-cont" value="{{ $contractNum }}">
                                             <input type="hidden" id="contractID" value="{{ $contractDetail->id }}">
@@ -58,7 +58,7 @@
                                     <label for="contractType">
                                         <h4>Loại hợp đồng</h4>
                                     </label>
-                                    <select class="form-control" name="contractType" id="contractType">
+                                    <select readOnly class="form-control" name="contractType" id="contractType">
                                         <option value="0">Loại hợp đồng</option>
                                         @if($contractDetail->contract_type == 1)
                                             <option value="1" selected>Trả thẳng</option>
@@ -73,7 +73,7 @@
                                     <label for="customerType">
                                         <h4>Kiểu hợp đồng</h4>
                                     </label>
-                                    <select class="form-control" name="customerType" id="customerType">
+                                    <select readOnly class="form-control" name="customerType" id="customerType">
                                         <option value="0">Loại khách hàng</option>
                                         @if($contractDetail->contract_type == 1)
                                             <option value="1" selected>Cá nhân</option>
@@ -90,25 +90,30 @@
                                     <label for="contractSignDate">
                                         <h4>Ngày ký hợp đồng</h4>
                                     </label>
-                                    <input type="date" class="form-control" id="contractSignDate"
+                                    <input readOnly type="date" class="form-control" id="contractSignDate"
                                         name="contractSignDate" value="{{ $contractDetail->contract_sign_date }}">
                                 </div>
                                 <div>
                                     <label for="salesConsultant">
                                         <h4>Tư vấn Bán hàng</h4>
                                     </label>
-                                    <input type="text" class="form-control" name="saleName"
-                                        placeholder="Nhập vào tên Tư vấn Bán hàng..."
-                                        value="{{ $sale->FirstName . ' ' . $sale->LastName }}">
-                                    <input id="salesConsultant" name="salesConsultant" type="hidden"
-                                        value="{{ $sale->SaleID }}">
+                                        <select readOnly class="form-control" name="saleName" id="saleName">
+                                            <option value="0">Chọn nhân viên bán hàng</option>
+                                            @foreach($salers as $s) 
+                                                <option value="{{ $s->id }}"
+                                                @if(isset($contractDetail) && $contractDetail->admin_id == $s->id)
+                                                    selected="selected"
+                                                @endif
+                                                >{{ $s->first_name . ' ' . $s->last_name }}</option>
+                                            @endforeach
+                                        </select>
                                 </div>
                                 <div>
                                     <label for="salesPhone">
                                         <h4>Số điện thoại</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào Số điện thoại..."
-                                        id="salesPhone" name="salesPhone" value="{{ $sale->Phone }}">
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào Số điện thoại..."
+                                        id="salesPhone" name="salesPhone" value="{{ $saler->tel }}">
                                 </div>
                             </div>
                         </div>
@@ -128,14 +133,14 @@
                                     <label for="customerName">
                                         <h4>Tên khách hàng</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào Tên khách hàng..."
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào Tên khách hàng..."
                                         id="customerName" name="customerName" value="{{ $contractDetail->customer_name }}">
                                 </div>
                                 <div>
                                     <label for="customerGender">
                                         <h4>Giới tính</h4>
                                     </label>
-                                    <select name="customerGender" id="customerGender" class="form-control">
+                                    <select readOnly name="customerGender" id="customerGender" class="form-control">
                                         <option value="0">Chọn giới tính</option>
                                         @if($contractDetail->contract_type == 1)
                                             <option value="1" selected>Nam</option>
@@ -156,14 +161,14 @@
                                     <label for="customerBirthday">
                                         <h4>Ngày sinh</h4>
                                     </label>
-                                    <input type="date" class="form-control" id="customerBirthday"
+                                    <input readOnly type="date" class="form-control" id="customerBirthday"
                                         name="customerBirthday" value="{{ $contractDetail->customer_birthday }}">
                                 </div>
                                 <div>
-                                    <label for="customerAddress">
+                                    <label for="province">
                                         <h4>Địa chỉ</h4>
                                     </label>
-                                    <select name="province" id="province" class="form-control" placeholder="Tỉnh/Thành"
+                                    <select readOnly name="province" id="province" class="form-control" placeholder="Tỉnh/Thành"
                                         data-type="province">
                                         <option value="">Tỉnh/Thành phố</option>
                                         @foreach ($provinces as $province)
@@ -174,8 +179,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="customerPhone"></label>
-                                    <select name="district" id="district" class="form-control" placeholder="Quận/Huyện"
+                                    <label for="district"></label>
+                                    <select readOnly name="district" id="district" class="form-control" placeholder="Quận/Huyện"
                                         data-type="district">
                                         <option value="">Quận/Huyện</option>
                                     </select>
@@ -183,15 +188,15 @@
                                     <input type="hidden" id="value_district" value="{{ $contractDetail->district_id }}">
                                 </div>
                                 <div>
-                                    <label for="customerPhone"></label>
-                                    <select name="ward" id="ward" class="form-control" placeholder="Phường/Xã">
+                                    <label for="ward"></label>
+                                    <select readOnly name="ward" id="ward" class="form-control" placeholder="Phường/Xã">
                                         <option value="">Phường/Xã</option>
                                     </select>
                                     <input type="hidden" id="old_value_ward" value="{{ old('ward') }}">
                                 </div>
                                 <div>
-                                    <label for="customerPhone"></label>
-                                    <input name="address" class="form-control" placeholder="Đường/Số nhà"
+                                    <label for="address"></label>
+                                    <input readOnly name="address" id="address" class="form-control" placeholder="Đường/Số nhà"
                                         value="{{ $contractDetail->address }}" />
                                 </div>
                             </div>
@@ -200,35 +205,35 @@
                                     <label for="customerPhone">
                                         <h4>Số điện thoại</h4>
                                     </label>
-                                    <input type="text" class="form-control" id="customerPhone"
+                                    <input readOnly type="text" class="form-control" id="customerPhone"
                                         placeholder="Nhập vào Số điện thoại..." name="customerPhone" value="{{ $contractDetail->customer_phone }}">
                                 </div>
                                 <div>
                                     <label for="customerIDCard">
                                         <h4>CMT/CCCD</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào CMT/CCCD..."
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào CMT/CCCD..."
                                         id="customerIDCard" name="customerIDCard" value="{{ $contractDetail->customer_id_card }}">
                                 </div>
                                 <div>
                                     <label for="icCardDateRegister">
                                         <h4>Ngày cấp</h4>
                                     </label>
-                                    <input type="date" class="form-control" placeholder="Nhập vào Số điện thoại..."
+                                    <input readOnly type="date" class="form-control" placeholder="Nhập vào Số điện thoại..."
                                         id="icCardDateRegister" name="icCardDateRegister" value="{{ $contractDetail->customer_id_card_register }}">
                                 </div>
                                 <div>
                                     <label for="issuedBy">
                                         <h4>Nơi cấp</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào Nơi cấp CMT/CCCD..."
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào Nơi cấp CMT/CCCD..."
                                         id="issuedBy" name="issuedBy" value="{{ $contractDetail->issued_by }}">
                                 </div>
                                 <div>
                                     <label for="mailAddress">
                                         <h4>Địa chỉ Email</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào Địa chỉ Email..."
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào Địa chỉ Email..."
                                         id="mailAddress" name="mailAddress" value="{{ $contractDetail->mail_address }}">
                                 </div>
                             </div>
@@ -248,7 +253,7 @@
                                     <label for="carID">
                                         <h4>Tên hiệu xe</h4>
                                     </label>
-                                    <select name="carID" id="carID" class="form-control">
+                                    <select readOnly name="carID" id="carID" class="form-control">
                                         <option value="0">Chọn loại xe</option>
                                         @foreach ($car as $c)
                                         <option value="{{ $c->id }}"
@@ -263,7 +268,7 @@
                                     <label for="carType">
                                         <h4>Loại xe</h4>
                                     </label>
-                                    <select class="form-control" name="carType" id="carType">
+                                    <select readOnly class="form-control" name="carType" id="carType">
                                         <option value="0">Vui lòng lựa chọn</option>
                                         @if($contractDetail->car_type == 1)
                                             <option value="1" selected>Nhập khẩu nguyên chiếc</option>
@@ -278,21 +283,21 @@
                                     <label for="carColor">
                                         <h4>Màu xe</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào Màu xe..."
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào Màu xe..."
                                         id="carColor" name="carColor" value="{{ $contractDetail->car_color }}">
                                 </div>
                                 <div>
                                     <label for="noticePrice">
                                         <h4>Giá thông báo (VNĐ)</h4>
                                     </label>
-                                    <input type="text" class="form-control" id="noticePrice"
+                                    <input readOnly type="text" class="form-control" id="noticePrice"
                                         placeholder="Nhập vào Giá thông báo..." name="noticePrice" value="{{ number_format($contractDetail->notice_price, 0, '', ',') }}">
                                 </div>
                                 <div>
                                     <label for="realPrice">
                                         <h4>Giá thực tế (VNĐ)</h4>
                                     </label>
-                                    <input type="text" class="form-control" id="realPrice"
+                                    <input readOnly type="text" class="form-control" id="realPrice"
                                         placeholder="Nhập vào Giá thực tế..." name="realPrice" value="{{ number_format($contractDetail->real_price, 0, '', ',') }}">
                                 </div>
                             </div>
@@ -301,27 +306,27 @@
                                     <label for="amount">
                                         <h4>Số lượng</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào Số lượng..."
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào Số lượng..."
                                         id="amount" name="amount" value="{{ $contractDetail->amount }}">
                                 </div>
                                 <div>
                                     <label for="deposit">
                                         <h4>Tiền cọc (VNĐ)</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào Tiền cọc..."
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào Tiền cọc..."
                                         id="deposit" name="deposit" value="{{ number_format($contractDetail->deposit, 0, '', ',') }}">
                                 </div>
                                 <div>
                                     <label for="carDeliveryTime">
                                         <h4>Thời gian giao xe</h4>
                                     </label>
-                                    <input type="date" class="form-control" id="carDeliveryTime" name="carDeliveryTime" value="{{ $contractDetail->car_delivery_time }}">
+                                    <input readOnly type="date" class="form-control" id="carDeliveryTime" name="carDeliveryTime" value="{{ $contractDetail->car_delivery_time }}">
                                 </div>
                                 <div>
                                     <label for="promotionalContent">
                                         <h4>Nội dung khuyến mại</h4>
                                     </label>
-                                    <input type="text" class="form-control"
+                                    <input readOnly type="text" class="form-control"
                                         placeholder="Nhập vào Nội dung khuyến mại..." id="promotionalContent"
                                         name="promotionalContent" value="{{ $contractDetail->promotion }}">
                                 </div>
@@ -329,7 +334,7 @@
                                     <label for="gift">
                                         <h4>Quà tặng</h4>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Nhập vào Quà tặng..." id="gift"
+                                    <input readOnly type="text" class="form-control" placeholder="Nhập vào Quà tặng..." id="gift"
                                         name="gift" value="{{ $contractDetail->gift }}">
                                 </div>
                             </div>
@@ -338,10 +343,6 @@
                 </div>
             </div>
         </form>
-    </div>
-
-    <div class="row">
-
     </div>
 </main>
 @endsection
@@ -355,14 +356,15 @@ $("#back_btn").click(function() {
     window.history.back();
 });
 
-var allInputs = $(":input");
-
-$("#back_edit").on("click", function() {
-    allInputs.attr("readonly", false)
+$("#btnUpdate").on("click", function() {
+    $("#contractNum, #contractType, #customerType, #contractSignDate, #saleName, #customerName, #customerGender, #customerBirthday, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carID, #carType, #carColor, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent").attr("readonly", false)
+    $("#btnUpdateSubmit").show();
 });
 </script>
 <script>
 var listContract = '{{ route('contract.list.get') }}';
+var getSalerPhone = '{{ route('sale.phone.get') }}';
+
 </script>
 <script src="{{ URL::asset('js/dashboard/contract-detail.js') }}"></script>
 @endsection

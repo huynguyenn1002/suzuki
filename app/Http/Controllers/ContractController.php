@@ -9,6 +9,8 @@ use Validator;
 use Yajra\DataTables\DataTables;
 use App\Models\AdminInfo;
 use App\Models\Contract;
+use App\Models\Car;
+use App\Models\Saler;
 use PDF;
 
 class ContractController extends Controller
@@ -29,41 +31,42 @@ class ContractController extends Controller
             'contract.contract_type as contractType',
             'contract.contract_sign_date as contractSignDate',
             'contract.customer_name as cusName',
-            'admin_info.first_name as FirstName',
-            'admin_info.last_name as LastName',
+            'saler.first_name as FirstName',
+            'saler.last_name as LastName',
         )
-        ->leftJoin("admin", "admin.id", "=", "contract.admin_id")
-        ->leftJoin("admin_info", "admin_info.admin_ID", "=", "admin.id")
-        ->get();
+        ->leftJoin("saler", "saler.id", "=", "contract.admin_id")
+
+       ->get();
 
         return DataTables::of($contract)
         ->editColumn('saleName', function ($contract)
         {
             return $contract->FirstName.' '.$contract->LastName;
         })
+        ->editColumn('contractType', function ($contract)
+        {
+            if($contract->contractType == 1) {
+                return "Trả thẳng";
+            } else if ($contract->contractType == 2) {
+                return "Trả góp";
+            }
+        })
         ->make(true);
     }
-
 
     public function getContractForm()
     {
         $provinces = \Kjmtrue\VietnamZone\Models\Province::get();
         $districts = \Kjmtrue\VietnamZone\Models\District::get();
         $wards = \Kjmtrue\VietnamZone\Models\Ward::get();
-        $car = DB::table("suzuki_car")->get();
+        $car = Car::all();
+        $saler = Saler::all();
         $checkUserLogin = Auth::guard("admin")->user();
 
-        $sale = AdminInfo::select(
-            'admin_info.admin_ID as SaleID',
-            'admin_info.first_name as FirstName',
-            'admin_info.last_name as LastName',
-            'admin_info.tel as Phone',
-        )->where("admin_info.admin_ID", $checkUserLogin->id)->first();
-
-        return view("contract.contract-create", compact('sale', 'provinces', 'districts', 'wards', 'car'));
+        return view("contract.contract-create", compact('saler', 'provinces', 'districts', 'wards', 'car'));
     }
 
-    public function adminGetDistrictInfo(Request $request) {
+    public function contractGetDistrictInfo(Request $request) {
         $data = $request->all();
         if (!empty($data["idContract"])) {
             $contractDetail = Contract::where("id", $data["idContract"])->first();
@@ -77,11 +80,11 @@ class ContractController extends Controller
         $user = Auth::guard('admin')->user();
 
         $district = DB::table("districts")->select('*')->where("districts.province_id", '=', $data["provinceCode"])->get();
-        $returnView = view("contract.admin-get-district")->with(['contract' => $contractDetail,'options' => $district, 'user' => $user])->render();
+        $returnView = view("contract.contract-get-district")->with(['contract' => $contractDetail,'options' => $district])->render();
         return response()->json(["html" => $returnView, "district_id" => $user->district_id], 200);
     }
 
-    public function adminGetWardInfo(Request $request) {
+    public function contractGetWardInfo(Request $request) {
         $data = $request->all();
         $user = Auth::guard('admin')->user();
         if (!empty($data["districtCodeDetail"])) {
@@ -95,7 +98,7 @@ class ContractController extends Controller
         }
 
         $ward = DB::table("wards")->select('*')->where("wards.district_id", '=', $data["districtCode"])->get();
-        $returnView = view("contract.admin-get-ward")->with(['contract' => $contractDetail, 'options' => $ward, 'user' => $user])->render();
+        $returnView = view("contract.contract-get-ward")->with(['contract' => $contractDetail, 'options' => $ward])->render();
         return response()->json(["html" => $returnView], 200);
     }
 
@@ -106,6 +109,35 @@ class ContractController extends Controller
         $price = number_format($type->price, 0, '', ',');
 
         return response()->json(['success'=>$type, 'price'=>$price]);
+    }
+
+    public function getSalerPhone(Request $request) {
+        $phone = Saler::where("id", $request->saler_id)->first();
+
+        return response()->json(['success'=>$phone]);
+    }
+
+    public function previewContract(Request $request) {
+        $province_id = explode('.', $request->province)[0];
+        $district_id = explode('.', $request->district)[0];
+        $ward_id = explode('.', $request->ward)[0];
+
+        $province = \Kjmtrue\VietnamZone\Models\Province::where("provinces.id", $province_id)->first();
+        $district = \Kjmtrue\VietnamZone\Models\District::where("districts.id", $district_id)->first();
+        $ward = \Kjmtrue\VietnamZone\Models\Ward::where("wards.id", $ward_id)->first();
+        $car = Car::where("id", $request->carID)->first();
+        $saler = Saler::where("id", $request->saleName)->first();
+
+        $validator = Validator::make($request->all(), [
+            'contractNum' => 'string|max:45|unique:contract,contract_num',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $dataPreview = $request->all();
+
+        return view("contract.preview-contract", compact('dataPreview', 'province', 'district', 'ward', 'car', 'saler'));
     }
 
     public function createContract(Request $request) {
@@ -248,7 +280,7 @@ class ContractController extends Controller
                 'contract_type' => $request->contractType, 
                 'customer_type' => $request->customerType,
                 'contract_sign_date' => $request->contractSignDate,
-                'admin_id' => $request->salesConsultant,
+                'admin_id' => $request->saleName,
                 'customer_name' => $request->customerName,
                 'customer_gender' => $request->customerGender,
                 'customer_birthday' => $request->customerBirthday,
@@ -281,48 +313,18 @@ class ContractController extends Controller
         return redirect()->route('contract.list.get')->with('success', 'Cập nhật thông tin thành công');
     }
 
-    public function previewContract(Request $request) {
-        // dd($request->all());
-        $province_id = explode('.', $request->province)[0];
-        $district_id = explode('.', $request->district)[0];
-        $ward_id = explode('.', $request->ward)[0];
-
-        $province = \Kjmtrue\VietnamZone\Models\Province::where("provinces.id", $province_id)->first();
-        $district = \Kjmtrue\VietnamZone\Models\District::where("districts.id", $district_id)->first();
-        $ward = \Kjmtrue\VietnamZone\Models\Ward::where("wards.id", $ward_id)->first();
-        $car = DB::table("suzuki_car")->where("suzuki_car.id", $request->carID)->first();
-
-        $validator = Validator::make($request->all(), [
-            'contractNum' => 'string|max:45|unique:contract,contract_num',
-        ]);
-
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-        $dataPreview = $request->all();
-
-        return view("contract.preview-contract", compact('dataPreview', 'province', 'district', 'ward', 'car'));
-    }
-
     public function contractDetail(Request $request) {
         $contractID = $request->get('contractID');
         $contractDetail = Contract::where("id", $contractID)->first();
-        // dd($contractDetail);
 
         $provinces = \Kjmtrue\VietnamZone\Models\Province::get();
         $districts = \Kjmtrue\VietnamZone\Models\District::get();
         $wards = \Kjmtrue\VietnamZone\Models\Ward::get();
-        $car = DB::table("suzuki_car")->get();
-        $sale = AdminInfo::select(
-            'admin_info.admin_ID as SaleID',
-            'admin_info.first_name as FirstName',
-            'admin_info.last_name as LastName',
-            'admin_info.tel as Phone',
-        )->where("admin_info.admin_ID", $contractDetail->admin_id)->first();
+        $car = Car::all();
+        $salers = Saler::all();
+        $saler = Saler::where("id", $contractDetail->admin_id)->first();
 
-        // dd($contractDetail);
-
-        return view("contract.contract-detail", compact('contractDetail', 'provinces', 'districts', 'wards', 'car', 'sale'));
+        return view("contract.contract-detail", compact('contractDetail', 'provinces', 'districts', 'wards', 'car', 'salers', 'saler'));
     }
 
     public function contractExport(Request $request) 
@@ -346,7 +348,7 @@ class ContractController extends Controller
         $depositAmount = $this->convert_number_to_words($contract->deposit);
 
         $contract = Contract::where("id", $id)->first();
-        $saler = AdminInfo::where("id", $contract->admin_id)->first();
+        $saler = Saler::where("id", $contract->admin_id)->first();
         $car = DB::table("suzuki_car")->where("id", $contract->car_id)->first();
 
         return view('contract.contract', compact('contract', 'saler', 'car', 'noticePrice', 'realPrice', 'depositAmount'));
