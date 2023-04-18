@@ -9,6 +9,8 @@ class AdminInfo extends Model
 {
     use HasFactory;
 
+    protected $table = "admin_info";
+
     public $timestamps = true;
 
     protected $fillable = [
@@ -24,4 +26,5 @@ class AdminInfo extends Model
         'ward_name',
         'address',
     ];
+
 }

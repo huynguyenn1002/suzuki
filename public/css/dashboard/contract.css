@@ -1,0 +1,187 @@
+@page {
+    size: A4;
+    margin: 0;
+}
+
+.main {
+    font-size: 14px;
+    width: 50%;
+    margin: auto;
+}
+
+p {
+    margin: 0;
+}
+
+.contract-table,
+.contract-table th,
+.contract-table td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.logo {
+    width: 20rem;
+}
+
+.contract-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.fisrt-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fisrt-body-title {
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.contract-table {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.law-content {
+    margin: 10px 0;
+}
+
+.table-info {
+    width: 100%;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.left-info {
+    width: 40%;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-content {
+    margin: 10px 0;
+}
+
+.right-content {
+    width: 35rem;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.contact-info-first,
+.contact-info-second {
+    margin-right: 15px;
+}
+
+.before-rules {
+    text-align: center;
+}
+
+.first-rule-title,
+.second-rule-title,
+.third-rule-title,
+.fouth-rule-title,
+.fifth-rule-title,
+.sixth-rule-title,
+.seventh-rule-title,
+.eighth-rule-title,
+.ninth-rule-title {
+    margin: 10px 0;
+}
+
+.contract-detail-table {
+    border: 1px solid black;
+    border-collapse: unset;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.contract-detail-table th,
+.contract-detail-table td {
+    border: 1px solid black;
+    border-collapse: unset;
+    text-align: center;
+}
+
+.explain {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.second-rule-content,
+.third-rule-content,
+.fouth-rule-content,
+.fifth-rule-content,
+.sixth-rule-content,
+.seventh-rule-content,
+.eighth-rule-content {
+    margin-left: 30px;
+}
+
+.ninth-rule-content {
+    margin-left: 40px;
+}
+
+.sign-area {
+    margin: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rule-not-has-child, .rule-content-child {
+    display: flex;
+}
+
+.btn-back {
+    height: 2rem;
+    border: 1px solid white;
+    background: white;
+    color: #3b7ddd;
+    cursor: pointer;
+}
+
+.btn-print {
+    border-radius: 0.2rem;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.3rem 0.85rem;
+    text-align: center;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    user-select: none;
+    vertical-align: middle;
+    height: 2rem;
+    border: 1px solid #28a745;
+    background: #28a745;
+}
+
+@media print{
+    @page{
+        margin: 20px;
+        size:a4;
+    }
+
+    .no-print {
+        display: none;
+    }
+    
+    .main {
+        width: 100%;
+    }
+}

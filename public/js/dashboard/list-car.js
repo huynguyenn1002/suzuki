@@ -1,6 +1,6 @@
 var table;
 jQuery().ready(function () {
-    table = $("#datatable-user-list").DataTable({
+    table = $("#datatable-car-list").DataTable({
         className: "details-control",
         searching: false,
         processing: true,
@@ -8,17 +8,17 @@ jQuery().ready(function () {
         paging: false,
         ordering: false,
         ajax: {
-            url: listUser,
+            url: listCar,
         },
         columns: [
             {
-                data: "Name",
+                data: "carName",
             },
             {
-                data: "Phone",
+                data: "Price",
             },
             {
-                data: "Email",
+                data: "Type",
             },
             {
                 data: "",
@@ -42,39 +42,39 @@ function showDetail(id) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: userDetail,
+        url: carDetail,
         type: "POST",
         data: {id},
         dataType: "json",
         success: function (response) {
             console.log(response);
-            $("#first_name").val(response.userDetail?.first_name);
-            $("#last_name").val(response.userDetail?.last_name);
-            $("#tel").val(response.userDetail?.tel);
-            $("#citizen_identification").val(response.userDetail?.citizen_identification);
-            $("#province_name").val(response.userDetail?.province_name);
-            $("#district_name").val(response.userDetail?.district_name);
-            $("#ward_name").val(response.userDetail?.ward_name);
-            $("#address").val(response.userDetail?.address);
-            $("#emailDetail").val(response.admin.email);
-            $("#userID").val(response.admin.id);
+            var price = response.carDetail.price
+            var price = price?.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            $("#carName").val(response.carDetail.car_name);
+            $("#price").val(price);
+            $("#type").val(response.carDetail.type);
+            $("#carID").val(response.carDetail.id);
+            $("#submit").html('Chỉnh sửa');
         },
     });
-    $("#modalUserDetail").show();
+
+    $("#modalCarDetail").show();
 }
 
-function addNewUser() {
+function addNew() {
     $("#submit").click(function () {
-        var name = $("#email").val();
-        var password = $("#password").val();
+        var carName = $("#carName").val();
+        var price = $("#price").val();
+        var type = $("#type").val();
 
         var dataRegister = {
-            name: name,
-            password: password
+            carName: carName,
+            price: price,
+            type: type
         }
 
         $.ajax({
-            url: addNewUser,
+            url: addNewCar,
             type: "POST",
             data: dataRegister,
             dataType: "json",
@@ -90,7 +90,7 @@ function deleteItem(id) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: deleteUser,
+        url: deleteCar,
         type: "POST",
         data: {id},
         dataType: "json",
@@ -100,34 +100,25 @@ function deleteItem(id) {
     });
 }
 
-$("#submitEdit").click(function () {
-    var userID = $("#userID").val();
-    var newPassword = $("#passwordEdit").val();
-
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: updateUser,
-        type: "POST",
-        data: {userID, newPassword},
-        dataType: "json",
-        success: function (success) {
-            window.location.reload(true);
-        },
+$('#price').on('change click keyup input paste',(function (event) {
+    $(this).val(function (index, value) {
+        return value.replace(/(?!\.)\D/g, "").replace(/(?<=\..*)\./g, "").replace(/(?<=\.\d\d).*/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     });
-});
+}));
+
+$("nav#sidebar li.sidebar-item").removeClass("active");
+$("nav#sidebar li.car-list").addClass("active");
 
 $("#myBtn").on("click", function() {
-    $("#myModal").show();
+    $("#modalCarDetail").show();
 })
 
 $("#close-register-modal").on("click", function() {
-    $("#myModal").hide();
+    $("#modalCarDetail").hide();
 })
 
-$("#close-modal, #close-detail-modal").on("click", function() {
-    $("#modalUserDetail").hide();
+$("#closeBtn").on("click", function() {
+    $("#modalCarDetail").hide();
 })
 
 $("#auto-generate-password").on("click", function() {

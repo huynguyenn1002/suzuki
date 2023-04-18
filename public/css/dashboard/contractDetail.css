@@ -1,0 +1,30 @@
+h4 {
+    margin: 1rem 0 1rem 0;
+    font-weight: 600;
+}
+
+.card-title {
+    color: #939ba2;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.list-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-body input, .card-body select, #header-cont {
+    height: 40px;
+}
+
+#header-cont {
+    height: 40px;
+}
+
+.header-contract-num {
+    height: 35px !important;
+    width: 90px;
+    margin-right: 5px;
+    border: 1px solid #e9ecef;
+}
