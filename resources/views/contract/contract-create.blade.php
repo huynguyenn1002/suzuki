@@ -130,7 +130,7 @@
                                                     placeholder="Nhập vào Tên khách hàng..." id="customerName"
                                                     name="customerName">
                                             </div>
-                                            <div>
+                                            <div id="gender-area">
                                                 <label for="customerGender">
                                                     <h4>Giới tính</h4>
                                                 </label>
@@ -141,7 +141,28 @@
                                                     <option value="3">Khác</option>
                                                 </select>
                                             </div>
-                                            <div>
+                                            <div id="representative-area">
+                                                <label for="representative">
+                                                    <h4>Người đại diện</h4>
+                                                </label>
+                                                <input type="text" class="form-control" id="representative"
+                                                    name="representative" placeholder="Nhập vào Người đại diện...">
+                                            </div>
+                                            <div id="position-area">
+                                                <label for="position">
+                                                    <h4>Chức vụ</h4>
+                                                </label>
+                                               <input type="text" class="form-control" id="position"
+                                                    name="position" placeholder="Nhập vào Chức vụ...">
+                                            </div>
+                                            <div id="tax-area">
+                                                <label for="taxCode">
+                                                    <h4>Mã số thuế</h4>
+                                                </label>
+                                                <input type="text" class="form-control" id="taxCode"
+                                                    name="taxCode" placeholder="Nhập vào Mã số thuế...">
+                                            </div>
+                                            <div id="birthday-area">
                                                 <label for="customerBirthday">
                                                     <h4>Ngày sinh</h4>
                                                 </label>
@@ -193,7 +214,7 @@
                                                 <input type="text" class="form-control" id="customerPhone"
                                                     placeholder="Nhập vào Số điện thoại..." name="customerPhone">
                                             </div>
-                                            <div>
+                                            <div id="customerIDCard-area">
                                                 <label for="customerIDCard">
                                                     <h4>CMT/CCCD</h4>
                                                 </label>
@@ -201,7 +222,7 @@
                                                     placeholder="Nhập vào CMT/CCCD..." id="customerIDCard"
                                                     name="customerIDCard">
                                             </div>
-                                            <div>
+                                            <div id="icCardDateRegister-area">
                                                 <label for="icCardDateRegister">
                                                     <h4>Ngày cấp</h4>
                                                 </label>
@@ -209,7 +230,7 @@
                                                     placeholder="Nhập vào Số điện thoại..." id="icCardDateRegister"
                                                     name="icCardDateRegister">
                                             </div>
-                                            <div>
+                                            <div id="issuedBy-area">
                                                 <label for="issuedBy">
                                                     <h4>Nơi cấp</h4>
                                                 </label>
@@ -336,6 +357,29 @@
             var contractNum =  $("#contractNum").val();
             var checkContractNum = contractHeader + contractNum
             $("#checkContractNum").val(checkContractNum);
+        })
+
+        $("#customerType").on("change", function() {
+            var type = $("#customerType").find(":selected").val();
+            if (type == 1) {
+                $("#representative-area").hide();
+                $("#position-area").hide();
+                $("#tax-area").hide();
+                $("#gender-area").show();
+                $("#birthday-area").show();
+                $("#customerIDCard-area").show();
+                $("#icCardDateRegister-area").show();
+                $("#issuedBy-area").show();
+            } else {
+                $("#gender-area").hide();
+                $("#birthday-area").hide();
+                $("#customerIDCard-area").hide();
+                $("#icCardDateRegister-area").hide();
+                $("#issuedBy-area").hide();
+                $("#representative-area").show();
+                $("#position-area").show();
+                $("#tax-area").show();
+            }
         })
     </script>
 @endsection

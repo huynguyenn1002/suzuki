@@ -173,7 +173,7 @@ p {
 
 @media print{
     @page{
-        margin: 20px;
+        margin: 75px 56px 75px 75px;
         size:a4;
     }
 

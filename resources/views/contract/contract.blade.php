@@ -119,11 +119,13 @@
                     @elseif($contract->customer_type == 2)
                     <tr>
                         <th scope="row">Mã số thuế</th>
-                        <td></td>
+                        <td>{{ $contract->tax_code}}</td>
                     </tr>
                     <tr>
                         <th scope="row"><b>Đại diện</b></th>
-                        <td></td>
+                        <td>
+                            <b>{{ $contract->representative}}　　 Chức vụ: {{ $contract->position}}</b> 
+                        </td>
                     </tr>
                     @endif
                 </tbody>
