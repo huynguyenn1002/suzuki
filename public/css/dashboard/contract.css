@@ -59,7 +59,7 @@ p {
 }
 
 .left-info {
-    width: 40%;
+    width: 30%;
 }
 
 .info {
@@ -183,5 +183,6 @@ p {
     
     .main {
         width: 100%;
+        text-align: justify;
     }
 }

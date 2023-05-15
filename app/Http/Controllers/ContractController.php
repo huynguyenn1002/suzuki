@@ -118,6 +118,17 @@ class ContractController extends Controller
     }
 
     public function previewContract(Request $request) {
+        $rule = [
+            'checkContractNum' => 'string|max:45|unique:contract,contract_num',
+        ];
+
+        $messages = ['checkContractNum.unique' => 'Số hợp đồng đã tồn tại trong hệ thống'];
+
+        $validator = Validator::make($request->all(), $rule, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        };
+
         $province_id = explode('.', $request->province)[0];
         $district_id = explode('.', $request->district)[0];
         $ward_id = explode('.', $request->ward)[0];
@@ -128,13 +139,6 @@ class ContractController extends Controller
         $car = Car::where("id", $request->carID)->first();
         $saler = Saler::where("id", $request->saleName)->first();
 
-        $validator = Validator::make($request->all(), [
-            'contractNum' => 'string|max:45|unique:contract,contract_num',
-        ]);
-
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
         $dataPreview = $request->all();
 
         return view("contract.preview-contract", compact('dataPreview', 'province', 'district', 'ward', 'car', 'saler'));

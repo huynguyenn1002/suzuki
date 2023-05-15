@@ -76,3 +76,20 @@ $("#saleName").on("change", function(e) {
         },
     });
 });
+
+$("#carID").on("change", function(e) {
+    var car_id = $("#carID").val();
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: getTypeCar,
+        type: "POST",
+        data: {car_id},
+        success: function(response) {
+            $("#carType").val(response.success.type);
+            $("#noticePrice").val(response.price);
+        },
+    });
+});
