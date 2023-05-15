@@ -14,6 +14,13 @@
                             <h5 class="card-title mb-0">Tạo hợp đồng mới</h5>
                             <button class="create-button" type="submit">Tạo</button>
                         </div>
+                        @if (isset($errors) && $errors->any())
+                            <div style="text-align: center; color: red; font-size: 20px">
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                            </div>
+                        @endif 
                         <div class="card-body py-3">
                             <!-- Tabs navs -->
                             <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
@@ -60,6 +67,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="checkContractNum" id="checkContractNum">
                                             <div>
                                                 <label for="contractType">
                                                     <h4>Loại hợp đồng</h4>
@@ -322,4 +330,12 @@
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     <script src="{{ URL::asset('js/dashboard/tab-footer.js') }}"></script>
+    <script>
+        $(".create-button").on("click", function() {
+            var contractHeader =  $("#headerContract").val();
+            var contractNum =  $("#contractNum").val();
+            var checkContractNum = contractHeader + contractNum
+            $("#checkContractNum").val(checkContractNum);
+        })
+    </script>
 @endsection

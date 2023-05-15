@@ -58,7 +58,7 @@
                                     <label for="contractType">
                                         <h4>Loại hợp đồng</h4>
                                     </label>
-                                    <select readOnly class="form-control" name="contractType" id="contractType">
+                                    <select disabled="true" class="form-control" name="contractType" id="contractType">
                                         <option value="0">Loại hợp đồng</option>
                                         @if($contractDetail->contract_type == 1)
                                             <option value="1" selected>Trả thẳng</option>
@@ -73,7 +73,7 @@
                                     <label for="customerType">
                                         <h4>Kiểu hợp đồng</h4>
                                     </label>
-                                    <select readOnly class="form-control" name="customerType" id="customerType">
+                                    <select disabled="true" class="form-control" name="customerType" id="customerType">
                                         <option value="0">Loại khách hàng</option>
                                         @if($contractDetail->contract_type == 1)
                                             <option value="1" selected>Cá nhân</option>
@@ -97,7 +97,7 @@
                                     <label for="salesConsultant">
                                         <h4>Tư vấn Bán hàng</h4>
                                     </label>
-                                        <select readOnly class="form-control" name="saleName" id="saleName">
+                                        <select disabled="true" class="form-control" name="saleName" id="saleName">
                                             <option value="0">Chọn nhân viên bán hàng</option>
                                             @foreach($salers as $s) 
                                                 <option value="{{ $s->id }}"
@@ -113,7 +113,7 @@
                                         <h4>Số điện thoại</h4>
                                     </label>
                                     <input readOnly type="text" class="form-control" placeholder="Nhập vào Số điện thoại..."
-                                        id="salesPhone" name="salesPhone" value="{{ $saler->tel }}">
+                                        id="salesPhone" name="salesPhone" value="{{ isset($saler) ? $saler->tel : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                     <label for="customerGender">
                                         <h4>Giới tính</h4>
                                     </label>
-                                    <select readOnly name="customerGender" id="customerGender" class="form-control">
+                                    <select disabled="true" name="customerGender" id="customerGender" class="form-control">
                                         <option value="0">Chọn giới tính</option>
                                         @if($contractDetail->contract_type == 1)
                                             <option value="1" selected>Nam</option>
@@ -253,7 +253,7 @@
                                     <label for="carID">
                                         <h4>Tên hiệu xe</h4>
                                     </label>
-                                    <select readOnly name="carID" id="carID" class="form-control">
+                                    <select disabled="true" name="carID" id="carID" class="form-control">
                                         <option value="0">Chọn loại xe</option>
                                         @foreach ($car as $c)
                                         <option value="{{ $c->id }}"
@@ -268,7 +268,7 @@
                                     <label for="carType">
                                         <h4>Loại xe</h4>
                                     </label>
-                                    <select readOnly class="form-control" name="carType" id="carType">
+                                    <select disabled="true" class="form-control" name="carType" id="carType">
                                         <option value="0">Vui lòng lựa chọn</option>
                                         @if($contractDetail->car_type == 1)
                                             <option value="1" selected>Nhập khẩu nguyên chiếc</option>
@@ -357,14 +357,18 @@ $("#back_btn").click(function() {
 });
 
 $("#btnUpdate").on("click", function() {
-    $("#contractNum, #contractType, #customerType, #contractSignDate, #saleName, #customerName, #customerGender, #customerBirthday, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carID, #carType, #carColor, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent").attr("readonly", false)
+    $("#contractNum, #contractSignDate, #customerName, #salesPhone, #customerBirthday, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carColor, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent, #gift").attr("readonly", false)
     $("#btnUpdateSubmit").show();
+    $('#saleName, #contractType, #customerType, #carID, #carType, #customerGender')
+        .attr('disabled', false);
 });
 </script>
 <script>
 var listContract = '{{ route('contract.list.get') }}';
+var getTypeCar = '{{ route('car.type.get') }}';
 var getSalerPhone = '{{ route('sale.phone.get') }}';
 
 </script>
 <script src="{{ URL::asset('js/dashboard/contract-detail.js') }}"></script>
+
 @endsection

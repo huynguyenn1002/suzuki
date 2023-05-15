@@ -105,6 +105,7 @@
                         <th scope="row">Số điện thoại</th>
                         <td>{{ $contract->customer_phone}}</td>
                     </tr>
+                    @if($contract->customer_type == 1)
                     <tr>
                         <th scope="row">Số CCCD/CMND</th>
                         <td>{{ $contract->customer_id_card}}　　Ngày cấp:
@@ -115,6 +116,16 @@
                         <th scope="row"><b>Ngày sinh</b></th>
                         <td>{{ date("d/m/Y", strtotime($contract->customer_birthday)) }}</td>
                     </tr>
+                    @elseif($contract->customer_type == 2)
+                    <tr>
+                        <th scope="row">Mã số thuế</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><b>Đại diện</b></th>
+                        <td></td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
 
@@ -168,7 +179,6 @@
                     thuế
                     trước bạ, chi phí đăng ký, lệ phí đăng kiểm, phí bảo hiểm và các chi phí khác.</p>
             </div>
-
             <div class="second-rule">
                 <p class="second-rule-title"><b>ĐIỀU 2: THANH TOÁN VÀ GIAO XE</b></p>
                 <div>
@@ -177,9 +187,10 @@
                         <div class="rule-content-child">
                             <p>a,</p><span style="margin-left: 5px"> Bên B thanh toán cho Bên A số tiền là:
                                 {{ number_format($contract->deposit, 0, '', ',') }}
-                                VND (Bằng chữ: {{ $depositAmount }} đồng)sau khi ký hợp đồng nhưng không quá 01 (một)
+                                VND (Bằng chữ: {{ $depositAmount }} đồng) sau khi ký hợp đồng nhưng không quá 01 (một)
                                 ngày làm việc. </span>
                         </div>
+                        @if($contract->contract_type == 1 && $contract->customer_type == 1)
                         <div class="rule-content-child">
                             <p>b,</p><span style="margin-left: 5px"> Lần 2: Trong thời hạn 10 (mười) ngày kể từ ngày Bên
                                 A thông báo đã có xe để giao cho Bên B
@@ -194,6 +205,7 @@
                                 nhưng
                                 tối đa không quá 30 (ba mươi) ngày kể từ ngày Bên A thông báo có xe cho Bên B. </span>
                         </div>
+
                         <div class="rule-content-child">
                             <p>c,</p><span style="margin-left: 5px"> Lần 3: Kể từ khi Bên A có thông báo đã có đủ bộ Hồ
                                 sơ xe cho Bên B thì Bên B có nghĩa vụ
@@ -201,6 +213,80 @@
                                 hạn
                                 thanh toán không quá 10 (mười) ngày. </span>
                         </div>
+
+                        @elseif(($contract->contract_type == 2 && $contract->customer_type == 1) ||
+                        ($contract->contract_type == 2 && $contract->customer_type == 2))
+                        <div class="rule-content-child">
+                            <p>b,</p> <span style="margin-left: 5px">Lần 2: Thanh toán đối ứng </span>
+                        </div>
+                        <div class="rule-content-child">
+                            <p>　-　</p><span style="margin-left: 5px">Trong thời hạn 03 (ba) ngày kể từ ngày Bên A thông
+                                báo đã có xe (bằng một trong ba hình thức: Email, Tin nhắn,Công văn), Bên B có nghĩa vụ
+                                làm các thủ tục với Ngân hàng để Ngân hàng phát hành bản gốc Thông báo Tín dụng và thanh
+                                toán phần nghĩa vụ còn lại (là số tiền theo giá trị hợp đồng trừ đi số tiền mà Ngân hàng
+                                cam kết thanh toán theo Thông báo Tín dụng và số tiền Bên B đặt cọc) cho Bên A. Sau đó,
+                                Bên A sẽ xuất hóa đơn bán hàng, bàn giao toàn bộ hồ sơ xe để Bên B làm thủ tục đăng ký,
+                                đăng kiểm xe.</span>
+                        </div>
+
+                        <div class="rule-content-child">
+                            <p>c,</p> <span style="margin-left: 5px">Lần 3: Thanh toán số tiền còn lại của hợp đồng
+                            </span>
+                        </div>
+                        <div class="rule-content-child">
+                            <p>　-　</p><span style="margin-left: 5px">Trong vòng 03 (ba) ngày kể từ ngày Bên A bàn giao
+                                hồ sơ xe, Bên B có trách nhiệm cùng với Ngân hàng làm thủ tục giải ngân số tiền theo
+                                Thông báo Tín dụng cho Bên A. Quá thời hạn trên, vì bất cứ lý do gì mà Ngân hàng không
+                                giải ngân số còn lại của hợp đồng cho Bên A thì Bên B có trách nhiệm trực tiêp thanh
+                                toán số tiền còn lại của hợp đồng cho Bên A trong vòng 05 (năm) ngày. </span>
+                        </div>
+                        <div class="rule-content-child">
+                            <p>　-　</p><span style="margin-left: 5px">Sau thời hạn 10 (mười) ngày kể từ ngày Bên A bàn
+                                giao hồ sơ xe mà Bên B không thanh toán số tiền còn lại cho Bên A thì ngay lập tức:
+                            </span>
+                        </div>
+                        <div class="rule-content-child">
+                            　　<p>　*　</p><span style="margin-left: 5px">Bên B phải làm thủ tục chuyển quyền sở hữu chiếc
+                                xe nói trên cho Bên A hoặc người sở hữu mới do Bên A chỉ
+                                định.　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+                            </span>
+                        </div>
+                        <div class="rule-content-child">
+                            　　<p>　*　</p><span style="margin-left: 5px">Bên B phải chịu mọi chi phí phát sinh như: Tiền
+                                lãi tính theo lãi vay Ngân hàng của số tiền ngân hàng đã cam kết, tiền thuê chỗ trông
+                                giữ, bảo quản xe, thuế trước bạ, lệ phí đăng ký xe, lệ phí công chứng và các khoản chi
+                                phí khác,...
+                            </span>
+                        </div>
+
+                        <div class="rule-content-child">
+                            　　<p>　*　</p><span style="margin-left: 5px">Đồng thời Bên B cũng phải chịu khoản chênh lệch
+                                giữa giá trị ban đầu (là giá trị trên hoá đơn GTGT Bên A xuất cho Bên B) và giá giữa Bên
+                                A với Bên thứ ba (đơn vị mua mới).　　　　　　　　　　　　　　　　　　　　
+                            </span>
+                        </div>
+                        @elseif($contract->contract_type == 1 && $contract->customer_type == 2)
+                        <div class="rule-content-child">
+                            <p>b,</p> <span style="margin-left: 5px">Trong thời hạn 03 (ba) ngày kể từ ngày Bên A thông
+                                báo đã có xe để giao cho Bên B (Bằng một
+                                trong các hình thức: Điện thoại, E mail, Tin nhắn, Công văn), Bên B có trách nhiệm thanh
+                                toán cho Bên A
+                                số tiền (tổng cộng cả Lần 1) là 100% giá trị hợp đồng để đủ điều kiện được nhận xe.Trong
+                                trường hợp đặc
+                                biệt hai bên có thể thỏa thuận lùi thời hạn thanh toán lần 2 nhưng tối đa khôngquá 30 (
+                                ba mươi ) ngày kể từ
+                                ngày Bên A thông báo có xe cho Bên B.</span>
+                        </div>
+
+                        <div class="rule-content-child">
+                            <p>c,</p> <span style="margin-left: 5px">Kể từ khi Bên A có thông báo đã có đủ bộ Hồ sơ xe
+                                cho Bên B thì Bên B có nghĩa vụ thanh toán toàn
+                                bộ số tiền còn lại theo hợp đồng cho Bên A để nhận Hồ sơ xe, nhưng thời hạn thanh toán
+                                không quá
+                                03 (ba) ngày.
+                            </span>
+                        </div>
+                        @endif
                     </div>
                 </div>
 
@@ -225,10 +311,33 @@
                                     Hoàng Hiền.</span></span>
                         </div>
                         <div class="rule-content-child">
-                            <p>　-　</p><span style="margin-left: 5px">Chuyển khoản vào tài khoản VND của Bên A:
-                                <b>Số tài khoản : 1021000009986- VCB chi nhánh Phố Hiến</b>
+                            <p>　-　</p><span style="margin-left: 5px">Chuyển khoản vào tài khoản VND của Bên A:</span>
+                        </div>
+                        <div class="rule-content-child">
+                            　　<p>　*</p><span style="margin-left: 5px">
+                                Số tài khoản: 1021000009986- VCB chi nhánh Phố Hiến
                             </span>
                         </div>
+                        <div class="rule-content-child">
+                            　　<p>　*</p><span style="margin-left: 5px">Số tài khoản: 299704070222666- HDBank chi nhánh
+                                Hưng Yên
+                            </span>
+                        </div>
+                        <div class="rule-content-child">
+                            　　<p>　*</p><span style="margin-left: 5px">Số tài khoản: 111002869390- Viettinbank chi nhánh
+                                Quang Minh
+                            </span>
+                        </div>
+                        @if($contract->contract_type == 2)
+                        <div class="rule-content-child">
+                            <p></p><span style="margin-left: 5px"> <b>Ghi chú:</b> Trong trường hợp Bên B thanh toán
+                                bằng
+                                tiền mặt, việc thanh toán phải thực hiện trực tiếp tại Quầy thu ngân của Bên A, Bên
+                                A phải xuất phiếu thu tiền mặt, trong đó ghi rõ số tiền Bên B thanh toán và có đầy
+                                đủ chữ kýcủa người có thẩm quyền của Bên A.
+                            </span>
+                        </div>
+                        @endif
                     </div>
                 </div>
 
@@ -241,7 +350,7 @@
                                     style="color: black">{{ date("d/m/Y", strtotime($contract->car_delivery_time)) }}</span></span>
                         </div>
                         <div class="rule-content-child">
-                            <span style="margin-left: 15px; color: red">Điều khoản cam kết chung: Trong
+                            <span style="margin-left: 15px; color: red"><u>Điều khoản cam kết chung:</u> Trong
                                 trường hợp Đại lý không được trả hàng Bên
                                 Bán
                                 sẽ có thông báo
@@ -370,8 +479,9 @@
                                 trường hợp bất khả kháng.</span>
                         </div>
                         <div class="rule-content-child">
-                            <p>e, </p><span style="margin-left: 5px">Chịu toàn bộ chi phí để xe có đủ điều kiện lưu
-                                hành.</span>
+                            <p>e, </p><span style="margin-left: 5px">Bên B chịu mọi chi phí và trách nhiệm liên quan đến
+                                thủ tục đăng ký và lưu hành xe. Bên A không có trách
+                                nhiệm đối với các khoản thu nằm ngoài phạm vi hợp đồng mua bán này. </span>
                         </div>
                     </div>
                 </div>
@@ -424,16 +534,16 @@
                             <p>b, </p><span style="margin-left: 5px">Thời hạn bảo hành: </span>
                         </div>
                         <div class="rule-content-child">
-                            <p>　-　</p><span style="margin-left: 5px">Đối với xe con do Suzuki phân phối: 3 năm hoặc
+                            <p>　-　</p><span style="margin-left: 5px">Đối với xe du lịch: 3 năm hoặc
                                 100.000 km kể từ ngày giao xe.</span>
                         </div>
                         <div class="rule-content-child">
-                            <p>　-　</p><span style="margin-left: 5px">Đối với xe Carry: 2 năm hoặc 50.000 km kể từ ngày
+                            <p>　-　</p><span style="margin-left: 5px">Đối với xe Carry: 3 năm hoặc 100.000 km kể từ ngày
                                 giao xe.</span>
                         </div>
                         <div class="rule-content-child">
-                            <p>c, <span style="margin-left: 5px">Điều kiện và quy trình bảo hành: Tuân theo quy định về
-                                    bảo hành của Suzuki.</p>
+                            <p>c,<span style="margin-left: 5px">Điều kiện và quy trình bảo hành: Tuân theo quy định về
+                                    bảo hành của VISUCO.</p>
                         </div>
                         <div class="rule-content-child">
                             <p>d, </p><span style="margin-left: 5px">Địa điểm bảo hành: Tại Suzuki Hoàng Hiền, (Địa
