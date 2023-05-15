@@ -108,6 +108,7 @@
                                     <input readOnly type="text" class="form-control" id="customerName" name="customerName"
                                         value="{{ isset($dataPreview['customerName']) ? $dataPreview['customerName'] : '' }}">
                                 </div>
+                                @if($dataPreview['customerType'] == 1)
                                 <div>
                                     @php
                                     $gender = "";
@@ -139,6 +140,30 @@
                                         name="customerBirthday"
                                         value="{{ isset($dataPreview['customerBirthday']) ? $dataPreview['customerBirthday'] : '' }}">
                                 </div>
+                                @endif
+                                @if($dataPreview['customerType'] == 2)
+                                <div id="representative-area">
+                                    <label for="representative">
+                                        <h4>Người đại diện</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="representative"
+                                        name="representative" value="{{ isset($dataPreview['representative']) ? $dataPreview['representative'] : '' }}">
+                                </div>
+                                <div id="position-area">
+                                    <label for="position">
+                                        <h4>Chức vụ</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="position"
+                                        name="position" value="{{ isset($dataPreview['position']) ? $dataPreview['position'] : '' }}">
+                                </div>
+                                <div id="tax-area">
+                                    <label for="taxCode">
+                                        <h4>Mã số thuế</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="taxCode"
+                                        name="taxCode" value="{{ isset($dataPreview['taxCode']) ? $dataPreview['taxCode'] : '' }}">
+                                </div>
+                                @endif
                                 <div>
                                     <label for="customerAddress">
                                         <h4>Địa chỉ</h4>
@@ -176,6 +201,7 @@
                                     <input readOnly type="text" class="form-control" id="customerPhone" name="customerPhone"
                                         value="{{ isset($dataPreview['customerPhone']) ? $dataPreview['customerPhone'] : '' }}">
                                 </div>
+                                @if($dataPreview['customerType'] == 1)
                                 <div>
                                     <label for="customerIDCard">
                                         <h4>CMT/CCCD</h4>
@@ -198,6 +224,7 @@
                                     <input readOnly type="text" class="form-control" id="issuedBy" name="issuedBy"
                                         value="{{ isset($dataPreview['issuedBy']) ? $dataPreview['issuedBy'] : '' }}">
                                 </div>
+                                @endif
                                 <div>
                                     <label for="mailAddress">
                                         <h4>Địa chỉ gửi thư</h4>

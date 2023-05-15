@@ -118,6 +118,7 @@ class ContractController extends Controller
     }
 
     public function previewContract(Request $request) {
+        // dd($request->all());
         $rule = [
             'checkContractNum' => 'string|max:45|unique:contract,contract_num',
         ];
@@ -204,6 +205,9 @@ class ContractController extends Controller
                 'customer_name' => $request->customerName,
                 'customer_gender' => $request->customerGender,
                 'customer_birthday' => $request->customerBirthday,
+                'position' => $request->position,
+                'representative' => $request->representative,
+                'tax_code' => $request->taxCode,
                 'province_id' => $province_id,
                 'district_id' => $district_id,
                 'ward_id' => $ward_id,
@@ -234,7 +238,6 @@ class ContractController extends Controller
     }
 
     public function updateContract(Request $request) {
-        // dd($request->all());
         DB::transaction(function() use($request) {
             $contractNum = $request->headerContract."-".$request->contractNum;
             if ($request->province != null) {
@@ -288,6 +291,9 @@ class ContractController extends Controller
                 'customer_name' => $request->customerName,
                 'customer_gender' => $request->customerGender,
                 'customer_birthday' => $request->customerBirthday,
+                'position' => $request->position,
+                'representative' => $request->representative,
+                'tax_code' => $request->taxCode,
                 'province_id' => $province_id,
                 'district_id' => $district_id,
                 'ward_id' => $ward_id,

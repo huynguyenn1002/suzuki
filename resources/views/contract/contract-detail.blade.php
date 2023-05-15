@@ -75,7 +75,7 @@
                                     </label>
                                     <select disabled="true" class="form-control" name="customerType" id="customerType">
                                         <option value="0">Loại khách hàng</option>
-                                        @if($contractDetail->contract_type == 1)
+                                        @if($contractDetail->customer_type == 1)
                                             <option value="1" selected>Cá nhân</option>
                                             <option value="2">Công ty</option>
                                         @else
@@ -136,6 +136,7 @@
                                     <input readOnly type="text" class="form-control" placeholder="Nhập vào Tên khách hàng..."
                                         id="customerName" name="customerName" value="{{ $contractDetail->customer_name }}">
                                 </div>
+                                @if($contractDetail->customer_type == 1)
                                 <div>
                                     <label for="customerGender">
                                         <h4>Giới tính</h4>
@@ -164,6 +165,30 @@
                                     <input readOnly type="date" class="form-control" id="customerBirthday"
                                         name="customerBirthday" value="{{ $contractDetail->customer_birthday }}">
                                 </div>
+                                @endif
+                                @if($contractDetail->customer_type == 2)
+                                <div>
+                                    <label for="representative">
+                                        <h4>Người đại diện</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="representative"
+                                        name="representative" value="{{ $contractDetail->representative }}">
+                                </div>
+                                <div>
+                                    <label for="position">
+                                        <h4>Chức vụ</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="position"
+                                        name="position" value="{{ $contractDetail->position }}">
+                                </div>
+                                <div id="tax-area">
+                                    <label for="taxCode">
+                                        <h4>Mã số thuế</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="taxCode"
+                                        name="taxCode" value="{{ $contractDetail->tax_code }}">
+                                </div>
+                                @endif
                                 <div>
                                     <label for="province">
                                         <h4>Địa chỉ</h4>
@@ -208,6 +233,7 @@
                                     <input readOnly type="text" class="form-control" id="customerPhone"
                                         placeholder="Nhập vào Số điện thoại..." name="customerPhone" value="{{ $contractDetail->customer_phone }}">
                                 </div>
+                                @if($contractDetail->customer_type == 1)
                                 <div>
                                     <label for="customerIDCard">
                                         <h4>CMT/CCCD</h4>
@@ -229,6 +255,7 @@
                                     <input readOnly type="text" class="form-control" placeholder="Nhập vào Nơi cấp CMT/CCCD..."
                                         id="issuedBy" name="issuedBy" value="{{ $contractDetail->issued_by }}">
                                 </div>
+                                @endif
                                 <div>
                                     <label for="mailAddress">
                                         <h4>Địa chỉ Email</h4>
@@ -357,7 +384,7 @@ $("#back_btn").click(function() {
 });
 
 $("#btnUpdate").on("click", function() {
-    $("#contractNum, #contractSignDate, #customerName, #salesPhone, #customerBirthday, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carColor, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent, #gift").attr("readonly", false)
+    $("#contractNum, #contractSignDate, #customerName, #salesPhone, #customerBirthday, #position, #representative, #taxCode, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carColor, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent, #gift").attr("readonly", false)
     $("#btnUpdateSubmit").show();
     $('#saleName, #contractType, #customerType, #carID, #carType, #customerGender')
         .attr('disabled', false);
