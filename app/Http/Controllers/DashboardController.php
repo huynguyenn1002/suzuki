@@ -112,8 +112,8 @@ class DashboardController extends Controller
                 'address' => $request->address,
             ]);
 
-            if($request->hasFile('password')){
-                Admin::where('id', $request->userID)->update(['password'=>$request->password]);
+            if($request->has('password')){
+                Admin::where('id', $request->userID)->update(['password'=>bcrypt($request->password)]);
             }
 
             if($request->hasFile('avatar')){

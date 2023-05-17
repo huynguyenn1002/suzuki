@@ -103,7 +103,7 @@
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                                 data-bs-toggle="dropdown">
-                                <img src="{{ asset('/images/default.jpeg') }}" class="avatar img-fluid rounded me-1" /> <span class="text-dark">abc</span>
+                                <img src="{{ isset($user->infoDetail->avatar) ? url('storage/avatar/' . $user->infoDetail->avatar) : asset('/images/default.jpeg') }}" class="avatar img-fluid rounded me-1" /> <span class="text-dark">{{ isset($user->infoDetail) ? $user->infoDetail->first_name.' '.$user->infoDetail->last_name : '' }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="align-middle me-1"
