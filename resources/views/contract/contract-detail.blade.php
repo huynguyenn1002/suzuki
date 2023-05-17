@@ -64,9 +64,12 @@
                                         @if($contractDetail->contract_type == 1)
                                             <option value="1" selected>Trả thẳng</option>
                                             <option value="2">Trả góp</option>
-                                        @else
+                                        @elseif($contractDetail->contract_type == 2)
                                             <option value="1">Trả thẳng</option>
                                             <option value="2" selected>Trả góp</option>
+                                        @else 
+                                            <option value="1">Trả thẳng</option>
+                                            <option value="2">Trả góp</option>
                                         @endif
                                     </select>
                                 </div>
@@ -79,9 +82,12 @@
                                         @if($contractDetail->customer_type == 1)
                                             <option value="1" selected>Cá nhân</option>
                                             <option value="2">Công ty</option>
-                                        @else
+                                        @elseif($contractDetail->customer_type == 2)
                                             <option value="1">Cá nhân</option>
                                             <option value="2" selected>Công ty</option>
+                                        @else 
+                                            <option value="1">Cá nhân</option>
+                                            <option value="2">Công ty</option>
                                         @endif
                                     </select>
                                 </div>
@@ -484,12 +490,23 @@ if (checkCustomerType == 1) {
     $("#customerIDCard-area").show();
     $("#icCardDateRegister-area").show();
     $("#issuedBy-area").show();
-} else {
+} else if (checkCustomerType == 2){
     $("#gender-area").hide();
     $("#birthday-area").hide();
     $("#customerIDCard-area").hide();
     $("#icCardDateRegister-area").hide();
     $("#issuedBy-area").hide();
+    $("#representative-area").show();
+    $("#position-area").show();
+    $("#tax-area").show();
+    $("#tax-issuance-area").show();
+    $("#tax-place-area").show();
+} else {
+    $("#gender-area").show();
+    $("#birthday-area").show();
+    $("#customerIDCard-area").show();
+    $("#icCardDateRegister-area").show();
+    $("#issuedBy-area").show();
     $("#representative-area").show();
     $("#position-area").show();
     $("#tax-area").show();

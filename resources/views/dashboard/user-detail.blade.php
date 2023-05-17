@@ -7,23 +7,19 @@
         <div class="row">
             <div class="list-title">
                 <h1 class="h3 mb-3"><strong>Chỉnh sửa thông tin cá nhân</strong></h1>
-                <div class="button-direct">
-                    <button id="back_btn" class="btn btn-link" type="button">Quay lại</button>
-                    <button class="btn btn-primary" id="back_edit">Chỉnh sửa hợp đồng</button>
-                </div>
             </div>
             <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="userID" value="{{ $detailInfo->admin_ID }}">
                 <div class="card main-content">
-                    <div class="col-md-4 border-right">
-                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                                class="rounded-circle mt-5" width="150px"
+                    <div class="col-md-4 border-right mt-5">
+                        <div class="d-flex flex-column align-items-center text-center"><img
+                                class="rounded-circle" width="150px"
                                 src="{{ isset($detailInfo->avatar) ? url('storage/avatar/' . $detailInfo->avatar) : asset('/images/default.jpeg') }}"><span
                                 class="font-weight-bold">{{ isset($detailInfo) ? $detailInfo->name : '' }}</span><span
                                 class="text-black-50">{{ isset($detailInfo) ? $detailInfo->mail_address : '' }}</span><span>
                             </span></div>
-                        <div class="file-upload">
+                        <div class="file-upload mt-5">
                             <input type="file" name="avatar" id="fileToUpload">
                         </div>
                     </div>
