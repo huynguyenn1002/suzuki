@@ -10,6 +10,7 @@
             <div>
                 <button id="back_btn" class="btn btn-link" type="button">Quay lại</button>
                 <a href="{{ route('contract.show', $contractDetail->id) }}" class="btn btn-info">Xem hợp đồng</a>
+                <a href="{{ route('suggestion.show', $contractDetail->id) }}" class="btn btn-secondary">Xem Giấy đề nghị</a>
                 <button class="btn btn-primary" id="btnUpdate">Chỉnh sửa hợp đồng</button>
                 <!-- <form method="POST" action="{{ route('contract.export') }}" target="__blank">
                         <input type="hidden" name="contractID" value="{{ $contractDetail->id }}">
@@ -136,8 +137,7 @@
                                     <input readOnly type="text" class="form-control" placeholder="Nhập vào Tên khách hàng..."
                                         id="customerName" name="customerName" value="{{ $contractDetail->customer_name }}">
                                 </div>
-                                @if($contractDetail->customer_type == 1)
-                                <div>
+                                <div id="gender-area">
                                     <label for="customerGender">
                                         <h4>Giới tính</h4>
                                     </label>
@@ -158,37 +158,27 @@
                                         @endif
                                     </select>
                                 </div>
-                                <div>
+                                <div id="birthday-area">
                                     <label for="customerBirthday">
                                         <h4>Ngày sinh</h4>
                                     </label>
                                     <input readOnly type="date" class="form-control" id="customerBirthday"
                                         name="customerBirthday" value="{{ $contractDetail->customer_birthday }}">
                                 </div>
-                                @endif
-                                @if($contractDetail->customer_type == 2)
-                                <div>
+                                <div id="representative-area">
                                     <label for="representative">
                                         <h4>Người đại diện</h4>
                                     </label>
                                     <input readOnly type="text" class="form-control" id="representative"
-                                        name="representative" value="{{ $contractDetail->representative }}">
+                                        name="representative" value="{{ $contractDetail->representative }}" placeholder="Nhập vào Người đại diện...">
                                 </div>
-                                <div>
+                                <div id="position-area">
                                     <label for="position">
                                         <h4>Chức vụ</h4>
                                     </label>
                                     <input readOnly type="text" class="form-control" id="position"
-                                        name="position" value="{{ $contractDetail->position }}">
+                                        name="position" value="{{ $contractDetail->position }}" placeholder="Nhập vào Chức vụ...">
                                 </div>
-                                <div id="tax-area">
-                                    <label for="taxCode">
-                                        <h4>Mã số thuế</h4>
-                                    </label>
-                                    <input readOnly type="text" class="form-control" id="taxCode"
-                                        name="taxCode" value="{{ $contractDetail->tax_code }}">
-                                </div>
-                                @endif
                                 <div>
                                     <label for="province">
                                         <h4>Địa chỉ</h4>
@@ -233,29 +223,48 @@
                                     <input readOnly type="text" class="form-control" id="customerPhone"
                                         placeholder="Nhập vào Số điện thoại..." name="customerPhone" value="{{ $contractDetail->customer_phone }}">
                                 </div>
-                                @if($contractDetail->customer_type == 1)
-                                <div>
+                                <div id="customerIDCard-area">
                                     <label for="customerIDCard">
                                         <h4>CMT/CCCD</h4>
                                     </label>
                                     <input readOnly type="text" class="form-control" placeholder="Nhập vào CMT/CCCD..."
                                         id="customerIDCard" name="customerIDCard" value="{{ $contractDetail->customer_id_card }}">
                                 </div>
-                                <div>
+                                <div id="icCardDateRegister-area">
                                     <label for="icCardDateRegister">
                                         <h4>Ngày cấp</h4>
                                     </label>
                                     <input readOnly type="date" class="form-control" placeholder="Nhập vào Số điện thoại..."
                                         id="icCardDateRegister" name="icCardDateRegister" value="{{ $contractDetail->customer_id_card_register }}">
                                 </div>
-                                <div>
+                                <div id="issuedBy-area">
                                     <label for="issuedBy">
                                         <h4>Nơi cấp</h4>
                                     </label>
                                     <input readOnly type="text" class="form-control" placeholder="Nhập vào Nơi cấp CMT/CCCD..."
                                         id="issuedBy" name="issuedBy" value="{{ $contractDetail->issued_by }}">
                                 </div>
-                                @endif
+                                <div id="tax-area">
+                                    <label for="taxCode">
+                                        <h4>Mã số thuế</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="taxCode"
+                                        name="taxCode" value="{{ $contractDetail->tax_code }}" placeholder="Nhập vào Mã số thuế...">
+                                </div>
+                                <div id="tax-issuance-area">
+                                    <label for="taxCodeIssuanceDate">
+                                        <h4>Ngày cấp MST</h4>
+                                    </label>
+                                    <input readOnly type="date" class="form-control" id="taxCodeIssuanceDate"
+                                        name="taxCodeIssuanceDate" value="{{ $contractDetail->tax_issuance_date }}">
+                                </div>
+                                <div id="tax-place-area">
+                                    <label for="taxCodeIssuancePlace">
+                                        <h4>Nơi cấp MST</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="taxCodeIssuancePlace"
+                                        name="taxCodeIssuancePlace" placeholder="Nhập vào Nơi cấp Mã số thuế..." value="{{ $contractDetail->tax_issuance_place }}">
+                                </div>
                                 <div>
                                     <label for="mailAddress">
                                         <h4>Địa chỉ Email</h4>
@@ -359,7 +368,7 @@
                                 </div>
                                 <div>
                                     <label for="gift">
-                                        <h4>Quà tặng</h4>
+                                        <h4>Nội dung khác</h4>
                                     </label>
                                     <input readOnly type="text" class="form-control" placeholder="Nhập vào Quà tặng..." id="gift"
                                         name="gift" value="{{ $contractDetail->gift }}">
@@ -369,6 +378,52 @@
                     </div>
                 </div>
             </div>
+            @if(isset($contractDetail->broker_name))
+            <div class="row">
+                <div class="card flex-fill w-100">
+                    <div class="card-header list-title">
+                        <h5 class="card-title mb-0">Thông tin người môi giới</h5>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="row">
+                            <div class="col">
+                                <div>
+                                    <label for="brokerName">
+                                        <h4>Họ và tên</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" name="brokerName" id="brokerName" value="{{ $contractDetail->broker_name }}" placeholder="Nhập vào Họ tên người môi giới...">
+
+                                </div>
+                                <div>
+                                    <label for="brokerAddress">
+                                        <h4>Địa chỉ</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" name="brokerAddress" id="brokerAddress" value="{{ $contractDetail->broker_address }}" placeholder="Nhập vào Địa chỉ...">
+                                </div>
+                                <div>
+                                    <label for="brokerIDCard">
+                                        <h4>Số CCCD/CMND</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="brokerIDCard" name="brokerIDCard" value="{{ $contractDetail->broker_ic_card }}" placeholder="Nhập vào số CCCD/CMND...">
+                                </div>
+                                <div>
+                                    <label for="brokerPhone">
+                                        <h4>Số điện thoại</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="brokerPhone" name="brokerPhone" value="{{ $contractDetail->broker_phone }}" placeholder="Nhập vào Số điện thoại...">
+                                </div>
+                                <div>
+                                    <label for="amountOfCommission">
+                                        <h4>Số tiền hoa hồng (VNĐ)</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control" id="amountOfCommission" name="amountOfCommission" value="{{ $contractDetail->amount_of_commission }}" placeholder="Nhập vào Số tiền hoa hồng...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </form>
     </div>
 </main>
@@ -384,11 +439,63 @@ $("#back_btn").click(function() {
 });
 
 $("#btnUpdate").on("click", function() {
-    $("#contractNum, #contractSignDate, #customerName, #salesPhone, #customerBirthday, #position, #representative, #taxCode, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carColor, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent, #gift").attr("readonly", false)
+    $("#contractNum, #contractSignDate, #customerName, #salesPhone, #customerBirthday, #position, #representative, #taxCode, #taxCodeIssuancePlace, #taxCodeIssuanceDate, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carColor, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent, #gift").attr("readonly", false)
     $("#btnUpdateSubmit").show();
     $('#saleName, #contractType, #customerType, #carID, #carType, #customerGender')
         .attr('disabled', false);
 });
+
+$("#customerType").on("change", function() {
+    var type = $("#customerType").find(":selected").val();
+    if (type == 1) {
+        $("#representative-area").hide();
+        $("#position-area").hide();
+        $("#tax-area").hide();
+        $("#tax-issuance-area").hide();
+        $("#tax-place-area").hide();
+        $("#gender-area").show();
+        $("#birthday-area").show();
+        $("#customerIDCard-area").show();
+        $("#icCardDateRegister-area").show();
+        $("#issuedBy-area").show();
+    } else {
+        $("#gender-area").hide();
+        $("#birthday-area").hide();
+        $("#customerIDCard-area").hide();
+        $("#icCardDateRegister-area").hide();
+        $("#issuedBy-area").hide();
+        $("#representative-area").show();
+        $("#position-area").show();
+        $("#tax-area").show();
+        $("#tax-issuance-area").show();
+        $("#tax-place-area").show();
+    }
+})
+
+var checkCustomerType = $("#customerType").find(":selected").val();
+if (checkCustomerType == 1) {
+    $("#representative-area").hide();
+    $("#position-area").hide();
+    $("#tax-area").hide();
+    $("#tax-issuance-area").hide();
+    $("#tax-place-area").hide();
+    $("#gender-area").show();
+    $("#birthday-area").show();
+    $("#customerIDCard-area").show();
+    $("#icCardDateRegister-area").show();
+    $("#issuedBy-area").show();
+} else {
+    $("#gender-area").hide();
+    $("#birthday-area").hide();
+    $("#customerIDCard-area").hide();
+    $("#icCardDateRegister-area").hide();
+    $("#issuedBy-area").hide();
+    $("#representative-area").show();
+    $("#position-area").show();
+    $("#tax-area").show();
+    $("#tax-issuance-area").show();
+    $("#tax-place-area").show();
+}
 </script>
 <script>
 var listContract = '{{ route('contract.list.get') }}';

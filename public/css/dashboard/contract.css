@@ -1,8 +1,3 @@
-@page {
-    size: A4;
-    margin: 0;
-}
-
 .main {
     font-size: 14px;
     width: 50%;
@@ -28,7 +23,7 @@ p {
 .contract-header {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .fisrt-body {
@@ -54,12 +49,11 @@ p {
 
 .table-info {
     width: 100%;
-    margin: 10px 0;
     text-align: left;
 }
 
 .left-info {
-    width: 30%;
+    width: 25%;
 }
 
 .info {
@@ -86,7 +80,7 @@ p {
 }
 
 .before-rules {
-    text-align: center;
+    text-align: justify;
 }
 
 .first-rule-title,

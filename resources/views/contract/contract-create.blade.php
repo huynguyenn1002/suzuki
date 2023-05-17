@@ -39,6 +39,10 @@
                                         role="tab" aria-controls="ex1-tabs-3" aria-selected="false">Thông tin sản phẩm
                                         xe</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="ex1-tab-4" data-mdb-toggle="tab" href="#ex1-tabs-4"
+                                        role="tab" aria-controls="ex1-tabs-4" aria-selected="false">Thông tin người môi giới</a>
+                                </li>
                             </ul>
                             <!-- Tabs navs -->
 
@@ -155,13 +159,6 @@
                                                <input type="text" class="form-control" id="position"
                                                     name="position" placeholder="Nhập vào Chức vụ...">
                                             </div>
-                                            <div id="tax-area">
-                                                <label for="taxCode">
-                                                    <h4>Mã số thuế</h4>
-                                                </label>
-                                                <input type="text" class="form-control" id="taxCode"
-                                                    name="taxCode" placeholder="Nhập vào Mã số thuế...">
-                                            </div>
                                             <div id="birthday-area">
                                                 <label for="customerBirthday">
                                                     <h4>Ngày sinh</h4>
@@ -237,6 +234,27 @@
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Nơi cấp CMT/CCCD..." id="issuedBy"
                                                     name="issuedBy">
+                                            </div>
+                                            <div id="tax-area">
+                                                <label for="taxCode">
+                                                    <h4>Mã số thuế</h4>
+                                                </label>
+                                                <input type="text" class="form-control" id="taxCode"
+                                                    name="taxCode" placeholder="Nhập vào Mã số thuế...">
+                                            </div>
+                                            <div id="tax-issuance-area">
+                                                <label for="taxCodeIssuanceDate">
+                                                    <h4>Ngày cấp MST</h4>
+                                                </label>
+                                                <input type="date" class="form-control" id="taxCodeIssuanceDate"
+                                                    name="taxCodeIssuanceDate">
+                                            </div>
+                                            <div id="tax-place-area">
+                                                <label for="taxCodeIssuancePlace">
+                                                    <h4>Nơi cấp MST</h4>
+                                                </label>
+                                                <input type="text" class="form-control" id="taxCodeIssuancePlace"
+                                                    name="taxCodeIssuancePlace" placeholder="Nhập vào Nơi cấp Mã số thuế...">
                                             </div>
                                             <div>
                                                 <label for="mailAddress">
@@ -327,10 +345,50 @@
                                             </div>
                                             <div>
                                                 <label for="gift">
-                                                    <h4>Quà tặng</h4>
+                                                    <h4>Nội dung khác</h4>
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     placeholder="Nhập vào Quà tặng..." id="gift" name="gift">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="ex1-tabs-4" role="tabpanel" aria-labelledby="ex1-tab-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div>
+                                                <label for="brokerName">
+                                                    <h4>Họ và tên</h4>
+                                                </label>
+                                                <input type="text" class="form-control" name="brokerName" id="brokerName" placeholder="Nhập vào Họ tên người môi giới...">
+                                                
+                                            </div>
+                                            <div>
+                                                <label for="brokerAddress">
+                                                    <h4>Địa chỉ</h4>
+                                                </label>
+                                                <input type="text" class="form-control" name="brokerAddress" id="brokerAddress" placeholder="Nhập vào Địa chỉ...">
+                                            </div>
+                                            <div>
+                                                <label for="brokerIDCard">
+                                                    <h4>Số CCCD/CMND</h4>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                    placeholder="Nhập vào số CCCD/CMND..." id="brokerIDCard" name="brokerIDCard">
+                                            </div>
+                                            <div>
+                                                <label for="brokerPhone">
+                                                    <h4>Số điện thoại</h4>
+                                                </label>
+                                                <input type="text" class="form-control" id="brokerPhone"
+                                                    placeholder="Nhập vào Số điện thoại..." name="brokerPhone">
+                                            </div>
+                                            <div>
+                                                <label for="amountOfCommission">
+                                                    <h4>Số tiền hoa hồng (VNĐ)</h4>
+                                                </label>
+                                                <input type="text" class="form-control" id="amountOfCommission"
+                                                    placeholder="Nhập vào Số tiền hoa hồng..." name="amountOfCommission">
                                             </div>
                                         </div>
                                     </div>
@@ -365,6 +423,8 @@
                 $("#representative-area").hide();
                 $("#position-area").hide();
                 $("#tax-area").hide();
+                $("#tax-issuance-area").hide();
+                $("#tax-place-area").hide();
                 $("#gender-area").show();
                 $("#birthday-area").show();
                 $("#customerIDCard-area").show();
@@ -379,6 +439,8 @@
                 $("#representative-area").show();
                 $("#position-area").show();
                 $("#tax-area").show();
+                $("#tax-issuance-area").show();
+                $("#tax-place-area").show();
             }
         })
     </script>
