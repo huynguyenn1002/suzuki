@@ -31,6 +31,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/contract/contractExport', [App\Http\Controllers\ContractController::class, 'contractExport'])->name('contract.export');
         Route::get('/contract/show/{id}', [App\Http\Controllers\ContractController::class, 'printPreviewContract'])->name('contract.show');
         Route::post('/get-saler-phone', [App\Http\Controllers\ContractController::class, 'getSalerPhone'])->name('sale.phone.get');
+        Route::get('/suggestion/{id}', [App\Http\Controllers\ContractController::class, 'printSuggestion'])->name('suggestion.show');
 
         Route::get('get-district-info/', [App\Http\Controllers\ContractController::class, 'contractGetDistrictInfo'])->name('admin.contract-get-district');
         Route::get('get-ward-info/', [App\Http\Controllers\ContractController::class, 'contractGetWardInfo'])->name('admin.contract-get-ward');

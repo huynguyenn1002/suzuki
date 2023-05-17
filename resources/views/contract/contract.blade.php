@@ -4,15 +4,6 @@
 <div class="main">
     <div class="contract-header">
         <img class="logo" src="{{ asset('images/logo.png') }}" alt="">
-        <p>
-            <b>SUZUKI HOÀNG HIỀN</b>
-            <br>
-            <b>Công ty CP Đầu Tư & Phát Triển Hoàng Hiền</b>
-            <br>
-            Số 285, Đ Phạm Bạch Hổ, P Hiến Nam, Tp Hưng Yên
-            <br>
-            Tel : 02231.662.668; Hotline : 0868.950.999
-        </p>
     </div>
     <hr>
     <div class="contract-body">
@@ -43,18 +34,17 @@
 
                         {{ $contractType }}
                     </td>
-                    <td>{{ $contract->contract_sign_date }}</td>
+                    <td>{{ date("d/m/Y", strtotime($contract->contract_sign_date)) }}</td>
                     <td>
-                        <p>{{ $saler->first_name.' '.$saler->last_name}}</p>
-                        <p>{{ $saler->tel}}</p>
+                        <p>{{ isset($saler) ? $saler->first_name.' '.$saler->last_name : ''}}</p>
+                        <p>{{ isset($saler) ? $saler->tel : ''}}</p>
                     </td>
                 </tbody>
             </table>
             <div class="law-content">
                 <p><i>- 　Căn cứ Bộ Luật dân sự nước Cộng Hoà Xã Hội Chủ Nghĩa Việt Nam năm 2005.</i></p>
                 <p><i>- 　Căn cứ Luật Thương mại của Quốc hội Nước Cộng Hoà Xã Hội Chủ Nghĩa Việt Nam khoá XI kỳ họp thứ
-                        7,</i></p>
-                <p><i> 　thông qua ngày 14/6/2005;</i></p>
+                        7, thông qua ngày 14/6/2005;</i></p>
                 <p><i>- 　Căn cứ vào nhu cầu và khả năng của hai bên;</i></p>
                 <p> 　Hôm nay, tại Văn phòng Công ty cổ phần Đầu tư và Phát Triển Hoàng Hiền, chúng tôi gồm có:</p>
             </div>
@@ -152,7 +142,7 @@
                         <td>1</td>
                         <td>
                             <div class="explain">
-                                <p><b>Tên hiệu xe: {{ $car->car_name }}</b></p>
+                                <p><b>Tên hiệu xe: {{ isset($car) ? $car->car_name : ''}}</b></p>
                                 <p>-　Tình trạng: Mới 100%. </p>
                                 <p>-　Màu: {{ $contract->car_color }}</p>
                                 @php
@@ -318,11 +308,6 @@
                         <div class="rule-content-child">
                             　　<p>　*</p><span style="margin-left: 5px">
                                 Số tài khoản: 1021000009986- VCB chi nhánh Phố Hiến
-                            </span>
-                        </div>
-                        <div class="rule-content-child">
-                            　　<p>　*</p><span style="margin-left: 5px">Số tài khoản: 299704070222666- HDBank chi nhánh
-                                Hưng Yên
                             </span>
                         </div>
                         <div class="rule-content-child">

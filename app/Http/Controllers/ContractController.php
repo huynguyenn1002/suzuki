@@ -194,7 +194,13 @@ class ContractController extends Controller
                 $payment_amount = str_replace('.', '', preg_replace('/,/', '', $request->paymentAmount));
             } else {
                 $payment_amount = null;
-            } 
+            }
+            
+            if ($request->amountOfCommission != null) {
+                $amountOfCommission = str_replace('.', '', preg_replace('/,/', '', $request->amountOfCommission));
+            } else {
+                $amountOfCommission = null;
+            }
 
             Contract::create([
                 'contract_num' => $request->contractNum, 
@@ -208,6 +214,8 @@ class ContractController extends Controller
                 'position' => $request->position,
                 'representative' => $request->representative,
                 'tax_code' => $request->taxCode,
+                'tax_issuance_date' => $request->taxCodeIssuanceDate,
+                'tax_issuance_place' => $request->taxCodeIssuancePlace,
                 'province_id' => $province_id,
                 'district_id' => $district_id,
                 'ward_id' => $ward_id,
@@ -230,6 +238,11 @@ class ContractController extends Controller
                 'car_delivery_time' => $request->carDeliveryTime,
                 'promotion' => $request->promotionalContent,
                 'gift' => $request->gift,
+                'broker_name' => $request->brokerName,
+                'broker_address' => $request->brokerAddress,
+                'broker_ic_card' => $request->brokerIDCard,
+                'broker_phone' => $request->brokerPhone,
+                'amount_of_commission' => $amountOfCommission
             ]);
             return redirect()->back();
             
@@ -282,6 +295,12 @@ class ContractController extends Controller
                 $deposit = null;
             } 
 
+            if ($request->amountOfCommission != null) {
+                $amountOfCommission = str_replace('.', '', preg_replace('/,/', '', $request->amountOfCommission));
+            } else {
+                $amountOfCommission = null;
+            }
+
             Contract::where("id", $request->id)->update([
                 'contract_num' => $contractNum, 
                 'contract_type' => $request->contractType, 
@@ -294,6 +313,8 @@ class ContractController extends Controller
                 'position' => $request->position,
                 'representative' => $request->representative,
                 'tax_code' => $request->taxCode,
+                'tax_issuance_date' => $request->taxCodeIssuanceDate,
+                'tax_issuance_place' => $request->taxCodeIssuancePlace,
                 'province_id' => $province_id,
                 'district_id' => $district_id,
                 'ward_id' => $ward_id,
@@ -316,6 +337,11 @@ class ContractController extends Controller
                 'car_delivery_time' => $request->carDeliveryTime,
                 'promotion' => $request->promotionalContent,
                 'gift' => $request->gift,
+                'broker_name' => $request->brokerName,
+                'broker_address' => $request->brokerAddress,
+                'broker_ic_card' => $request->brokerIDCard,
+                'broker_phone' => $request->brokerPhone,
+                'amount_of_commission' => $amountOfCommission
             ]);
             return redirect()->back();
             
@@ -362,6 +388,22 @@ class ContractController extends Controller
         $car = DB::table("suzuki_car")->where("id", $contract->car_id)->first();
 
         return view('contract.contract', compact('contract', 'saler', 'car', 'noticePrice', 'realPrice', 'depositAmount'));
+    }
+
+    public function printSuggestion($id) {
+        $contract = Contract::where("id", $id)->first();
+        $noticePrice = $this->convert_number_to_words($contract->notice_price);
+        $realPrice = $this->convert_number_to_words($contract->real_price);
+        $depositAmount = $this->convert_number_to_words($contract->deposit);
+        $amountOfCommission = $this->convert_number_to_words($contract->amount_of_commission);
+
+        $contract = Contract::where("id", $id)->first();
+        $saler = Saler::where("id", $contract->admin_id)->first();
+        $car = DB::table("suzuki_car")->where("id", $contract->car_id)->first();
+
+        // dd($contract);
+
+        return view('contract.suggestion', compact('contract', 'saler', 'car', 'noticePrice', 'realPrice', 'depositAmount', 'amountOfCommission'));
     }
 
     public function convert_number_to_words($number) {

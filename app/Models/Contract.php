@@ -25,6 +25,8 @@ class Contract extends Model
         'position',
         'representative',
         'tax_code',
+        'tax_issuance_date',
+        'tax_issuance_place',
         'province_id',
         'district_id',
         'ward_id',
@@ -47,5 +49,10 @@ class Contract extends Model
         'car_delivery_time',
         'promotion',
         'gift',
+        'broker_name',
+        'broker_address',
+        'broker_ic_card',
+        'broker_phone',
+        'amount_of_commission',
     ];
 }
