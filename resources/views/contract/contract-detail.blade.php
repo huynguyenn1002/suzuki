@@ -329,6 +329,13 @@
                                         id="carColor" name="carColor" value="{{ $contractDetail->car_color }}">
                                 </div>
                                 <div>
+                                    <label for="yearOfCar">
+                                        <h4>Năm sản xuất</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control"
+                                        placeholder="Nhập vào Năm sản xuất xe..." id="yearOfCar" name="yearOfCar" value="{{ $contractDetail->year_of_manufacture }}">
+                                </div>
+                                <div>
                                     <label for="noticePrice">
                                         <h4>Giá thông báo (VNĐ)</h4>
                                     </label>
@@ -362,7 +369,7 @@
                                     <label for="carDeliveryTime">
                                         <h4>Thời gian giao xe</h4>
                                     </label>
-                                    <input readOnly type="date" class="form-control" id="carDeliveryTime" name="carDeliveryTime" value="{{ $contractDetail->car_delivery_time }}">
+                                    <input readOnly type="month" class="form-control" id="carDeliveryTime" name="carDeliveryTime" value="{{ $contractDetail->car_delivery_time }}">
                                 </div>
                                 <div>
                                     <label for="promotionalContent">
@@ -422,7 +429,7 @@
                                     <label for="amountOfCommission">
                                         <h4>Số tiền hoa hồng (VNĐ)</h4>
                                     </label>
-                                    <input readOnly type="text" class="form-control" id="amountOfCommission" name="amountOfCommission" value="{{ $contractDetail->amount_of_commission }}" placeholder="Nhập vào Số tiền hoa hồng...">
+                                    <input readOnly type="text" class="form-control" id="amountOfCommission" name="amountOfCommission" value="{{ number_format($contractDetail->amount_of_commission, 0, '', ',') }}" placeholder="Nhập vào Số tiền hoa hồng...">
                                 </div>
                             </div>
                         </div>
@@ -436,84 +443,6 @@
 @endsection
 
 @section('js')
-<script>
-$("nav#sidebar li.sidebar-item").removeClass("active");
-$("nav#sidebar li.contract-list").addClass("active");
-
-$("#back_btn").click(function() {
-    window.history.back();
-});
-
-$("#btnUpdate").on("click", function() {
-    $("#contractNum, #contractSignDate, #customerName, #salesPhone, #customerBirthday, #position, #representative, #taxCode, #taxCodeIssuancePlace, #taxCodeIssuanceDate, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carColor, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent, #gift").attr("readonly", false)
-    $("#btnUpdateSubmit").show();
-    $('#saleName, #contractType, #customerType, #carID, #carType, #customerGender')
-        .attr('disabled', false);
-});
-
-$("#customerType").on("change", function() {
-    var type = $("#customerType").find(":selected").val();
-    if (type == 1) {
-        $("#representative-area").hide();
-        $("#position-area").hide();
-        $("#tax-area").hide();
-        $("#tax-issuance-area").hide();
-        $("#tax-place-area").hide();
-        $("#gender-area").show();
-        $("#birthday-area").show();
-        $("#customerIDCard-area").show();
-        $("#icCardDateRegister-area").show();
-        $("#issuedBy-area").show();
-    } else {
-        $("#gender-area").hide();
-        $("#birthday-area").hide();
-        $("#customerIDCard-area").hide();
-        $("#icCardDateRegister-area").hide();
-        $("#issuedBy-area").hide();
-        $("#representative-area").show();
-        $("#position-area").show();
-        $("#tax-area").show();
-        $("#tax-issuance-area").show();
-        $("#tax-place-area").show();
-    }
-})
-
-var checkCustomerType = $("#customerType").find(":selected").val();
-if (checkCustomerType == 1) {
-    $("#representative-area").hide();
-    $("#position-area").hide();
-    $("#tax-area").hide();
-    $("#tax-issuance-area").hide();
-    $("#tax-place-area").hide();
-    $("#gender-area").show();
-    $("#birthday-area").show();
-    $("#customerIDCard-area").show();
-    $("#icCardDateRegister-area").show();
-    $("#issuedBy-area").show();
-} else if (checkCustomerType == 2){
-    $("#gender-area").hide();
-    $("#birthday-area").hide();
-    $("#customerIDCard-area").hide();
-    $("#icCardDateRegister-area").hide();
-    $("#issuedBy-area").hide();
-    $("#representative-area").show();
-    $("#position-area").show();
-    $("#tax-area").show();
-    $("#tax-issuance-area").show();
-    $("#tax-place-area").show();
-} else {
-    $("#gender-area").show();
-    $("#birthday-area").show();
-    $("#customerIDCard-area").show();
-    $("#icCardDateRegister-area").show();
-    $("#issuedBy-area").show();
-    $("#representative-area").show();
-    $("#position-area").show();
-    $("#tax-area").show();
-    $("#tax-issuance-area").show();
-    $("#tax-place-area").show();
-}
-</script>
 <script>
 var listContract = '{{ route('contract.list.get') }}';
 var getTypeCar = '{{ route('car.type.get') }}';

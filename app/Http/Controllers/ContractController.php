@@ -231,6 +231,7 @@ class ContractController extends Controller
                 'car_id' => $request->carID,
                 'car_type' => $request->carType,
                 'car_color' => $request->carColor,
+                'year_of_manufacture' => $request->yearOfCar,
                 'notice_price' => $notice_price,
                 'real_price' => $real_price,
                 'amount' => $request->amount,
@@ -330,6 +331,7 @@ class ContractController extends Controller
                 'car_id' => $request->carID,
                 'car_type' => $request->carType,
                 'car_color' => $request->carColor,
+                'year_of_manufacture' => $request->yearOfCar,
                 'notice_price' => $notice_price,
                 'real_price' => $real_price,
                 'amount' => $request->amount,
@@ -404,6 +406,12 @@ class ContractController extends Controller
         // dd($contract);
 
         return view('contract.suggestion', compact('contract', 'saler', 'car', 'noticePrice', 'realPrice', 'depositAmount', 'amountOfCommission'));
+    }
+
+    public function contractDelete(Request $request) {
+        $contract = Contract::where("id", $request->id)->delete();
+
+        return response()->json("success");
     }
 
     public function convert_number_to_words($number) {

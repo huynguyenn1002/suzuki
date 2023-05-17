@@ -29,12 +29,31 @@
             </div>
         </div>
     </div>
+
+    <div id="modalConfirmDelete" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content modal-delete-content">
+            <div class="modal-header">
+                <span class="close" id="close-register-modal">&times;</span>
+                <h3>Bạn có chắc chắn muốn xoá hợp đồng này không?</h3>
+            </div>
+            <div class="modal-body modal-delete">
+            <div class="mb-3 saler-name">
+                <div class="modal-footer modal-delete-footer">
+                    <button type="submit" class="btn btn-primary btn-confirm" id="submit">Xoá hợp đồng</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeBtn">Huỷ</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
 </main>
 @endsection
 
 @section("js")
 <script>
-    var listContract = '{{ route('contract.list.get') }}';
+var listContract = '{{ route('contract.list.get') }}';
+var deleteContract = '{{ route('contract.delete') }}';
 </script>
 <script src="{{ URL::asset('js/dashboard/list-contract.js') }}"></script>
 @endsection

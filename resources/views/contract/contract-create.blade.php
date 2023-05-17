@@ -116,7 +116,7 @@
                                                 <label for="salesPhone">
                                                     <h4>Số điện thoại</h4>
                                                 </label>
-                                                <input type="text" class="form-control"
+                                                <input type="number" class="form-control"
                                                     placeholder="Nhập vào Số điện thoại..." id="salesPhone"
                                                     name="salesPhone" value="">
                                             </div>
@@ -208,14 +208,14 @@
                                                 <label for="customerPhone">
                                                     <h4>Số điện thoại</h4>
                                                 </label>
-                                                <input type="text" class="form-control" id="customerPhone"
+                                                <input type="number" class="form-control" id="customerPhone"
                                                     placeholder="Nhập vào Số điện thoại..." name="customerPhone">
                                             </div>
                                             <div id="customerIDCard-area">
                                                 <label for="customerIDCard">
                                                     <h4>CMT/CCCD</h4>
                                                 </label>
-                                                <input type="text" class="form-control"
+                                                <input type="number" class="form-control"
                                                     placeholder="Nhập vào CMT/CCCD..." id="customerIDCard"
                                                     name="customerIDCard">
                                             </div>
@@ -224,7 +224,7 @@
                                                     <h4>Ngày cấp</h4>
                                                 </label>
                                                 <input type="date" class="form-control"
-                                                    placeholder="Nhập vào Số điện thoại..." id="icCardDateRegister"
+                                                    id="icCardDateRegister"
                                                     name="icCardDateRegister">
                                             </div>
                                             <div id="issuedBy-area">
@@ -239,7 +239,7 @@
                                                 <label for="taxCode">
                                                     <h4>Mã số thuế</h4>
                                                 </label>
-                                                <input type="text" class="form-control" id="taxCode"
+                                                <input type="number" class="form-control" id="taxCode"
                                                     name="taxCode" placeholder="Nhập vào Mã số thuế...">
                                             </div>
                                             <div id="tax-issuance-area">
@@ -299,6 +299,13 @@
                                                     placeholder="Nhập vào Màu xe..." id="carColor" name="carColor">
                                             </div>
                                             <div>
+                                                <label for="yearOfCar">
+                                                    <h4>Năm sản xuất</h4>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                    placeholder="Nhập vào Năm sản xuất xe..." id="yearOfCar" name="yearOfCar">
+                                            </div>
+                                            <div>
                                                 <label for="noticePrice">
                                                     <h4>Giá thông báo (VNĐ)</h4>
                                                 </label>
@@ -318,22 +325,22 @@
                                                 <label for="amount">
                                                     <h4>Số lượng</h4>
                                                 </label>
-                                                <input type="text" class="form-control"
+                                                <input type="number" class="form-control"
                                                     placeholder="Nhập vào Số lượng..." id="amount" name="amount">
                                             </div>
                                             <div>
                                                 <label for="deposit">
                                                     <h4>Tiền cọc (VNĐ)</h4>
                                                 </label>
-                                                <input type="text" class="form-control"
+                                                <input type="number" class="form-control"
                                                     placeholder="Nhập vào Tiền cọc..." id="deposit" name="deposit">
                                             </div>
                                             <div>
                                                 <label for="carDeliveryTime">
                                                     <h4>Thời gian giao xe</h4>
                                                 </label>
-                                                <input type="date" class="form-control" id="carDeliveryTime"
-                                                    name="carDeliveryTime">
+                                                <input type="month" class="form-control" id="carDeliveryTime"
+                                                    name="carDeliveryTime" placeholder="Nhập vào Tiền cọc...">
                                             </div>
                                             <div>
                                                 <label for="promotionalContent">
@@ -373,14 +380,14 @@
                                                 <label for="brokerIDCard">
                                                     <h4>Số CCCD/CMND</h4>
                                                 </label>
-                                                <input type="text" class="form-control"
+                                                <input type="number" class="form-control"
                                                     placeholder="Nhập vào số CCCD/CMND..." id="brokerIDCard" name="brokerIDCard">
                                             </div>
                                             <div>
                                                 <label for="brokerPhone">
                                                     <h4>Số điện thoại</h4>
                                                 </label>
-                                                <input type="text" class="form-control" id="brokerPhone"
+                                                <input type="number" class="form-control" id="brokerPhone"
                                                     placeholder="Nhập vào Số điện thoại..." name="brokerPhone">
                                             </div>
                                             <div>

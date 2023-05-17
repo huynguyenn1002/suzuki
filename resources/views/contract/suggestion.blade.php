@@ -83,7 +83,7 @@
             <tr>
                 <td class="first-col">Loại xe: <b>{{ isset($car) ? $car->car_name : ''}}</b></td>
                 <td>Màu: {{ $contract->car_color }}</td>
-                <td>Năm sản xuất: 2022</td>
+                <td>Năm sản xuất: {{ $contract->year_of_manufacture }}</td>
                 <td>Số lượng: <span style="color: red"><b>0{{ $contract->amount }}</b></span></td>
             </tr>
             <tr>

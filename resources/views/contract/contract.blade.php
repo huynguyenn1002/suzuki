@@ -156,7 +156,7 @@
                                 }
                                 @endphp
                                 <p>-　{{ $carType }}</p>
-                                <p>-　Năm sản xuất: 2022</p>
+                                <p>-　Năm sản xuất: {{ $contract->year_of_manufacture }}</p>
                             </div>
                         </td>
                         <td>{{ number_format($contract->notice_price, 0, '', ',') }}</td>

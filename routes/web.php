@@ -28,6 +28,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/createContract', [App\Http\Controllers\ContractController::class, 'createContract'])->name('contract.form.register');
         Route::post('/contract/preview', [App\Http\Controllers\ContractController::class, 'previewContract'])->name('contract.preview');
         Route::get('/contract/detail', [App\Http\Controllers\ContractController::class, 'contractDetail'])->name('contract.detail');
+        Route::post('/contract/delete', [App\Http\Controllers\ContractController::class, 'contractDelete'])->name('contract.delete');
         Route::post('/contract/contractExport', [App\Http\Controllers\ContractController::class, 'contractExport'])->name('contract.export');
         Route::get('/contract/show/{id}', [App\Http\Controllers\ContractController::class, 'printPreviewContract'])->name('contract.show');
         Route::post('/get-saler-phone', [App\Http\Controllers\ContractController::class, 'getSalerPhone'])->name('sale.phone.get');

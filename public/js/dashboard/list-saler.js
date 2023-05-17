@@ -100,11 +100,7 @@ $("#myBtn").on("click", function() {
     $("#modalSalerDetail").show();
 })
 
-$("#close-register-modal").on("click", function() {
-    $("#modalSalerDetail").hide();
-})
-
-$("#closeBtn").on("click", function() {
+$("#closeBtn, #close-register-modal").on("click", function() {
     $("#modalSalerDetail").hide();
 })
 

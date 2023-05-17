@@ -2,6 +2,13 @@ h2 {
     padding: 10px 0;
     margin: 0;
 }
+
+h3 {
+    padding: 10px 0;
+    margin: 0;
+    text-align: center;
+}
+
 table {
     border: 1px solid black;
     table-layout: fixed;
@@ -19,6 +26,18 @@ table {
 
 .actionBtn {
     width: 210px;
+}
+
+.modal-delete {
+    height: 5rem !important;
+}
+
+.modal-delete-footer {
+    margin: 10px 0;
+}
+
+.modal-delete-content {
+    width: 30% !important;
 }
 
 /* The Modal (background) */
