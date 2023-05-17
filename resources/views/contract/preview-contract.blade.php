@@ -239,14 +239,16 @@
                                         <h4>Ngày cấp MST</h4>
                                     </label>
                                     <input readOnly type="date" class="form-control" id="taxCodeIssuanceDate"
-                                        name="taxCodeIssuanceDate" value="{{ isset($dataPreview['taxCodeIssuanceDate']) ? $dataPreview['taxCodeIssuanceDate'] : '' }}">
+                                        name="taxCodeIssuanceDate"
+                                        value="{{ isset($dataPreview['taxCodeIssuanceDate']) ? $dataPreview['taxCodeIssuanceDate'] : '' }}">
                                 </div>
                                 <div id="tax-place-area">
                                     <label for="taxCodeIssuancePlace">
                                         <h4>Nơi cấp MST</h4>
                                     </label>
                                     <input readOnly type="text" class="form-control" id="taxCodeIssuancePlace"
-                                        name="taxCodeIssuancePlace" value="{{ isset($dataPreview['taxCodeIssuancePlace']) ? $dataPreview['taxCodeIssuancePlace'] : '' }}">
+                                        name="taxCodeIssuancePlace"
+                                        value="{{ isset($dataPreview['taxCodeIssuancePlace']) ? $dataPreview['taxCodeIssuancePlace'] : '' }}">
                                 </div>
                                 @endif
                                 <div>
@@ -305,6 +307,14 @@
                                         value="{{ isset($dataPreview['carColor']) ? $dataPreview['carColor'] : '' }}">
                                 </div>
                                 <div>
+                                    <label for="yearOfCar">
+                                        <h4>Năm sản xuất</h4>
+                                    </label>
+                                    <input readOnly type="text" class="form-control"
+                                        value="{{ isset($dataPreview['yearOfCar']) ? $dataPreview['yearOfCar'] : '' }}"
+                                        id="yearOfCar" name="yearOfCar">
+                                </div>
+                                <div>
                                     <label for="noticePrice">
                                         <h4>Giá thông báo (VNĐ)</h4>
                                     </label>
@@ -338,7 +348,7 @@
                                     <label for="carDeliveryTime">
                                         <h4>Thời gian giao xe</h4>
                                     </label>
-                                    <input readOnly type="date" class="form-control" id="carDeliveryTime"
+                                    <input readOnly type="month" class="form-control" id="carDeliveryTime"
                                         name="carDeliveryTime"
                                         value="{{ isset($dataPreview['carDeliveryTime']) ? $dataPreview['carDeliveryTime'] : '' }}">
                                 </div>
@@ -375,32 +385,40 @@
                                     <label for="brokerName">
                                         <h4>Họ và tên</h4>
                                     </label>
-                                    <input readOnly type="text" class="form-control" name="brokerName" id="brokerName" value="{{ isset($dataPreview['brokerName']) ? $dataPreview['brokerName'] : '' }}">
+                                    <input readOnly type="text" class="form-control" name="brokerName" id="brokerName"
+                                        value="{{ isset($dataPreview['brokerName']) ? $dataPreview['brokerName'] : '' }}">
 
                                 </div>
                                 <div>
                                     <label for="brokerAddress">
                                         <h4>Địa chỉ</h4>
                                     </label>
-                                    <input readOnly type="text" class="form-control" name="brokerAddress" id="brokerAddress" value="{{ isset($dataPreview['brokerAddress']) ? $dataPreview['brokerAddress'] : '' }}">
+                                    <input readOnly type="text" class="form-control" name="brokerAddress"
+                                        id="brokerAddress"
+                                        value="{{ isset($dataPreview['brokerAddress']) ? $dataPreview['brokerAddress'] : '' }}">
                                 </div>
                                 <div>
                                     <label for="brokerIDCard">
                                         <h4>Số CCCD/CMND</h4>
                                     </label>
-                                    <input readOnly type="text" class="form-control" id="brokerIDCard" name="brokerIDCard" value="{{ isset($dataPreview['brokerIDCard']) ? $dataPreview['brokerIDCard'] : '' }}">
+                                    <input readOnly type="text" class="form-control" id="brokerIDCard"
+                                        name="brokerIDCard"
+                                        value="{{ isset($dataPreview['brokerIDCard']) ? $dataPreview['brokerIDCard'] : '' }}">
                                 </div>
                                 <div>
                                     <label for="brokerPhone">
                                         <h4>Số điện thoại</h4>
                                     </label>
-                                    <input readOnly type="text" class="form-control" id="brokerPhone" name="brokerPhone" value="{{ isset($dataPreview['brokerPhone']) ? $dataPreview['brokerPhone'] : '' }}">
+                                    <input readOnly type="text" class="form-control" id="brokerPhone" name="brokerPhone"
+                                        value="{{ isset($dataPreview['brokerPhone']) ? $dataPreview['brokerPhone'] : '' }}">
                                 </div>
                                 <div>
                                     <label for="amountOfCommission">
                                         <h4>Số tiền hoa hồng (VNĐ)</h4>
                                     </label>
-                                    <input readOnly type="text" class="form-control" id="amountOfCommission" name="amountOfCommission" value="{{ isset($dataPreview['amountOfCommission']) ? $dataPreview['amountOfCommission'] : '' }}">
+                                    <input readOnly type="text" class="form-control" id="amountOfCommission"
+                                        name="amountOfCommission"
+                                        value="{{ isset($dataPreview['amountOfCommission']) ? $dataPreview['amountOfCommission'] : '' }}">
                                 </div>
                             </div>
                         </div>

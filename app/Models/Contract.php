@@ -42,6 +42,7 @@ class Contract extends Model
         'car_id',
         'car_type',
         'car_color',
+        'year_of_manufacture',
         'notice_price',
         'real_price',
         'amount',

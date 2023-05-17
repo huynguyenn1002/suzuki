@@ -99,3 +99,80 @@ $('#realPrice, #noticePrice, #invoiceSellingPrice, #deposit, #paymentAmount, #am
         return value.replace(/(?!\.)\D/g, "").replace(/(?<=\..*)\./g, "").replace(/(?<=\.\d\d).*/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     });
 }));
+
+$("nav#sidebar li.sidebar-item").removeClass("active");
+$("nav#sidebar li.contract-list").addClass("active");
+
+$("#back_btn").click(function() {
+    window.history.back();
+});
+
+$("#btnUpdate").on("click", function() {
+    $("#contractNum, #contractSignDate, #customerName, #brokerName, #brokerAddress, #brokerIDCard, #brokerPhone, #amountOfCommission, #salesPhone, #customerBirthday, #position, #representative, #taxCode, #taxCodeIssuancePlace, #taxCodeIssuanceDate, #province, #district, #ward, #address, #customerPhone, #customerIDCard, #icCardDateRegister, #issuedBy, #mailAddress, #carColor, #yearOfCar, #noticePrice, #realPrice, #amount, #deposit, #carDeliveryTime, #promotionalContent, #gift").attr("readonly", false)
+    $("#btnUpdateSubmit").show();
+    $('#saleName, #contractType, #customerType, #carID, #carType, #customerGender')
+        .attr('disabled', false);
+});
+
+$("#customerType").on("change", function() {
+    var type = $("#customerType").find(":selected").val();
+    if (type == 1) {
+        $("#representative-area").hide();
+        $("#position-area").hide();
+        $("#tax-area").hide();
+        $("#tax-issuance-area").hide();
+        $("#tax-place-area").hide();
+        $("#gender-area").show();
+        $("#birthday-area").show();
+        $("#customerIDCard-area").show();
+        $("#icCardDateRegister-area").show();
+        $("#issuedBy-area").show();
+    } else {
+        $("#gender-area").hide();
+        $("#birthday-area").hide();
+        $("#customerIDCard-area").hide();
+        $("#icCardDateRegister-area").hide();
+        $("#issuedBy-area").hide();
+        $("#representative-area").show();
+        $("#position-area").show();
+        $("#tax-area").show();
+        $("#tax-issuance-area").show();
+        $("#tax-place-area").show();
+    }
+})
+
+var checkCustomerType = $("#customerType").find(":selected").val();
+if (checkCustomerType == 1) {
+    $("#representative-area").hide();
+    $("#position-area").hide();
+    $("#tax-area").hide();
+    $("#tax-issuance-area").hide();
+    $("#tax-place-area").hide();
+    $("#gender-area").show();
+    $("#birthday-area").show();
+    $("#customerIDCard-area").show();
+    $("#icCardDateRegister-area").show();
+    $("#issuedBy-area").show();
+} else if (checkCustomerType == 2){
+    $("#gender-area").hide();
+    $("#birthday-area").hide();
+    $("#customerIDCard-area").hide();
+    $("#icCardDateRegister-area").hide();
+    $("#issuedBy-area").hide();
+    $("#representative-area").show();
+    $("#position-area").show();
+    $("#tax-area").show();
+    $("#tax-issuance-area").show();
+    $("#tax-place-area").show();
+} else {
+    $("#gender-area").show();
+    $("#birthday-area").show();
+    $("#customerIDCard-area").show();
+    $("#icCardDateRegister-area").show();
+    $("#issuedBy-area").show();
+    $("#representative-area").show();
+    $("#position-area").show();
+    $("#tax-area").show();
+    $("#tax-issuance-area").show();
+    $("#tax-place-area").show();
+}

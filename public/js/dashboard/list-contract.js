@@ -36,7 +36,7 @@ jQuery().ready(function () {
                     return `
                     <div>
                         <a class="btn btn-info" href="detail?contractID=${row.ID}">Chi tiết</a>
-                        <button type="submit" class="btn btn-primary">Xuất hợp đồng</button>
+                        <button type="button" onclick="openPopupConfirm(${row.ID})" class="btn btn-danger">Xoá hợp đồng</button>
                     </div>
                     `;
                 },
@@ -48,3 +48,27 @@ jQuery().ready(function () {
 
 $("nav#sidebar li.sidebar-item").removeClass("active");
 $("nav#sidebar li.contract-list").addClass("active");
+
+
+function openPopupConfirm(id) {
+    $("#submit").on("click", function() {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: deleteContract,
+            type: "POST",
+            data: {id},
+            dataType: "json",
+            success: function (data) {
+                window.location.reload(true);
+            },
+        });
+    })
+    
+    $("#modalConfirmDelete").show();
+}
+
+$("#closeBtn, #close-register-modal").on("click", function() {
+    $("#modalConfirmDelete").hide();
+})
