@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Admin;
 use App\Models\AdminInfo;
 use Validator;
-use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class DashboardController extends Controller
@@ -50,7 +49,7 @@ class DashboardController extends Controller
 
         Admin::create([
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'is_admin' => 0,
         ]);
 
