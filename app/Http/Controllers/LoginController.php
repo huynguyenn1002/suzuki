@@ -32,7 +32,7 @@ class LoginController extends Controller
 
         $credentials = ['email' => $request->email, 'password' => $request->password];
         if (Auth::guard("admin")->attempt($credentials)) {
-            return redirect("/admin/list/user");
+            return redirect()->route("contract.list.get");
         }
         return redirect()->back()->with('status', 'Email hoặc Password không chính xác');
     }
