@@ -21,7 +21,7 @@
                                 <th scope="col">Ngày tạo hợp đồng</th>
                                 <th scope="col">Tên Khách hàng</th>
                                 <th scope="col">Tư vấn bán hàng</th>
-                                <th class="actionBtn" scope="col">Action</th>
+                                <th class="actionBtn" scope="col"></th>
                             </tr>
                         </thead>
                     </table>

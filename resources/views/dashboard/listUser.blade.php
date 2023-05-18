@@ -23,7 +23,7 @@
                                     <th scope="col">Họ và Tên</th>
                                     <th scope="col">Số điện thoại</th>
                                     <th scope="col">Email</th>
-                                    <th class="actionBtn" scope="col">Action</th>
+                                    <th class="actionBtn" scope="col"></th>
                                 </tr>
                             </thead>
                         </table>
