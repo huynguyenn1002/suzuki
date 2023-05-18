@@ -14,8 +14,10 @@ class AdminInfo extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'admin_ID',
         'first_name', 
         'last_name', 
+        'citizen_identification',
         'tel',
         'avatar',
         'district_id',

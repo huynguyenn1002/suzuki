@@ -88,6 +88,7 @@ class DashboardController extends Controller
     }
 
     public function updateProfile(Request $request) {
+        // dd($request->all());
         DB::transaction(function() use($request) {
             $province_id = explode('.', $request->province)[0];
             $province = explode('.', $request->province)[1];
@@ -97,20 +98,37 @@ class DashboardController extends Controller
             $ward = explode('.', $request->ward)[1];
 
             $user = AdminInfo::where('admin_id', $request->userID)->first();
-            $user->update([
-                'first_name' => $request->firstname,
-                'last_name' => $request->lastname,
-                'citizen_identification' => $request->citizen_identification,
-                'tel' => $request->tel,
-                'province_id' => $province_id,
-                'province_name' => $province,
-                'district_id' => $district_id,
-                'district_name' => $district,
-                'ward_id' => $ward_id,
-                'ward_name' => $ward,
-                'address' => $request->address,
-            ]);
-
+            if($user == null) {
+                AdminInfo::create([
+                    'admin_ID' => Auth::guard("admin")->user()->id,
+                    'first_name' => $request->firstname,
+                    'last_name' => $request->lastname,
+                    'citizen_identification' => $request->citizen_identification,
+                    'tel' => $request->tel,
+                    'province_id' => $province_id,
+                    'province_name' => $province,
+                    'district_id' => $district_id,
+                    'district_name' => $district,
+                    'ward_id' => $ward_id,
+                    'ward_name' => $ward,
+                    'address' => $request->address,
+                ]);
+            } else {
+                $user->update([
+                    'first_name' => $request->firstname,
+                    'last_name' => $request->lastname,
+                    'citizen_identification' => $request->citizen_identification,
+                    'tel' => $request->tel,
+                    'province_id' => $province_id,
+                    'province_name' => $province,
+                    'district_id' => $district_id,
+                    'district_name' => $district,
+                    'ward_id' => $ward_id,
+                    'ward_name' => $ward,
+                    'address' => $request->address,
+                ]);
+            }
+            
             if($request->has('password')){
                 Admin::where('id', $request->userID)->update(['password'=>bcrypt($request->password)]);
             }
@@ -133,17 +151,21 @@ class DashboardController extends Controller
 
         $district = DB::table("districts")->select('*')->where("districts.province_id", '=', $data["provinceCode"])->get();
         $returnView = view("dashboard.admin-get-district")->with(['options' => $district, 'user' => $user])->render();
-        return response()->json(["html" => $returnView, "district_id" => $user->district_id], 200);
+        return response()->json(["html" => $returnView], 200);
     }
 
     public function adminGetWardInfo(Request $request) {
         $data = $request->all();
         $user = Auth::guard('admin')->user();
-        if (!empty($data["districtCodeDetail"])) {
-            $data["districtCode"] = $data["districtCodeDetail"];
-        }
 
-        $ward = DB::table("wards")->select('*')->where("wards.district_id", '=', $data["districtCode"])->get();
+        $districtCode = array_key_exists("districtCode", $data) ? $data["districtCode"] : "";
+
+        if (!empty($data["districtCodeDetail"])) {
+            $districtCode = $data["districtCodeDetail"];
+        } 
+
+        $ward = DB::table("wards")->select('*')->where("wards.district_id", '=', $districtCode)->get();
+
         $returnView = view("dashboard.admin-get-ward")->with(['options' => $ward, 'user' => $user])->render();
         return response()->json(["html" => $returnView], 200);
     }
