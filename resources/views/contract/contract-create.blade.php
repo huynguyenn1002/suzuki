@@ -1,6 +1,7 @@
 @extends('layout.master')
 @section('header_section')
     <link href="{{ asset('css/dashboard/tab.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 @endsection
 @section('content')
     <main class="content">
@@ -332,15 +333,15 @@
                                                 <label for="deposit">
                                                     <h4>Tiền cọc (VNĐ)</h4>
                                                 </label>
-                                                <input type="number" class="form-control"
+                                                <input type="text" class="form-control"
                                                     placeholder="Nhập vào Tiền cọc..." id="deposit" name="deposit">
                                             </div>
                                             <div>
                                                 <label for="carDeliveryTime">
                                                     <h4>Thời gian giao xe</h4>
                                                 </label>
-                                                <input type="month" class="form-control" id="carDeliveryTime"
-                                                    name="carDeliveryTime" placeholder="Nhập vào Tiền cọc...">
+                                                <input class="form-control" id="carDeliveryTime" autocomplete="off"
+                                                    name="carDeliveryTime" placeholder="Chọn thời gian giao xe...">
                                             </div>
                                             <div>
                                                 <label for="promotionalContent">
@@ -414,41 +415,7 @@
         var getTypeCar = '{{ route('car.type.get') }}';
         var getSalerPhone = '{{ route('sale.phone.get') }}';
     </script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     <script src="{{ URL::asset('js/dashboard/tab-footer.js') }}"></script>
-    <script>
-        $(".create-button").on("click", function() {
-            var contractHeader =  $("#headerContract").val();
-            var contractNum =  $("#contractNum").val();
-            var checkContractNum = contractHeader + contractNum
-            $("#checkContractNum").val(checkContractNum);
-        })
-
-        $("#customerType").on("change", function() {
-            var type = $("#customerType").find(":selected").val();
-            if (type == 1) {
-                $("#representative-area").hide();
-                $("#position-area").hide();
-                $("#tax-area").hide();
-                $("#tax-issuance-area").hide();
-                $("#tax-place-area").hide();
-                $("#gender-area").show();
-                $("#birthday-area").show();
-                $("#customerIDCard-area").show();
-                $("#icCardDateRegister-area").show();
-                $("#issuedBy-area").show();
-            } else {
-                $("#gender-area").hide();
-                $("#birthday-area").hide();
-                $("#customerIDCard-area").hide();
-                $("#icCardDateRegister-area").hide();
-                $("#issuedBy-area").hide();
-                $("#representative-area").show();
-                $("#position-area").show();
-                $("#tax-area").show();
-                $("#tax-issuance-area").show();
-                $("#tax-place-area").show();
-            }
-        })
-    </script>
 @endsection

@@ -112,3 +112,54 @@ $("#saleName").on("change", function(e) {
         },
     });
 });
+
+$(".create-button").on("click", function() {
+    var contractHeader =  $("#headerContract").val();
+    var contractNum =  $("#contractNum").val();
+    var checkContractNum = contractHeader + contractNum
+    $("#checkContractNum").val(checkContractNum);
+})
+
+$("#customerType").on("change", function() {
+    var type = $("#customerType").find(":selected").val();
+    if (type == 1) {
+        $("#representative-area").hide();
+        $("#position-area").hide();
+        $("#tax-area").hide();
+        $("#tax-issuance-area").hide();
+        $("#tax-place-area").hide();
+        $("#gender-area").show();
+        $("#birthday-area").show();
+        $("#customerIDCard-area").show();
+        $("#icCardDateRegister-area").show();
+        $("#issuedBy-area").show();
+    } else {
+        $("#gender-area").hide();
+        $("#birthday-area").hide();
+        $("#customerIDCard-area").hide();
+        $("#icCardDateRegister-area").hide();
+        $("#issuedBy-area").hide();
+        $("#representative-area").show();
+        $("#position-area").show();
+        $("#tax-area").show();
+        $("#tax-issuance-area").show();
+        $("#tax-place-area").show();
+    }
+})
+
+$(function() {
+    $('#carDeliveryTime').datepicker( {
+        locale: 'vi',
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        monthNamesShort: ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"],
+        monthNames: ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"],
+        currentText: "Tháng hiện tại",
+        dateFormat: 'MM yy',
+        closeText:'Chọn',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        }
+    });
+});

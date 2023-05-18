@@ -332,9 +332,15 @@
                     <p><b>2.3. 　Giao xe và hồ sơ xe:</b></p>
                     <div class="second-rule-content">
                         <div class="rule-content-child">
+                        @php 
+                            $carDeliveryTime = null;
+                            if(isset($contract->car_delivery_time)) {
+                                $carDeliveryTime = explode(' ', $contract->car_delivery_time);
+                            } 
+                        @endphp
                             <p style="color: red">a,</p><span style="margin-left: 5px"> <span style="color: red">Thời
                                     gian dự kiến giao xe: </span><span
-                                    style="color: black">{{ date("d/m/Y", strtotime($contract->car_delivery_time)) }}</span></span>
+                                    style="color: black">Tháng {{ isset($carDeliveryTime) ? $carDeliveryTime[1] : ''}} năm {{ isset($carDeliveryTime) ? $carDeliveryTime[2] : '' }}</span></span>
                         </div>
                         <div class="rule-content-child">
                             <span style="margin-left: 15px; color: red"><u>Điều khoản cam kết chung:</u> Trong
