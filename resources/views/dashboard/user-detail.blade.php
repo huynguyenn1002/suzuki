@@ -10,7 +10,7 @@
             </div>
             <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="userID" value="{{ $detailInfo->admin_ID }}">
+                <input type="hidden" name="userID" value="{{ Auth::guard('admin')->user()->id }}">
                 <div class="card main-content">
                     <div class="col-md-4 border-right mt-5">
                         <div class="d-flex flex-column align-items-center text-center"><img
@@ -26,12 +26,12 @@
                     <div class="col-md-8 border-right">
                         <div class="p-3">
                             <div class="row mt-2">
-                                <div class="col-md-6"><label class="labels">Tên</label><input type="text"
-                                        name="firstname" class="form-control" placeholder="Tên"
+                                <div class="col-md-6"><label class="labels">Họ</label><input type="text"
+                                        name="firstname" class="form-control" placeholder="Họ"
                                         value="{{ old('first_name') ?? ($detailInfo->first_name ?? '') }}"></div>
-                                <div class="col-md-6"><label class="labels">Họ</label><input type="text" name="lastname"
+                                <div class="col-md-6"><label class="labels">Tên</label><input type="text" name="lastname"
                                         class="form-control"
-                                        value="{{ old('last_name') ?? ($detailInfo->last_name ?? '') }}" placeholder="Họ">
+                                        value="{{ old('last_name') ?? ($detailInfo->last_name ?? '') }}" placeholder="Tên">
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -60,7 +60,7 @@
                                         <option value="">Quận/Huyện</option>
                                     </select>
                                     <input type="hidden" id="old_value_province" value="{{ old('province_id') }}">
-                                    <input type="hidden" id="value_province" value="{{ $detailInfo->district_id }}">
+                                    <input type="hidden" id="value_province" value="{{ isset($detailInfo) ? $detailInfo->district_id : '' }}">
                                 </div>
                                 <div class="col-md-12 address mt-3">
                                     <select name="ward" id="ward" class="form-control" placeholder="Phường/Xã">
