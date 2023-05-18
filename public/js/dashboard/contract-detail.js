@@ -176,3 +176,20 @@ if (checkCustomerType == 1) {
     $("#tax-issuance-area").show();
     $("#tax-place-area").show();
 }
+
+$(function() {
+    $('#carDeliveryTime').datepicker( {
+        locale: 'vi',
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        monthNamesShort: ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"],
+        monthNames: ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"],
+        currentText: "Tháng hiện tại",
+        dateFormat: 'MM yy',
+        closeText:'Chọn',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        }
+    });
+});

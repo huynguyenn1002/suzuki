@@ -1,6 +1,7 @@
 @extends('layout.master')
 @section('header_section')
 <link href="{{ asset('css/dashboard/contractDetail.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 @endsection
 @section('content')
 <main class="content">
@@ -369,7 +370,7 @@
                                     <label for="carDeliveryTime">
                                         <h4>Thời gian giao xe</h4>
                                     </label>
-                                    <input readOnly type="month" class="form-control" id="carDeliveryTime" name="carDeliveryTime" value="{{ $contractDetail->car_delivery_time }}">
+                                    <input readOnly placeholder="Chọn thời gian giao xe..." autocomplete="off" class="form-control" id="carDeliveryTime" name="carDeliveryTime" value="{{ $contractDetail->car_delivery_time }}">
                                 </div>
                                 <div>
                                     <label for="promotionalContent">
@@ -449,6 +450,7 @@ var getTypeCar = '{{ route('car.type.get') }}';
 var getSalerPhone = '{{ route('sale.phone.get') }}';
 
 </script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="{{ URL::asset('js/dashboard/contract-detail.js') }}"></script>
 
 @endsection

@@ -117,10 +117,10 @@
                 @php 
                     $carDeliveryTime = null;
                     if(isset($contract->car_delivery_time)) {
-                        $carDeliveryTime = explode('-', $contract->car_delivery_time);
+                        $carDeliveryTime = explode(' ', $contract->car_delivery_time);
                     } 
                 @endphp
-                <td colspan="3">Thời gian giao xe: Tháng {{ isset($carDeliveryTime) ? $carDeliveryTime[1] : ''}} năm {{ isset($carDeliveryTime) ? $carDeliveryTime[0] : '' }}</td>
+                <td colspan="3">Thời gian giao xe: Tháng {{ isset($carDeliveryTime) ? $carDeliveryTime[1] : ''}} năm {{ isset($carDeliveryTime) ? $carDeliveryTime[2] : '' }}</td>
             </tr>
             
         </table>

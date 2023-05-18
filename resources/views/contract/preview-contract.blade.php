@@ -348,7 +348,7 @@
                                     <label for="carDeliveryTime">
                                         <h4>Thời gian giao xe</h4>
                                     </label>
-                                    <input readOnly type="month" class="form-control" id="carDeliveryTime"
+                                    <input readOnly class="form-control" id="carDeliveryTime"
                                         name="carDeliveryTime"
                                         value="{{ isset($dataPreview['carDeliveryTime']) ? $dataPreview['carDeliveryTime'] : '' }}">
                                 </div>
