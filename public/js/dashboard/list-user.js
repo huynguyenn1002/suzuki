@@ -23,13 +23,22 @@ jQuery().ready(function () {
             {
                 data: "",
                 render: (data, type, row) => {
-                    return `
-                    <div>
-                        <button class="btn btn-primary" onclick="showDetail(${row.ID})">Thông tin chi tiết</button>
-                        <button type="submit" class="btn btn-danger" onclick="deleteItem(${row.ID})">
-                            Xoá</button>
-                    </div>
-                    `;
+                    if (row.adminType == 0) {
+                        return `
+                        <div>
+                            <button class="btn btn-primary" onclick="showDetail(${row.ID})">Thông tin chi tiết</button>
+                            <button type="submit" class="btn btn-danger" onclick="deleteItem(${row.ID})">
+                                Xoá</button>
+                        </div>
+                        `;
+                    } else {
+                        return `
+                        <div>
+                            &nbsp
+                        </div>
+                        `;
+                    }
+                    
                 },
                 bSortable: false,
             },

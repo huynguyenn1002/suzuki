@@ -24,6 +24,7 @@ class DashboardController extends Controller
     {
         $user = Admin::select(
             'admin.ID as ID',
+            'admin.is_admin as adminType',
             'admin.email as Email',
             'admin_info.first_name as FirstName',
             'admin_info.last_name as LastName',
